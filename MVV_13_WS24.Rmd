@@ -1,0 +1,95 @@
+---
+title: "Einheit 13"
+subtitle: "⚔<br/>with xaringan"
+author: "Prof. Dr. Stephan Goerigk"
+institute: "RStudio, PBC"
+date: "2016/12/12 (updated: `r Sys.Date()`)"
+output:
+  xaringan::moon_reader:
+    css: [xaringan-themer.css, "hygge"]
+    lib_dir: libs
+    nature:
+      slideNumberFormat: "%current%"
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+    seal: false
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+
+library(tidyverse)
+library(kableExtra)
+library(ggplot2)
+library(plotly)
+library(htmlwidgets)
+library(MASS)
+library(ggpubr)
+library(xaringanthemer)
+library(xaringanExtra)
+
+style_duo_accent(
+  primary_color = "#621C37",
+  secondary_color = "#EE0071",
+  background_image = "blank.png"
+)
+
+xaringanExtra::use_xaringan_extra(c("tile_view"))
+
+use_scribble(
+  pen_color = "#EE0071",
+  pen_size = 4
+  )
+
+knitr::opts_chunk$set(
+  fig.retina = TRUE,
+  warning = FALSE,
+  message = FALSE
+)
+
+source(file = "base_functions.R")
+```
+
+name: Title slide
+class: middle, left
+<br><br><br><br><br><br><br>
+# Multivariate Verfahren
+***
+### Einheit 13: Netzwerkmodelle
+##### `r format(as.Date(data.frame(readxl::read_excel("Multivariate Verfahren Termine.xlsx"))$Datum), "%d.%m.%Y")[13]` | Prof. Dr. Stephan Goerigk
+
+---
+class: top, left
+### Einführung in multivariate Verfahren
+
+**Was sind multivariate Verfahren?**
+
+* Statistische Methoden zur gleichzeitigen Analyse mehrerer Variablen.
+
+* Erfassen komplexer Zusammenhänge zwischen verschiedenen Einflussgrößen.
+
+* Nutzen sowohl in der Hypothesengenerierung (strukturentdeckende Verfahren) als auch in der Hypothesenprüfung (strukturprüfende Verfahren).
+
+**Rolle in der Psychologie**
+
+* Evaluation der Wirksamkeit von Interventionen auf unterschiedliche Maße (Outcomes).
+
+* Vorhersage von Verhaltensweisen oder psychischen Störungen auf Basis mehrerer Prädiktoren.
+
+* Gruppierung von Personen mit ähnlichen Merkmalen oder Symptomen (z.B. in der klinischen Psychologie).
+
+* Evaluation von Theorien durch Analyse der Beziehungen zwischen mehreren Variablen gleichzeitig.
+
+---
+class: top, left
+### Take-aways
+
+.full-width[.content-box-gray[
+
+]
+
+]
+
+
