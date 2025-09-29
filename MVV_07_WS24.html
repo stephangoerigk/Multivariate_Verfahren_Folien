@@ -1,64 +1,33 @@
----
-title: "Einheit 7"
-subtitle: "⚔<br/>with xaringan"
-author: "Prof. Dr. Stephan Goerigk"
-institute: "RStudio, PBC"
-date: "2016/12/12 (updated: `r Sys.Date()`)"
-output:
-  xaringan::moon_reader:
-    css: [xaringan-themer.css, "hygge", style.css]
-    lib_dir: libs
-    nature:
-      slideNumberFormat: "%current%"
-      highlightStyle: github
-      highlightLines: true
-      countIncrementalSlides: false
-      ratio: '16:9'
-    seal: false
----
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Einheit 7</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Prof. Dr. Stephan Goerigk" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/hygge.css" rel="stylesheet" />
+    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view/tile-view.js"></script>
+    <script src="libs/fabric/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#EE0071"],"pen_size":4,"eraser_size":40,"palette":[]}) })</script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
 
-```{r setup, include=FALSE}
-options(htmltools.dir.version = FALSE)
 
-library(tidyverse)
-library(kableExtra)
-library(ggplot2)
-library(plotly)
-library(htmlwidgets)
-library(MASS)
-library(ggpubr)
-library(xaringanthemer)
-library(xaringanExtra)
 
-style_duo_accent(
-  primary_color = "#621C37",
-  secondary_color = "#EE0071",
-  background_image = "blank.png"
-)
-
-xaringanExtra::use_xaringan_extra(c("tile_view"))
-
-use_scribble(
-  pen_color = "#EE0071",
-  pen_size = 4
-)
-
-knitr::opts_chunk$set(
-  fig.retina = TRUE,
-  warning = FALSE,
-  message = FALSE
-)
-
-source(file = "base_functions.R")
-```
 
 name: Title slide
 class: middle, left
-<br><br><br><br><br><br><br>
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
 # Multivariate Verfahren
 ***
 ### Einheit 7: Gruppieren: Multivariate (latente) Modellierung (1)
-##### `r format(as.Date(data.frame(readxl::read_excel("Multivariate Verfahren Termine.xlsx"))$Datum), "%d.%m.%Y")[7]` | Prof. Dr. Stephan Goerigk
+##### 28.11.2024 | Prof. Dr. Stephan Goerigk
 
 
 ---
@@ -67,7 +36,7 @@ class: top, left
 
 #### Endogene vs. exogene Variablen
 
-<small>
+&lt;small&gt;
 
 .pull-left[
 
@@ -86,9 +55,7 @@ class: top, left
 
 .pull-right[
 .center[
-```{r eval = TRUE, echo = F, out.width = "150px"}
-knitr::include_graphics("bilder/exo_endo.png")
-```
+&lt;img src="bilder/exo_endo.png" width="150px" /&gt;
 ]
 ]
 
@@ -98,7 +65,7 @@ class: top, left
 
 #### Manifeste vs. latente Variablen
 
-<small>
+&lt;small&gt;
 
 .pull-left[
 
@@ -122,9 +89,7 @@ Variable, die nicht direkt beobachtbar ist.
 
 .pull-right[
 .center[
-```{r eval = TRUE, echo = F, out.width = "150px"}
-knitr::include_graphics("bilder/SEM_Manifest_Latent.png")
-```
+&lt;img src="bilder/SEM_Manifest_Latent.png" width="150px" /&gt;
 ]
 ]
 
@@ -136,13 +101,13 @@ class: top, left
 
 1. Gerichteter Zusammenhang:
 
-  - Grafische Darstellung: einfacher Pfeil ( $\rightarrow$ )
+  - Grafische Darstellung: einfacher Pfeil ( `\(\rightarrow\)` )
 
   - Statistik: Regressionsgewicht (synonym: Ladung, Gewicht/Weight, Pfad)
 
 2. Ungerichteter Zusammenhang:
 
-  - Grafische Darstellung: Doppelpfeil ( $\leftrightarrow$ )
+  - Grafische Darstellung: Doppelpfeil ( `\(\leftrightarrow\)` )
 
   - Statistik: Kovarianz/Korrelation
 
@@ -158,26 +123,26 @@ class: top, left
 
 #### Darstellung und Bezeichnungen im SEM
 
-<small>
+&lt;small&gt;
 
 .full-width[.content-box-gray[
-$\Box$ beobachtete, so genannte manifeste Variable  
+`\(\Box\)` beobachtete, so genannte manifeste Variable  
 
-$\bigcirc$ latente Variable/Fehlervariable  
+`\(\bigcirc\)` latente Variable/Fehlervariable  
 
-$\leftrightarrow$ Kovarianz oder Korrelation  
+`\(\leftrightarrow\)` Kovarianz oder Korrelation  
 
-$\leftarrow$ semipartielles Regressionsgewicht oder Ladung ( $\lambda$, Lambda) für Items $\beta$ für manifeste und $\gamma$ (Gamma) für latente Variablen  
+`\(\leftarrow\)` semipartielles Regressionsgewicht oder Ladung ( `\(\lambda\)`, Lambda) für Items `\(\beta\)` für manifeste und `\(\gamma\)` (Gamma) für latente Variablen  
 
-$\varepsilon$ Fehlervariable einer manifesten Variablen (Epsilon)  
+`\(\varepsilon\)` Fehlervariable einer manifesten Variablen (Epsilon)  
 
-$\zeta$ Fehlervariable einer latenten abhängigen Variablen (Zeta)  
+`\(\zeta\)` Fehlervariable einer latenten abhängigen Variablen (Zeta)  
 
-$\xi$ latente unabhängige Variable (Ksi), von der ein Pfeil ausgeht und auf die kein Pfeil zeigt  
+`\(\xi\)` latente unabhängige Variable (Ksi), von der ein Pfeil ausgeht und auf die kein Pfeil zeigt  
 
-$\eta$ latente abhängige Variable (Eta), auf die ein Pfeil zeigt  
+`\(\eta\)` latente abhängige Variable (Eta), auf die ein Pfeil zeigt  
 
-$X$ Indikatoren der latenten Variablen  
+`\(X\)` Indikatoren der latenten Variablen  
 
 ]
 ]
@@ -189,9 +154,7 @@ class: top, left
 #### Univariate und Multivariate Modelle - Übersicht
 
 .center[
-```{r eval = TRUE, echo = F, out.width = "900px"}
-knitr::include_graphics("bilder/SEM_desc.png")
-```
+&lt;img src="bilder/SEM_desc.png" width="900px" /&gt;
 ]
 
 ---
@@ -219,9 +182,7 @@ class: top, left
 #### Univariate und Multivariate Modelle - Übersicht
 
 .center[
-```{r eval = TRUE, echo = F, out.width = "850px"}
-knitr::include_graphics("bilder/sem_overview.png")
-```
+&lt;img src="bilder/sem_overview.png" width="850px" /&gt;
 ]
 
 ---
@@ -230,12 +191,10 @@ class: top, left
 
 #### Einfache Regression
 
-<small>
+&lt;small&gt;
 
 .center[
-```{r eval = TRUE, echo = F, out.width = "600px"}
-knitr::include_graphics("bilder/SEM_Einfach.png")
-```
+&lt;img src="bilder/SEM_Einfach.png" width="600px" /&gt;
 ]
 
 * Das einfache Regressionsmodell beschreibt die Beziehung zwischen einer beobachteten exogenen Variable und einer beobachteten endogenen Variable. 
@@ -246,7 +205,7 @@ $$
 y_1 = b_0 + b_1 x_1 + \varepsilon_1
 $$
 
-wobei $b_0$ der Achsenabschnitt (Intercept) ist, $b_1$ der Regressionskoeffizient, $x_1$ eine beobachtete Prädiktorvariable und $\varepsilon_1$ der Residuenwert. 
+wobei `\(b_0\)` der Achsenabschnitt (Intercept) ist, `\(b_1\)` der Regressionskoeffizient, `\(x_1\)` eine beobachtete Prädiktorvariable und `\(\varepsilon_1\)` der Residuenwert. 
 
 ---
 class: top, left
@@ -254,13 +213,11 @@ class: top, left
 
 #### Einfache Regression
 
-<small>
+&lt;small&gt;
 
 .pull-left[
 .center[
-```{r eval = TRUE, echo = F, out.width = "600px"}
-knitr::include_graphics("bilder/SEM_Einfach.png")
-```
+&lt;img src="bilder/SEM_Einfach.png" width="600px" /&gt;
 ]
 
 In der multivariaten Statistik wird für dasselbe Modell oft eine spezielle Notation verwendet:
@@ -274,15 +231,15 @@ $$
 
 Definitionen
 
-- $x_1$: Einzelne exogene Variable  
+- `\(x_1\)`: Einzelne exogene Variable  
 
-- $y_1$: Einzelne endogene Variable  
+- `\(y_1\)`: Einzelne endogene Variable  
 
-- $b_0, \alpha$: Achsenabschnitt (Intercept) von $y_1$, genannt „Alpha“  
+- `\(b_0, \alpha\)`: Achsenabschnitt (Intercept) von `\(y_1\)`, genannt „Alpha“  
 
-- $b_1, \gamma$: Regressionskoeffizient, genannt „Gamma“  
+- `\(b_1, \gamma\)`: Regressionskoeffizient, genannt „Gamma“  
 
-- $\varepsilon, \zeta_1$: Residuen von $y_1$, genannt „Epsilon“ und „Zeta“  
+- `\(\varepsilon, \zeta_1\)`: Residuen von `\(y_1\)`, genannt „Epsilon“ und „Zeta“  
 
 
 ]
@@ -293,12 +250,10 @@ class: top, left
 
 #### Multiple Regression
 
-<small>
+&lt;small&gt;
 
 .center[
-```{r eval = TRUE, echo = F, out.width = "600px"}
-knitr::include_graphics("bilder/SEM_multiple.png")
-```
+&lt;img src="bilder/SEM_multiple.png" width="600px" /&gt;
 ]
 
 * Die einfache Regression ist auf eine einzelne exogene Variable beschränkt. 
@@ -315,14 +270,12 @@ class: top, left
 
 #### Multiple Regression
 
-<small>
+&lt;small&gt;
 
 .pull-left[
 
 .center[
-```{r eval = TRUE, echo = F, out.width = "600px"}
-knitr::include_graphics("bilder/SEM_multiple.png")
-```
+&lt;img src="bilder/SEM_multiple.png" width="600px" /&gt;
 ]
 
 
@@ -337,21 +290,21 @@ $$
 .pull-right[
 Definitionen
 
-- $y_1$: Einzelne endogene Variable  
+- `\(y_1\)`: Einzelne endogene Variable  
 
-- $\alpha_1$: Achsenabschnitt (Intercept) für $y_1$  
+- `\(\alpha_1\)`: Achsenabschnitt (Intercept) für `\(y_1\)`  
 
-- $\mathbf{X}$: Vektor $(1 \times q)$ der exogenen Variablen  
+- `\(\mathbf{X}\)`: Vektor `\((1 \times q)\)` der exogenen Variablen  
 
-- $\gamma$: Vektor $(q \times 1)$ der Regressionskoeffizienten, wobei $q$ die Gesamtanzahl der exogenen Variablen ist  
+- `\(\gamma\)`: Vektor `\((q \times 1)\)` der Regressionskoeffizienten, wobei `\(q\)` die Gesamtanzahl der exogenen Variablen ist  
 
-- $\zeta_1$: Residuum von $y_1$, gesprochen „Zeta“  
+- `\(\zeta_1\)`: Residuum von `\(y_1\)`, gesprochen „Zeta“  
 
 Annahmen
 
-- $E(\zeta) = 0$: Der Mittelwert der Residuen ist null  
+- `\(E(\zeta) = 0\)`: Der Mittelwert der Residuen ist null  
 
-- $\zeta$ ist unkorreliert mit $\mathbf{X}$  
+- `\(\zeta\)` ist unkorreliert mit `\(\mathbf{X}\)`  
 
 ]
 
@@ -361,17 +314,15 @@ class: top, left
 
 #### Multivariate Regression
 
-<small>
+&lt;small&gt;
 
 .center[
-```{r eval = TRUE, echo = F, out.width = "600px"}
-knitr::include_graphics("bilder/SEM_multivariate.png")
-```
+&lt;img src="bilder/SEM_multivariate.png" width="600px" /&gt;
 ]
 
-* Einfache und multiple Regressionsmodelle betrachten jeweils ein Outcome ( $y$ ) zur gleichen Zeit. 
+* Einfache und multiple Regressionsmodelle betrachten jeweils ein Outcome ( `\(y\)` ) zur gleichen Zeit. 
 
-* In der multivariaten Regression werden mehrere Outcomes ( $y_1, y_2, \dots, y_k$ ) gleichzeitig modelliert. 
+* In der multivariaten Regression werden mehrere Outcomes ( `\(y_1, y_2, \dots, y_k\)` ) gleichzeitig modelliert. 
 
 ---
 class: top, left
@@ -379,19 +330,17 @@ class: top, left
 
 #### Multivariate Regression
 
-<small>
+&lt;small&gt;
 
 .center[
-```{r eval = TRUE, echo = F, out.width = "600px"}
-knitr::include_graphics("bilder/SEM_multivariate.png")
-```
+&lt;img src="bilder/SEM_multivariate.png" width="600px" /&gt;
 ]
 
 
 System von Regressionsgleichungen
 
-$$y_1 = \gamma_{11} x_1 + \gamma_{12} x_1 + \zeta_1$$
-$$y_2 = \gamma_{21} x_1 + \gamma_{22} x_2 + \zeta_2$$
+`$$y_1 = \gamma_{11} x_1 + \gamma_{12} x_1 + \zeta_1$$`
+`$$y_2 = \gamma_{21} x_1 + \gamma_{22} x_2 + \zeta_2$$`
 
 
 ---
@@ -400,13 +349,11 @@ class: top, left
 
 #### Multivariate Regression
 
-<small>
+&lt;small&gt;
 
 .pull-left[
 .center[
-```{r eval = TRUE, echo = F, out.width = "600px"}
-knitr::include_graphics("bilder/SEM_multivariate.png")
-```
+&lt;img src="bilder/SEM_multivariate.png" width="600px" /&gt;
 ]
 
 Das allgemeine multivariate lineare Modell wird definiert als:
@@ -416,40 +363,40 @@ $$
 ]
 .pull-right[
 
-Um die Matrixnotation klarer zu veranschaulichen, betrachten wir zwei (bivariate) endogene Variablen ( $y_1, y_2$), die durch zwei exogene Prädiktoren ( $x_1, x_2$) vorhergesagt werden:
+Um die Matrixnotation klarer zu veranschaulichen, betrachten wir zwei (bivariate) endogene Variablen ( `\(y_1, y_2\)`), die durch zwei exogene Prädiktoren ( `\(x_1, x_2\)`) vorhergesagt werden:
 
 $$
-\begin{pmatrix}
+`\begin{pmatrix}
 y_1 \\
 y_2
-\end{pmatrix}
+\end{pmatrix}`
 =
-\begin{pmatrix}
+`\begin{pmatrix}
 \alpha_1 \\
 \alpha_2
-\end{pmatrix}
+\end{pmatrix}`
 +
-\begin{pmatrix}
-\gamma_{11} & \gamma_{12} \\
-\gamma_{21} & \gamma_{22}
-\end{pmatrix}
-\begin{pmatrix}
+`\begin{pmatrix}
+\gamma_{11} &amp; \gamma_{12} \\
+\gamma_{21} &amp; \gamma_{22}
+\end{pmatrix}`
+`\begin{pmatrix}
 x_1 \\
 x_2
-\end{pmatrix}
+\end{pmatrix}`
 +
-\begin{pmatrix}
+`\begin{pmatrix}
 \zeta_1 \\
 \zeta_2
-\end{pmatrix}
+\end{pmatrix}`
 $$
 Definitionen:
 
-- $\mathbf{y} = (y_1, \dots, y_p)'$: Vektor der $p$ endogenen Variablen (nicht die Anzahl der Beobachtungen!)  
-- $\mathbf{x} = (x_1, \dots, x_q)'$: Vektor der $q$ exogenen Variablen  
-- $\alpha$: Vektor der $p$ Achsenabschnitte (Intercepts)  
-- $\Gamma$: Matrix der Regressionskoeffizienten ( $p \times q$), wobei die $i$-te Zeile die endogene Variable und die $j$-te Spalte die exogene Variable beschreibt  
-- $\zeta = (\zeta_1, \dots, \zeta_p)'$: Vektor der $p$ Residuen (für die Anzahl der endogenen Variablen, nicht der Beobachtungen)  
+- `\(\mathbf{y} = (y_1, \dots, y_p)'\)`: Vektor der `\(p\)` endogenen Variablen (nicht die Anzahl der Beobachtungen!)  
+- `\(\mathbf{x} = (x_1, \dots, x_q)'\)`: Vektor der `\(q\)` exogenen Variablen  
+- `\(\alpha\)`: Vektor der `\(p\)` Achsenabschnitte (Intercepts)  
+- `\(\Gamma\)`: Matrix der Regressionskoeffizienten ( `\(p \times q\)`), wobei die `\(i\)`-te Zeile die endogene Variable und die `\(j\)`-te Spalte die exogene Variable beschreibt  
+- `\(\zeta = (\zeta_1, \dots, \zeta_p)'\)`: Vektor der `\(p\)` Residuen (für die Anzahl der endogenen Variablen, nicht der Beobachtungen)  
 ]
 
 
@@ -459,12 +406,10 @@ class: top, left
 
 #### Pfadanalyse
 
-<small>
+&lt;small&gt;
 
 .center[
-```{r eval = TRUE, echo = F, out.width = "600px"}
-knitr::include_graphics("bilder/SEM_Pfadanalyse.png")
-```
+&lt;img src="bilder/SEM_Pfadanalyse.png" width="600px" /&gt;
 ]
 
 * Die multivariate Regression ist ein Sonderfall der Pfadanalyse, bei der ausschließlich exogene Variablen endogene Variablen vorhersagen. 
@@ -477,18 +422,16 @@ class: top, left
 
 #### Pfadanalyse
 
-<small>
+&lt;small&gt;
 
 .center[
-```{r eval = TRUE, echo = F, out.width = "600px"}
-knitr::include_graphics("bilder/SEM_Pfadanalyse.png")
-```
+&lt;img src="bilder/SEM_Pfadanalyse.png" width="600px" /&gt;
 ]
 
 System von Regressionsgleichungen
 
-$$y_1 = \gamma_{11} x_1 + \gamma_{12} x_1 + \zeta_1$$
-$$y_2 = \gamma_{21} x_1 + \gamma_{22} x_2 + \beta_{21} y1 + \zeta_2$$
+`$$y_1 = \gamma_{11} x_1 + \gamma_{12} x_1 + \zeta_1$$`
+`$$y_2 = \gamma_{21} x_1 + \gamma_{22} x_2 + \beta_{21} y1 + \zeta_2$$`
 
 
 ---
@@ -497,14 +440,12 @@ class: top, left
 
 #### Pfadanalyse
 
-<small>
+&lt;small&gt;
 
 .pull-left[
 
 .center[
-```{r eval = TRUE, echo = F, out.width = "600px"}
-knitr::include_graphics("bilder/SEM_Pfadanalyse.png")
-```
+&lt;img src="bilder/SEM_Pfadanalyse.png" width="600px" /&gt;
 ]
 
 Matrixnotation:
@@ -515,59 +456,59 @@ $$
 ]
 
 .pull-right[
-<small>
+&lt;small&gt;
 
 Matrixnotation:
 
 $$
-\begin{pmatrix}
+`\begin{pmatrix}
 y_1 \\
 y_2
-\end{pmatrix}
+\end{pmatrix}`
 =
-\begin{pmatrix}
+`\begin{pmatrix}
 \alpha_1 \\
 \alpha_2
-\end{pmatrix}
+\end{pmatrix}`
 +
-\begin{pmatrix}
-\gamma_{11} & \gamma_{12} \\
-\gamma_{21} & \gamma_{22}
-\end{pmatrix}
-\begin{pmatrix}
+`\begin{pmatrix}
+\gamma_{11} &amp; \gamma_{12} \\
+\gamma_{21} &amp; \gamma_{22}
+\end{pmatrix}`
+`\begin{pmatrix}
 x_1 \\
 x_2
-\end{pmatrix}
+\end{pmatrix}`
 +
-\begin{pmatrix}
-0 & 0 \\
-\beta_{21} & 0
-\end{pmatrix}
-\begin{pmatrix}
+`\begin{pmatrix}
+0 &amp; 0 \\
+\beta_{21} &amp; 0
+\end{pmatrix}`
+`\begin{pmatrix}
 y_1 \\
 y_2
-\end{pmatrix}
+\end{pmatrix}`
 +
-\begin{pmatrix}
+`\begin{pmatrix}
 \zeta_1 \\
 \zeta_2
-\end{pmatrix}
+\end{pmatrix}`
 $$
 
 Definitionen:
 
-- $\mathbf{y} = (y_1, \dots, y_p)'$: Vektor der $p$ endogenen Variablen  
-- $\mathbf{x} = (x_1, \dots, x_q)'$: Vektor der $q$ exogenen Variablen  
-- $\alpha$: Vektor der $p$ Achsenabschnitte (Intercepts)  
-- $\Gamma$: Matrix der Regressionskoeffizienten ( $p \times q$) von exogenen zu endogenen Variablen, wobei die $i$-te Zeile die endogene Variable und die $j$-te Spalte die exogene Variable beschreibt  
-- $B$: Matrix der Regressionskoeffizienten ( $p \times p$) von endogenen zu endogenen Variablen, wobei die $i$-te Zeile die Zielvariable und die $j$-te Spalte die Quelle beschreibt  
-- $\zeta = (\zeta_1, \dots, \zeta_p)'$: Vektor der Residuen  
+- `\(\mathbf{y} = (y_1, \dots, y_p)'\)`: Vektor der `\(p\)` endogenen Variablen  
+- `\(\mathbf{x} = (x_1, \dots, x_q)'\)`: Vektor der `\(q\)` exogenen Variablen  
+- `\(\alpha\)`: Vektor der `\(p\)` Achsenabschnitte (Intercepts)  
+- `\(\Gamma\)`: Matrix der Regressionskoeffizienten ( `\(p \times q\)`) von exogenen zu endogenen Variablen, wobei die `\(i\)`-te Zeile die endogene Variable und die `\(j\)`-te Spalte die exogene Variable beschreibt  
+- `\(B\)`: Matrix der Regressionskoeffizienten ( `\(p \times p\)`) von endogenen zu endogenen Variablen, wobei die `\(i\)`-te Zeile die Zielvariable und die `\(j\)`-te Spalte die Quelle beschreibt  
+- `\(\zeta = (\zeta_1, \dots, \zeta_p)'\)`: Vektor der Residuen  
 
 Annahmen:
 
-- $E(\zeta) = 0$: Der Mittelwert der Residuen ist null  
-- $\zeta$ ist unkorreliert mit $\mathbf{x}$  
-- $(I - B)$ ist invertierbar (zum Beispiel $B \neq I$)  
+- `\(E(\zeta) = 0\)`: Der Mittelwert der Residuen ist null  
+- `\(\zeta\)` ist unkorreliert mit `\(\mathbf{x}\)`  
+- `\((I - B)\)` ist invertierbar (zum Beispiel `\(B \neq I\)`)  
 ]
 
 
@@ -578,9 +519,7 @@ class: top, left
 #### Konfirmatorische Faktorenanalyse
 
 .center[
-```{r eval = TRUE, echo = F, out.width = "400px"}
-knitr::include_graphics("bilder/SEM_CFA.png")
-```
+&lt;img src="bilder/SEM_CFA.png" width="400px" /&gt;
 ]
 
 * Eine CFA ist im Wesentlichen ein multivariates Regressionsmodell, bei dem der Prädiktor eine exogene oder endogene latente Variable (Faktor) ist.
@@ -591,13 +530,11 @@ class: top, left
 
 #### Konfirmatorische Faktorenanalyse
 
-<small>
+&lt;small&gt;
 
 .pull-left[
 .center[
-```{r eval = TRUE, echo = F, out.width = "400px"}
-knitr::include_graphics("bilder/SEM_CFA.png")
-```
+&lt;img src="bilder/SEM_CFA.png" width="400px" /&gt;
 ]
 
 $$
@@ -611,15 +548,15 @@ $$
 
 Definitionen:
 
-- $\mathbf{x} = (x_1, \dots, x_q)'$: Vektor der Indikatoren auf der x-Seite  
+- `\(\mathbf{x} = (x_1, \dots, x_q)'\)`: Vektor der Indikatoren auf der x-Seite  
 
-- $\tau_x$: Vektor der $q$ Achsenabschnitte (Intercepts) für die Indikatoren auf der x-Seite  
+- `\(\tau_x\)`: Vektor der `\(q\)` Achsenabschnitte (Intercepts) für die Indikatoren auf der x-Seite  
 
-- $\xi$: Vektor der $n$ latenten exogenen Variablen  
+- `\(\xi\)`: Vektor der `\(n\)` latenten exogenen Variablen  
 
-- $\varepsilon = (\varepsilon_1, \dots, \varepsilon_q)'$: Vektor der Residuen für die Indikatoren auf der x-Seite  
+- `\(\varepsilon = (\varepsilon_1, \dots, \varepsilon_q)'\)`: Vektor der Residuen für die Indikatoren auf der x-Seite  
 
-- $\Lambda_x$: Matrix der Ladungen ( $q \times n$ ), die den latenten exogenen Variablen entsprechen  
+- `\(\Lambda_x\)`: Matrix der Ladungen ( `\(q \times n\)` ), die den latenten exogenen Variablen entsprechen  
 ]
 
 ---
@@ -628,13 +565,11 @@ class: top, left
 
 #### Konfirmatorische Faktorenanalyse
 
-<small>
+&lt;small&gt;
 
 .pull-left[
 .center[
-```{r eval = TRUE, echo = F, out.width = "400px"}
-knitr::include_graphics("bilder/SEM_CFA.png")
-```
+&lt;img src="bilder/SEM_CFA.png" width="400px" /&gt;
 ]
 
 $$
@@ -649,22 +584,22 @@ Matrixnotation:
 
 $$
 \Sigma(\theta) = 
-\begin{pmatrix}
+`\begin{pmatrix}
 \lambda_1^x \\
 \lambda_2^x \\
 \lambda_3^x
-\end{pmatrix}
-\begin{pmatrix}
-\lambda_1^x & \lambda_2^x & \lambda_3^x
-\end{pmatrix}
+\end{pmatrix}`
+`\begin{pmatrix}
+\lambda_1^x &amp; \lambda_2^x &amp; \lambda_3^x
+\end{pmatrix}`
 +
-\begin{pmatrix}
-\theta_{11}^\varepsilon & 0 & 0 \\
-0 & \theta_{22}^\varepsilon & 0 \\
-0 & 0 & \theta_{33}^\varepsilon
-\end{pmatrix}
+`\begin{pmatrix}
+\theta_{11}^\varepsilon &amp; 0 &amp; 0 \\
+0 &amp; \theta_{22}^\varepsilon &amp; 0 \\
+0 &amp; 0 &amp; \theta_{33}^\varepsilon
+\end{pmatrix}`
 $$
-- $\theta_\varepsilon$: Varianz oder Kovarianz der Residuen für die Indikatoren auf der x-Seite  
+- `\(\theta_\varepsilon\)`: Varianz oder Kovarianz der Residuen für die Indikatoren auf der x-Seite  
 ]
 
 ---
@@ -696,9 +631,7 @@ class: top, left
 **Exploratorische vs. Konfirmatorische Faktorenanalyse**
 
 .center[
-```{r eval = TRUE, echo = F, out.width = "900px"}
-knitr::include_graphics("bilder/EFA_vs_CFA.png")
-```
+&lt;img src="bilder/EFA_vs_CFA.png" width="900px" /&gt;
 ]
 
 ---
@@ -708,9 +641,7 @@ class: top, left
 #### Strukturelle Regression (volles Strukturgleichungsmodell)
 
 .center[
-```{r eval = TRUE, echo = F, out.width = "900px"}
-knitr::include_graphics("bilder/SEM_SEM.png")
-```
+&lt;img src="bilder/SEM_SEM.png" width="900px" /&gt;
 ]
 
 * Strukturelle Regression vereint Mess- und Strukturmodelle, um latente Variablen – sowohl endogene als auch exogene – als erklärende Variablen zu berücksichtigen.
@@ -722,14 +653,12 @@ class: top, left
 
 #### Strukturelle Regression (volles Strukturgleichungsmodell)
 
-<small>
+&lt;small&gt;
 
 .pull-left[
 
 .center[
-```{r eval = TRUE, echo = F, out.width = "900px"}
-knitr::include_graphics("bilder/SEM_SEM.png")
-```
+&lt;img src="bilder/SEM_SEM.png" width="900px" /&gt;
 ]
 
 Matrixnotation:
@@ -753,17 +682,17 @@ Definitionen:
 
 Messmodell:
 
-- $\mathbf{x} = (x_1, \dots, x_q)'$: Vektor der Indikatoren auf der x-Seite  
+- `\(\mathbf{x} = (x_1, \dots, x_q)'\)`: Vektor der Indikatoren auf der x-Seite  
 
-- $\mathbf{y} = (y_1, \dots, y_p)'$: Vektor der Indikatoren auf der y-Seite  
+- `\(\mathbf{y} = (y_1, \dots, y_p)'\)`: Vektor der Indikatoren auf der y-Seite  
 
-- $\tau_x$: Vektor der $q$ Achsenabschnitte (Intercepts) für die Indikatoren auf der x-Seite  
+- `\(\tau_x\)`: Vektor der `\(q\)` Achsenabschnitte (Intercepts) für die Indikatoren auf der x-Seite  
 
-- $\tau_y$: Vektor der $p$ Achsenabschnitte (Intercepts) für die Indikatoren auf der y-Seite  
+- `\(\tau_y\)`: Vektor der `\(p\)` Achsenabschnitte (Intercepts) für die Indikatoren auf der y-Seite  
 
-- $\xi$: Vektor der $n$ latenten exogenen Variablen  
+- `\(\xi\)`: Vektor der `\(n\)` latenten exogenen Variablen  
 
-- $\eta$: Vektor der $m$ latenten endogenen Variablen  
+- `\(\eta\)`: Vektor der `\(m\)` latenten endogenen Variablen  
 ]
 
 ---
@@ -772,14 +701,12 @@ class: top, left
 
 #### Strukturelle Regression (volles Strukturgleichungsmodell)
 
-<small>
+&lt;small&gt;
 
 .pull-left[
 
 .center[
-```{r eval = TRUE, echo = F, out.width = "900px"}
-knitr::include_graphics("bilder/SEM_SEM.png")
-```
+&lt;img src="bilder/SEM_SEM.png" width="900px" /&gt;
 ]
 
 Matrixnotation:
@@ -801,23 +728,23 @@ $$
 .pull-right[
 Definitionen:
 
-<small>
+&lt;small&gt;
 
 Strukturmodell
 
-- $\alpha$: Vektor der $m$ Achsenabschnitte (Intercepts)  
+- `\(\alpha\)`: Vektor der `\(m\)` Achsenabschnitte (Intercepts)  
 
-- $\Gamma$: Matrix der Regressionskoeffizienten  von latenten exogenen zu latenten endogenen Variablen, wobei die $i$-te Zeile die latente endogene Variable und die $j$-te Spalte die latente exogene Variable beschreibt  
+- `\(\Gamma\)`: Matrix der Regressionskoeffizienten  von latenten exogenen zu latenten endogenen Variablen, wobei die `\(i\)`-te Zeile die latente endogene Variable und die `\(j\)`-te Spalte die latente exogene Variable beschreibt  
 
-- $B$: Matrix der Regressionskoeffizienten von latenten endogenen zu latenten endogenen Variablen, wobei die $i$-te Zeile die Zielvariable und die $j$-te Spalte die Ursprungsvariable beschreibt  
+- `\(B\)`: Matrix der Regressionskoeffizienten von latenten endogenen zu latenten endogenen Variablen, wobei die `\(i\)`-te Zeile die Zielvariable und die `\(j\)`-te Spalte die Ursprungsvariable beschreibt  
 
-- $\zeta = (\zeta_1, \dots, \zeta_m)'$: Vektor der Residuen für die latenten endogenen Variablen  
+- `\(\zeta = (\zeta_1, \dots, \zeta_m)'\)`: Vektor der Residuen für die latenten endogenen Variablen  
 
 Annahmen
 
-- $\eta$ und $\xi$ werden nicht beobachtet  
-- $\varepsilon$ sind Messfehler für $\mathbf{y}$ und $\mathbf{x}$ entsprechend  
-- $\varepsilon$ sind unkorreliert 
+- `\(\eta\)` und `\(\xi\)` werden nicht beobachtet  
+- `\(\varepsilon\)` sind Messfehler für `\(\mathbf{y}\)` und `\(\mathbf{x}\)` entsprechend  
+- `\(\varepsilon\)` sind unkorreliert 
 ]
 
 ---
@@ -844,35 +771,35 @@ class: top, left
 
 * Zunächst spezifizieren wir das Messmodell für latente exogene Variablen mit sechs Indikatoren. 
 
-* Die ersten drei Indikatoren ( $x_1, x_2, x_3$) werden durch $\xi_1$ gemessen
+* Die ersten drei Indikatoren ( `\(x_1, x_2, x_3\)`) werden durch `\(\xi_1\)` gemessen
 
 $$
-\begin{pmatrix}
+`\begin{pmatrix}
 x_1 \\
 x_2 \\
 x_3
-\end{pmatrix}
+\end{pmatrix}`
 =
-\begin{pmatrix}
+`\begin{pmatrix}
 \tau_{x1} \\
 \tau_{x2} \\
 \tau_{x3}
-\end{pmatrix}
+\end{pmatrix}`
 +
-\begin{pmatrix}
+`\begin{pmatrix}
 \lambda_{11}^x \\
 \lambda_{21}^x \\
 \lambda_{31}^x  
-\end{pmatrix}
-\begin{pmatrix}
+\end{pmatrix}`
+`\begin{pmatrix}
 \xi_1
-\end{pmatrix}
+\end{pmatrix}`
 +
-\begin{pmatrix}
+`\begin{pmatrix}
 \varepsilon_1 \\
 \varepsilon_2 \\
 \varepsilon_3
-\end{pmatrix}
+\end{pmatrix}`
 $$
 ---
 class: top, left
@@ -884,33 +811,33 @@ class: top, left
 
 * Nachdem das exogene Messmodell definiert wurde, gehen wir zum Messmodell für endogene Variablen über. 
 
-* Die drei Indikatoren ( $y_1, y_2, y_3$) werden durch einen Faktor $\eta_1$ gemessen:
+* Die drei Indikatoren ( `\(y_1, y_2, y_3\)`) werden durch einen Faktor `\(\eta_1\)` gemessen:
 
 $$
-\begin{pmatrix}
+`\begin{pmatrix}
 y_1 \\
 y_2 \\
 y_3
-\end{pmatrix}
+\end{pmatrix}`
 =
-\begin{pmatrix}
+`\begin{pmatrix}
 \tau_{y1} \\
 \tau_{y2} \\
 \tau_{y3}
-\end{pmatrix}
+\end{pmatrix}`
 +
-\begin{pmatrix}
+`\begin{pmatrix}
 \lambda_{11}^y \\
 \lambda_{21}^y \\
 \lambda_{31}^y
-\end{pmatrix}
+\end{pmatrix}`
 \eta_1
 +
-\begin{pmatrix}
+`\begin{pmatrix}
 \varepsilon_1 \\
 \varepsilon_2 \\
 \varepsilon_3
-\end{pmatrix}
+\end{pmatrix}`
 $$
 
 ---
@@ -923,9 +850,9 @@ class: top, left
 
 * Analog zum Strukturmodell in der multivariaten Regression und Pfadanalyse, das Beziehungen zwischen **beobachteten** Variablen beschreibt, spezifiziert die strukturelle Regression die Beziehung zwischen **latenten** Variablen. 
 
-* Im Modell  haben wir eine latente exogene Variablen ( $\xi_1$), die eine latente endogene Variable ( $\eta_1$) vorhersagt:
+* Im Modell  haben wir eine latente exogene Variablen ( `\(\xi_1\)`), die eine latente endogene Variable ( `\(\eta_1\)`) vorhersagt:
 
-$$\eta_1 = \alpha_1 + \gamma_{11} \xi_1 + \zeta_1$$
+`$$\eta_1 = \alpha_1 + \gamma_{11} \xi_1 + \zeta_1$$`
 
 ---
 class: top, left
@@ -965,9 +892,9 @@ class: top, left
 *	Die Varianz einer Variable ist immer an ihre Einheit gekoppelt. Fehlt die Einheit – wie bei latenten Variablen – ist nicht eindeutig bestimmbar, wie groß die Varianz sein sollte.
 
 
-$\rightarrow$ Jede latente Variable braucht eine Metrik.
+`\(\rightarrow\)` Jede latente Variable braucht eine Metrik.
 
-$\rightarrow$ Diese muss von uns festgelegt werden
+`\(\rightarrow\)` Diese muss von uns festgelegt werden
 
 ---
 class: top, left
@@ -985,7 +912,7 @@ Zwei unterschiedliche Lösungsmöglichkeiten, um Metrik zu definieren:
 
 2. Wir definieren, dass die Varianz der latenten Variable einen bestimmten Wert erhält (z.B. 1).
 
-  * Fixierung der Varianz auf festen Wert $\rightarrow$ damit ist sie definiert
+  * Fixierung der Varianz auf festen Wert `\(\rightarrow\)` damit ist sie definiert
 
   * Unit Variance Identification (UVI)
 
@@ -995,13 +922,13 @@ class: top, left
 
 #### Metrik latenter Variablen
 
-<small>
+&lt;small&gt;
 
 .pull-left[
 
 **Unit Loading Identification (ULI)**
 
-* Ladung von $x_1$ (oder eines anderen Indikators) auf die latenten Variable ξ wird 1 gesetzt (ULI).
+* Ladung von `\(x_1\)` (oder eines anderen Indikators) auf die latenten Variable ξ wird 1 gesetzt (ULI).
 
 * In `R` wird standardmäßig der 1. Indikator gewählt.
 
@@ -1019,9 +946,7 @@ class: top, left
 
 .pull-right[
 .center[
-```{r eval = TRUE, echo = F, out.width = "400px"}
-knitr::include_graphics("bilder/ULI.png")
-```
+&lt;img src="bilder/ULI.png" width="400px" /&gt;
 ]
 ]
 
@@ -1031,7 +956,7 @@ class: top, left
 
 #### Metrik latenter Variablen
 
-<small>
+&lt;small&gt;
 
 .pull-left[
 
@@ -1049,9 +974,7 @@ class: top, left
 
 .pull-right[
 .center[
-```{r eval = TRUE, echo = F, out.width = "400px"}
-knitr::include_graphics("bilder/UVI.png")
-```
+&lt;img src="bilder/UVI.png" width="400px" /&gt;
 ]
 ]
 
@@ -1075,9 +998,7 @@ class: top, left
 
 .pull-right[
 .center[
-```{r eval = TRUE, echo = F, out.width = "400px"}
-knitr::include_graphics("bilder/fixate_errors.png")
-```
+&lt;img src="bilder/fixate_errors.png" width="400px" /&gt;
 ]
 ]
 
@@ -1089,7 +1010,7 @@ class: top, left
 
 **Zusammenfassung - Vorteile des SEM**
 
-<small>
+&lt;small&gt;
 
 *	Berücksichtigung von Messfehlern durch Messmodell.
 
@@ -1117,7 +1038,8 @@ class: top, left
 
 * Installation:
 
-```{r eval=FALSE}
+
+``` r
 install.packages("lavaan")
 library(lavaan)
 ```
@@ -1134,11 +1056,12 @@ class: top, left
 
 #### Strukturgleichungsmodelle in R - `lavaan`
 
-<small>
+&lt;small&gt;
 
 * In `lavaan` hat eine **Regressionsformel** die folgende Form:
 
-```{r eval=FALSE}
+
+``` r
 y ~ x1 + x2 + x3 + x4
 ```
 
@@ -1152,7 +1075,8 @@ y ~ x1 + x2 + x3 + x4
 
 * Dabei können einige Variablen (beginnend mit einem „f“ wie Faktor im Beispiel unten) latent sein. Zum Beispiel:
 
-```{r eval=FALSE}
+
+``` r
 y ~ f1 + f2 + x1 + x2
 
 f1 ~ f2 + f3
@@ -1174,7 +1098,8 @@ class: top, left
 
 * Zum Beispiel können wir die drei latenten Variablen f1, f2 und f3 wie folgt definieren:
 
-```{r eval=FALSE}
+
+``` r
 f1 =~ y1 + y2 + y3 
 
 f2 =~ y4 + y5 + y6 
@@ -1190,7 +1115,8 @@ class: top, left
 
 * Varianzen und Kovarianzen mit dem Operator ~~ (doppelte Tilde) spezifiziert. Zum Beispiel:
 
-```{r eval=FALSE}
+
+``` r
 y1 ~~ y1  # Varianz
 
 y1 ~~ y2  # Kovarianz
@@ -1204,7 +1130,8 @@ f1 ~~ f2  # Kovarianz
 
 * Dabei wird nur ein Achsenabschnitt (explizit durch die Zahl 1 dargestellt) als Prädiktor aufgeführt:
 
-```{r eval=FALSE}
+
+``` r
 y1 ~ 1
 
 f1 ~ 1
@@ -1218,35 +1145,34 @@ class: top, left
 
 #### Strukturgleichungsmodelle in R - CFA Beispiel
 
-<small>
-* Das Modell (rechts) stellt die CFA für einen Kognitionstest dar (Holzinger & Swineford, 1939).
+&lt;small&gt;
+* Das Modell (rechts) stellt die CFA für einen Kognitionstest dar (Holzinger &amp; Swineford, 1939).
 
-*	Ein visueller Faktor, gemessen durch die 3 Variablen: $x_1$, $x_2$ und $x_3$.
+*	Ein visueller Faktor, gemessen durch die 3 Variablen: `\(x_1\)`, `\(x_2\)` und `\(x_3\)`.
 
-*	Ein textueller Faktor, gemessen durch die 3 Variablen: $x_4$, $x_5$ und $x_6$.
+*	Ein textueller Faktor, gemessen durch die 3 Variablen: `\(x_4\)`, `\(x_5\)` und `\(x_6\)`.
 
-*	Ein Geschwindigkeitsfaktor, gemessen durch die 3 Variablen: $x_7$, $x_8$ und $x_9$.
+*	Ein Geschwindigkeitsfaktor, gemessen durch die 3 Variablen: `\(x_7\)`, `\(x_8\)` und `\(x_9\)`.
 
 ***
 
 Modell in `lavaan`:
 
 .code90[
-```{r eval=FALSE}
-model <- 'visual  =~ x1 + x2 + x3 
+
+``` r
+model &lt;- 'visual  =~ x1 + x2 + x3 
           textual =~ x4 + x5 + x6
           speed   =~ x7 + x8 + x9'
 
-fit <- cfa(model, data = HolzingerSwineford1939)
+fit &lt;- cfa(model, data = HolzingerSwineford1939)
 ```
 ]
 ]
 
 .pull-right[
 .center[
-```{r eval = TRUE, echo = F, out.width = "300px"}
-knitr::include_graphics("bilder/holzinger.png")
-```
+&lt;img src="bilder/holzinger.png" width="300px" /&gt;
 ]
 ]
 
@@ -1254,7 +1180,7 @@ knitr::include_graphics("bilder/holzinger.png")
 class: top, left
 ### Multivariate (latente) Modellierung
 
-<small> <small>
+&lt;small&gt; &lt;small&gt;
 
 .pull-left[
 
@@ -1262,23 +1188,20 @@ class: top, left
 
 
 .center[
-```{r eval = TRUE, echo = F, out.width = "280px"}
-knitr::include_graphics("bilder/holzinger.png")
-```
+&lt;img src="bilder/holzinger.png" width="280px" /&gt;
 ]
 
 ]
 
 .pull-right[
 .code80[
-```{r eval=FALSE}
+
+``` r
 parameterEstimates(fit)
 ```
 ]
 .center[
-```{r eval = TRUE, echo = F, out.width = "300px"}
-knitr::include_graphics("bilder/holzinger2.png")
-```
+&lt;img src="bilder/holzinger2.png" width="300px" /&gt;
 ]
 ]
 
@@ -1288,25 +1211,25 @@ class: top, left
 
 #### lavaan Syntax
 
-<small>
+&lt;small&gt;
 
 .full-width[.content-box-gray[
 
 Am häufigsten verwendeten Syntaxelemente in `lavaan`:
 
-- $\sim$ Vorhersage, wird für die Regression eines beobachteten Outcomes auf beobachtete Prädiktoren verwendet (z. B. $y \sim x$).  
+- `\(\sim\)` Vorhersage, wird für die Regression eines beobachteten Outcomes auf beobachtete Prädiktoren verwendet (z. B. `\(y \sim x\)`).  
 
-- $= \sim$ Indikator, wird für die Zuordnung einer latenten Variablen zu beobachteten Indikatoren in Messmodellen der Faktorenanalyse verwendet (z. B. $f = \sim q + r + s$).  
+- `\(= \sim\)` Indikator, wird für die Zuordnung einer latenten Variablen zu beobachteten Indikatoren in Messmodellen der Faktorenanalyse verwendet (z. B. `\(f = \sim q + r + s\)`).  
 
-- $\sim\sim$ Kovarianz (z. B. $x \sim\sim x$).  
+- `\(\sim\sim\)` Kovarianz (z. B. `\(x \sim\sim x\)`).  
 
-- $\sim 1$ Intercept oder Mittelwert (z. B. $x \sim 1$ schätzt den Mittelwert der Variablen $x$).  
+- `\(\sim 1\)` Intercept oder Mittelwert (z. B. `\(x \sim 1\)` schätzt den Mittelwert der Variablen `\(x\)`).  
 
-- $1\ast$ Fixiert einen Parameter oder eine Ladung auf den Wert 1 (z. B. $f = \sim 1\ast q$).  
+- `\(1\ast\)` Fixiert einen Parameter oder eine Ladung auf den Wert 1 (z. B. `\(f = \sim 1\ast q\)`).  
 
-- $NA\ast$ Lässt einen Parameter oder eine Ladung frei (nützlich, um die Standard-Marker-Methode zu überschreiben, z. B. $f = \sim NA\ast q$).  
+- `\(NA\ast\)` Lässt einen Parameter oder eine Ladung frei (nützlich, um die Standard-Marker-Methode zu überschreiben, z. B. `\(f = \sim NA\ast q\)`).  
 
-- $a\ast$ Vergibt ein Label für den Parameter „a“, das für Modellrestriktionen verwendet werden kann (z. B. $f = \sim a\ast q$).  
+- `\(a\ast\)` Vergibt ein Label für den Parameter „a“, das für Modellrestriktionen verwendet werden kann (z. B. `\(f = \sim a\ast q\)`).  
 
 ]
 ]
@@ -1337,3 +1260,141 @@ class: top, left
 ]
 
 
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+  "slideNumberFormat": "%current%",
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "countIncrementalSlides": false,
+  "ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
