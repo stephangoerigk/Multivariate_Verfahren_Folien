@@ -84,7 +84,7 @@ class: top, left
   * Vergleich zu LMM: Vorteile durch Berücksichtigung von Messfehlern bei latenten Variablen.
 
 * **Messinvarianzprüfung**
-  * Prüfung von Gruppenunterschieden: Überprüfung, ob ein Modell in verschiedenen Gruppen gleich funktioniert. 
+  * Prüfung von Gruppenunterschieden: Überprüfung, ob ein Messmmodell in verschiedenen Gruppen gleich funktioniert. 
   
   * Hierarchische Tests: Vergleich von Modellen mit zunehmenden Restriktionen (konfigural, metrisch, skalär).  
   
@@ -109,11 +109,11 @@ class: top, left
 
   * Moderation: Dritte Variable beeinflusst Stärke des Zusammenhangs zwischen AV und UV
 
-  * Mediation: Dritte Variable beeinflusst vermittelt den Zusammenhang zwischen AV und UV
+  * Mediation: Dritte Variable vermittelt den Zusammenhang zwischen AV und UV
 
 * Mediator = Bindeglied
 
-* (Teil-)Grund für den Effekt der AV auf UV (Vorsicht Kausalitätsannahmen)
+* (Teil-)Grund für den Effekt der UV auf AV (Vorsicht Kausalitätsannahmen)
 
 ---
 class: top, left
@@ -125,7 +125,7 @@ class: top, left
 
 **Moderation**
 
-Schlafmitteldosis (**UV**) erhöht die Schlafdauer (**AV**); Straßenlärm (**Moderator**) wirkt zusätzlich auf die **AV**
+Schlafmitteldosis (**UV**) erhöht die Schlafdauer (**AV**); Straßenlärm (**Moderator**) verändert die Stärke des Effekts der Schlafmitteldosis (**UV**) auf die Schlafdauer (**AV**).
 
 .center[
 ```{r eval = TRUE, echo = F, out.width = "500px"}
@@ -189,7 +189,7 @@ Statistische Prüfung der Mediationshypothese:
 * **Direkter Effekt:** Effekt von **UV** auf **AV** (in Anwesenheit des Mediators)
 * **Keine Mediation:** indirekter Effekt nicht signifikant
 * **Partielle Mediation:** indirekter Effekt signifikant und direkter Effekt auch signifikant
-* **Totale Mediation:** indirekter Effekt signifikant und direkter Effekt nicht mehr signifikant.
+* **Vollständige Mediation:** indirekter Effekt signifikant und direkter Effekt nicht mehr signifikant.
 
 .center[
 ```{r eval = TRUE, echo = F, out.width = "500px"}
@@ -480,8 +480,8 @@ class: top, left
 set.seed(123)
 Raumtemperatur <- rnorm(50, mean = 20, sd = 3)
 Durst <- 0.2*Raumtemperatur + rnorm(50) 
-Getränke <- 0.7*Durst + rnorm(50) 
-df <- data.frame(Raumtemperatur = Raumtemperatur, Durst = Durst, Getränke = Getränke)
+Getraenke <- 0.7*Durst + rnorm(50) 
+df <- data.frame(Raumtemperatur = Raumtemperatur, Durst = Durst, Getraenke = Getraenke)
 df = round(df)
 ```
 
@@ -568,10 +568,10 @@ class: top, left
 
 ```{r}
 model <- ' # Direkter Effekt
-             Getränke ~ c * Raumtemperatur
+             Getraenke ~ c * Raumtemperatur
            # Mediator
              Durst ~ a * Raumtemperatur
-             Getränke ~ b * Durst
+             Getraenke ~ b * Durst
            # Indirekter Effect (a*b)
              ab := a*b
            # Totaler Effect
@@ -804,13 +804,13 @@ names(df)[2:7] = paste0("t", names(df)[2:7])
 df = roundallnumerics(as.data.frame(df))
 ```
 
-* Mit latenten Wachstumskurvenmodellen lassen sich Messwiederholungen Modellieren
+* Mit latenten Wachstumskurvenmodellen lassen sich Messwiederholungen modellieren
 
 * Ähnlich wie beim LMM gibt es einen Intercept und einen Slope
 
   * Intercept = Durchschnitt zu Zeitpunkt 0
   
-  * Slope = Druchschnittliche Veränderung, wenn Zeit $(t)$ um 1 Einheit zunimmt
+  * Slope = Durchschnittliche Veränderung, wenn Zeit $(t)$ um 1 Einheit zunimmt
 
 * In latenten Wachstumskurvenmodellen haben Intercept und Slope eine Varianz (sie dürfen also variieren)
 
@@ -820,7 +820,7 @@ df = roundallnumerics(as.data.frame(df))
 
   * Veränderung mehrerer AVs gleichzeitig modellierbar (multivariat)
   
-  * Man kann Verönderung einer Variable mit Veränderung anderer Variable vorhersagen
+  * Man kann Veränderung einer Variable mit Veränderung anderer Variable vorhersagen
 
 ---
 class: top, left
@@ -940,13 +940,13 @@ knitr::include_graphics("bilder/LGC1.png")
 ]
 
 .pull-right[
-* Im latenten Wachstumskurvenmodell sind messwiderholte Werte manifeste Indikatoren 
+* Im latenten Wachstumskurvenmodell sind messwiederholte Werte manifeste Indikatoren 
 
 * Veränderung (Slope) und Ausgangsniveau (Intercept) werden als latente Variablen modelliert
 
 * Beide haben eine Varianz (random Intercept und random Slope)
 
-* Der Schlüssel für die Modellierung der Messwiderholung liegt in der besonderen Fixierung der Pfade
+* Der Schlüssel für die Modellierung der Messwiederholung liegt in der besonderen Fixierung der Pfade
 ]
 
 ---
@@ -964,7 +964,7 @@ knitr::include_graphics("bilder/LGC2.png")
 ]
 
 .pull-right[
-* Der Schlüssel für die Modellierung der Messwiderholung liegt in der besonderen Fixierung der Pfade
+* Der Schlüssel für die Modellierung der Messwiederholung liegt in der besonderen Fixierung der Pfade
 
 * Für den Intercept werden alle Ladungen auf 1 fixiert
 ]
@@ -984,13 +984,13 @@ knitr::include_graphics("bilder/LGC3.png")
 ]
 
 .pull-right[
-* Der Schlüssel für die Modellierung der Messwiderholung liegt in der besonderen Fixierung der Pfade
+* Der Schlüssel für die Modellierung der Messwiederholung liegt in der besonderen Fixierung der Pfade
 
 * Für den Slope werden die Ladungen kontinuierlich durchnummeriert (beginnend mit 0 = Baseline)
 
 * Dies entspricht einem linearen Wachstumsfaktor
 
-* Sollen andere Abstände modelliert werden, können die Zahlen angepasst werden (z.B. in tatsächlichen Wochenständen)
+* Sollen andere Abstände modelliert werden, können die Zahlen angepasst werden (z.B. in tatsächlichen Wochenabständen)
 ]
 
 
@@ -1114,7 +1114,7 @@ class: top, left
 * 	Messinvarianzprüfung - Ziel:
   * Sicherstellen, dass Unterschiede in den gemessenen Werten echte Unterschiede in der zugrunde liegenden latenten Variable darstellen
   
-  * Unterschiede sind nicht lediglich durch Unterschiede in der Messweise bedingt sind.
+  * Unterschiede sind nicht lediglich durch Unterschiede in der Messweise bedingt.
   
 * Praktische Relevanz:
 
@@ -1152,9 +1152,9 @@ Wenn die Daten kontinuierlich sind, umfasst die Prüfung der Messinvarianz eine 
   
 **4. Strenge Invarianz (engl. strict invariance)**
 
-  * Gleichheit der einzigartigen Varianzen oder der Residualvarianzen voraus
+  * Setzt Gleichheit der einzigartigen Varianzen oder der Residualvarianzen voraus
   
-  *  In der Praxis wird jedoch das Erreichen der ersten drei Invarianzstufen als ausreichend angesehen (Van de Schoot et al., 2012)
+  * In der Praxis wird jedoch das Erreichen der ersten drei Invarianzstufen als ausreichend angesehen (Van de Schoot et al., 2012)
 
 ---
 class: top, left
@@ -1172,11 +1172,11 @@ class: top, left
   
   * `lavTestLRT()`
 
-* Modelle werden getrennt für Gruppen angepasst
+* Modelle werden simultan für alle Gruppen innerhalb eines Gesamtmodells angepasst.
 
 * Für unterschiedliche strenge Invarianzstufen, werden zusätzliche Parameter fixiert (engl. contraints)
 
-* Sollen ganze Gruppen von Parametern (z.B. alle Ladungen) zwischen Gruppen gleichgehalten werden, geht dies mit der Funnktion `group.equal`
+* Sollen ganze Gruppen von Parametern (z.B. alle Ladungen) zwischen Gruppen gleichgehalten werden, geht dies mit der Funktion `group.equal`
 
   * Vorteil: Nicht alle Parameter müssen händisch im Modell angepasst werden
 
@@ -1270,12 +1270,12 @@ class: top, left
 
 * Zunächst formulieren wir das Mesmodell für die Dunkle Triade der Persönlichkeit
 
-* Dann werden Modelle mit allen Stufen von Parameterfixierungen zeischen den Geschlechtern aufgestellt
+* Dann werden Modelle mit allen Stufen von Parameterfixierungen zwischen den Geschlechtern aufgestellt
 
-```{r eval=FALSE}
-dark.model <- ' Narzissmus  =~ Item 1 + Item 2 + Item 3
-                Machiavellismus =~ Item 4 + Item 5 + Item 6
-                Psychotizismus   =~ Item 7 + Item 8 + Item 9'
+```{r echo=TRUE}
+dark.model <- ' Narzissmus  =~ Item1 + Item2 + Item3
+                Machiavellismus =~ Item4 + Item5 + Item6
+                Psychotizismus   =~ Item7 + Item8 + Item9'
 
 # Konfigurale Invarianz
 
@@ -1296,7 +1296,7 @@ class: top, left
 
 #### Messinvarianzprüfung
 
-```{r}
+```{r echo=TRUE}
 # Messinvarianzprüfung (Modellvergleich)
 
 lavTestLRT(fit1, fit2, fit3)

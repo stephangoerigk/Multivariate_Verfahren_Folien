@@ -1,0 +1,2402 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Einheit 9</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Prof. Dr. Stephan Goerigk" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/hygge.css" rel="stylesheet" />
+    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view/tile-view.js"></script>
+    <script src="libs/fabric/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#EE0071"],"pen_size":4,"eraser_size":40,"palette":[]}) })</script>
+    <script src="libs/kePrint/kePrint.js"></script>
+    <link href="libs/lightable/lightable.css" rel="stylesheet" />
+    <link href="libs/tabwid/tabwid.css" rel="stylesheet" />
+    <script src="libs/tabwid/tabwid.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+name: Title slide
+class: middle, left
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+# Multivariate Verfahren
+***
+### Einheit 9: Multivariate (latente) Modellierung (3)
+##### 19.12.2024 | Prof. Dr. Stephan Goerigk
+
+---
+class: top, left
+### Multivariate (latente) Modellierung
+
+#### Spezielle Anwendungsbeispiele und Hypothesen mit SEMs
+
+&lt;small&gt;
+
+* **Mediation**
+  * Direkte und indirekte Effekte: Identifikation von Pfaden, über die eine UV auf eine AV wirkt.  
+  
+  * Signifikanztest: Prüfung, ob der indirekte Effekt signifikant ist (z. B. Bootstrapping).  
+  
+  * Praktische Anwendungen: Verständnis von Mechanismen, z. B. wie Interventionen Verhaltensänderungen bewirken.
+
+* **Latente Wachstumskurvenmodelle (vgl. LMM)**
+  * Analyse von Veränderungen: Erfassung individueller Entwicklung über die Zeit.  
+  
+  * Schätzung von Wachstumsparametern: Mittlere Wachstumsrate und Variabilität in der Entwicklung.  
+  
+  * Vergleich zu LMM: Vorteile durch Berücksichtigung von Messfehlern bei latenten Variablen.
+
+* **Messinvarianzprüfung**
+  * Prüfung von Gruppenunterschieden: Überprüfung, ob ein Messmmodell in verschiedenen Gruppen gleich funktioniert. 
+  
+  * Hierarchische Tests: Vergleich von Modellen mit zunehmenden Restriktionen (konfigural, metrisch, skalär).  
+  
+  * Praktische Relevanz: Sicherstellung, dass Vergleiche zwischen Gruppen valide sind.
+
+
+---
+class: top, left
+### Multivariate (latente) Modellierung
+
+#### Mediation vs. Moderation (Pfadanalyse)
+
+* Moderation und Mediation sind 2 unterschiedliche Konzepte (mit ähnlichen Namen)
+
+* Gemeinsamkeiten:
+
+  * Bei beiden Analysen geht es um ein besseres Verständnis des Zusammenhangs zwischen AV und UV
+
+  * Es geht darum zu prüfen, inwieweit eine dritte Variable in diesen Zusammenhang passt.
+
+* Unterschiede:
+
+  * Moderation: Dritte Variable beeinflusst Stärke des Zusammenhangs zwischen AV und UV
+
+  * Mediation: Dritte Variable vermittelt den Zusammenhang zwischen AV und UV
+
+* Mediator = Bindeglied
+
+* (Teil-)Grund für den Effekt der UV auf AV (Vorsicht Kausalitätsannahmen)
+
+---
+class: top, left
+### Multivariate (latente) Modellierung
+
+#### Mediation vs. Moderation (Pfadanalyse)
+
+.pull-left[
+
+**Moderation**
+
+Schlafmitteldosis (**UV**) erhöht die Schlafdauer (**AV**); Straßenlärm (**Moderator**) verändert die Stärke des Effekts der Schlafmitteldosis (**UV**) auf die Schlafdauer (**AV**).
+
+.center[
+&lt;img src="bilder/Moderation.png" width="500px" /&gt;
+]
+]
+
+.pull-right[
+**Mediation:**
+
+Schulnote (**UV**) beeinflusst Selbstwertgefühl (**Mediator**); Selbstwertgefühl (**Mediator**) beeinflusst Lebenszufriedenheit **AV**
+
+.center[
+&lt;img src="bilder/Mediation.png" width="500px" /&gt;
+]
+]
+
+`\(\rightarrow\)` Da bei Mediation sowohl AV als auch Mediator **endogene** Variablen sind, brauchen wir ein multivariates Modell
+
+---
+class: top, left
+### Multivariate (latente) Modellierung
+
+#### Mediation vs. Moderation (Pfadanalyse)
+
+**Moderation**
+
+Schlafmitteldosis (**UV**) erhöht die Schlafdauer (**AV**); Straßenlärm (**Moderator**) wirkt zusätzlich auf die **AV**
+
+Statistische Prüfung der Moderationshypothese:
+
+* **Interaktionseffekt**: AV ~ UV x Moderator (wie im Regressionsmodell)
+
+* Frage: Variiert der Effekt von UV auf AV in Abhängigkeit einer weiteren Variable
+
+.center[
+&lt;img src="bilder/Moderation.png" width="500px" /&gt;
+]
+
+---
+class: top, left
+### Multivariate (latente) Modellierung
+
+#### Mediation vs. Moderation (Pfadanalyse)
+
+&lt;small&gt;
+
+**Mediation:**
+
+Schulnote (**UV**) beeinflusst Selbstwertgefühl (**Mediator**); Selbstwertgefühl (**Mediator**) beeinflusst Lebenszufriedenheit **AV**
+
+Statistische Prüfung der Mediationshypothese:
+
+* **Mediator** vermittelt (**mediiert**) den Einfluss der **UV** auf die **AV**
+* **Indirekter Effekt:**  **UV ** beeinflusst  **Mediator**, dies führt zur einem Effekt des  **Mediators ** auf  **AV **
+* **Direkter Effekt:** Effekt von **UV** auf **AV** (in Anwesenheit des Mediators)
+* **Keine Mediation:** indirekter Effekt nicht signifikant
+* **Partielle Mediation:** indirekter Effekt signifikant und direkter Effekt auch signifikant
+* **Vollständige Mediation:** indirekter Effekt signifikant und direkter Effekt nicht mehr signifikant.
+
+.center[
+&lt;img src="bilder/Mediation.png" width="500px" /&gt;
+]
+
+
+---
+class: top, left
+### Multivariate (latente) Modellierung
+
+#### Moderation (Pfadanalyse)
+
+
+
+
+.pull-left[
+&lt;small&gt;
+
+**Moderation - Beispiel: Faktoren für Erfolg einer Therapie**
+
+* Datensatz für `\(N=52\)` Therapeut:innen
+
+* **Forschungsfrage:** Was kann als Prädiktor für Therapieerfolg gelten? Gibt es Interaktionen?
+
+* Es wurden folgende Variablen gemessen:
+
+* Therapieerfolg (AV; 0-100 Punkte) 
+
+* Therapieerfahrung der Therapeut:in (UV; niedrig, hoch)
+
+* Bereitschaft Patient:in zu konfrontieren (UV 0-100 Punkte) 
+
+
+* Die ersten 15 Fälle sind in der Tabelle rechts dargestellt.
+
+&lt;/small&gt;
+]
+
+.pull-right[
+&lt;table class=" lightable-classic" style="font-size: 13px; font-family: Times New Roman; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; Therapieerfolg &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Erfahrung &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Konfrontativ &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Erfahrung_dummy &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 89 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; hoch &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 61 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 54 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; niedrig &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 48 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 62 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; hoch &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 23 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 36 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; niedrig &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 69 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 54 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; niedrig &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 53 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 77 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; hoch &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 39 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 41 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; niedrig &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 62 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 46 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; niedrig &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 62 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 54 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; niedrig &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 61 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 71 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; hoch &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 58 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 50 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; niedrig &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 56 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 75 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; hoch &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 44 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 51 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; niedrig &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 39 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 66 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; niedrig &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 38 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 73 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; hoch &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 32 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+---
+class: top, left
+### Multivariate (latente) Modellierung
+
+#### Moderation (Pfadanalyse)
+
+**Moderation - Beispiel: Faktoren für Erfolg einer Therapie**
+
+.pull-left[
+Mögliche Forschungsfragen im Modell:
+
+&lt;small&gt;
+
+1. Verändert sich der Therapieerfolg von unerfahrenen Therapeut:innen mit zunehmender Konfrontationsbereitschaft?
+
+2. Verändert sich der Therapieerfolg von erfahrenen Therapeut:innen mit zunehmender Konfrontationsbereitschaft?
+
+3. Ist der Effekt der Konfrontationsbereitschaft auf den Therapieerfolg in den Gruppen signifikant unterschiedlich?
+
+`\(\rightarrow\)` Die dritte Frage stellt eine Moderationshypothese dar (rechts dargestellt)
+]
+
+.pull-right[
+
+.center[
+&lt;img src="bilder/Moderation.png" width="950px" /&gt;
+]
+
+* AV: Therapieerfolg
+* UV: Konfrontationsbereitschaft
+* Moderator: Erfahrung
+
+**Moderation:** *Beeinflusst die Erfahrung den Effekt der Konfrontationsbereitschaft auf den Therapieerfolg?* (Beispielserklärung: Erfahrenere Therapeut:innen können besser konfrontieren.) 
+]
+
+---
+class: top, left
+### Multivariate (latente) Modellierung
+
+#### Moderation (Pfadanalyse)
+
+**Moderation - Beispiel: Faktoren für Erfolg einer Therapie**
+
+
+.pull-left[
+.code60[
+
+``` r
+model = lm(Therapieerfolg ~ Erfahrung * Konfrontativ, data = df)
+summary(model)
+```
+
+```
+## 
+## Call:
+## lm(formula = Therapieerfolg ~ Erfahrung * Konfrontativ, data = df)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -13.0279  -4.6580  -0.1674   4.3870  19.0061 
+## 
+## Coefficients:
+##                            Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                 73.1303     5.3550  13.657  &lt; 2e-16 ***
+## Erfahrunghoch              -15.2556     6.2921  -2.425 0.019140 *  
+## Konfrontativ                -0.4427     0.1069  -4.143 0.000138 ***
+## Erfahrunghoch:Konfrontativ   0.8216     0.1263   6.507  4.2e-08 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 7.023 on 48 degrees of freedom
+## Multiple R-squared:  0.7981,	Adjusted R-squared:  0.7855 
+## F-statistic: 63.24 on 3 and 48 DF,  p-value: &lt; 2.2e-16
+```
+]
+]
+
+.pull-right[
+Interpretation der Koeffizienten:
+
+* Therapeut:innen mit niedriger Erfahrung (Erfahrung=0) haben bei einer Konfrontationsbereitschaft = 0 einen geschätzten Therapieerfolg von 73.13 Punkten
+
+* Therapeut:innen mit hoher Erfahrung (Erfahrung=1) haben bei einer Konfrontationsbereitschaft = 0 einen geschätzten Therapieerfolg von -15.26 Punkten weniger, als die Referenzgruppe
+]
+---
+class: top, left
+### Multivariate (latente) Modellierung
+
+#### Moderation (Pfadanalyse)
+
+**Moderation - Beispiel: Faktoren für Erfolg einer Therapie**
+
+
+.pull-left[
+.code60[
+
+``` r
+model = lm(Therapieerfolg ~ Erfahrung * Konfrontativ, data = df)
+summary(model)
+```
+
+```
+## 
+## Call:
+## lm(formula = Therapieerfolg ~ Erfahrung * Konfrontativ, data = df)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -13.0279  -4.6580  -0.1674   4.3870  19.0061 
+## 
+## Coefficients:
+##                            Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                 73.1303     5.3550  13.657  &lt; 2e-16 ***
+## Erfahrunghoch              -15.2556     6.2921  -2.425 0.019140 *  
+## Konfrontativ                -0.4427     0.1069  -4.143 0.000138 ***
+## Erfahrunghoch:Konfrontativ   0.8216     0.1263   6.507  4.2e-08 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 7.023 on 48 degrees of freedom
+## Multiple R-squared:  0.7981,	Adjusted R-squared:  0.7855 
+## F-statistic: 63.24 on 3 and 48 DF,  p-value: &lt; 2.2e-16
+```
+]
+]
+
+.pull-right[
+Interpretation der Koeffizienten:
+
+&lt;small&gt;
+* Mit 1 Einheit zusätzlicher Konfrontationsbereitschaft nimmt der Therapieerfolg von Therapeut:innen mit niedriger Erfahrung um -0.44 Punkte ab `\((t_{48}=-4.14, p&lt;.001)\)`.
+
+* Mit 1 Einheit zusätzlicher Konfrontationsbereitschaft nimmt der Therapieerfolg von Therapeut:innen mit hoher Erfahrung um 0.82 Punkte mehr zu, als bei der Referenzgruppe `\((t_{48}=6.51, p&lt;.001)\)`.
+
+* Insgesamt nimmt der Therapieerfolg bei von Therapeut:innen mit hoher Erfahrung mit 1 Einheit zusätzlicher Konfrontationsbereitschaft also um -0.44 + 0.82 = 0.38 Punkte zu
+]
+
+---
+class: top, left
+### Multivariate (latente) Modellierung
+
+#### Moderation (Pfadanalyse)
+
+
+.pull-left[
+&lt;small&gt;
+
+**Moderation - Beispiel: Faktoren für Erfolg einer Therapie**
+
+
+Moderation in `lavaan`:
+
+* Interaktion  muss aktiv in Daten angelegt werden
+
+* Interaktion = Produkt der Prädiktoren
+
+.code80[
+
+``` r
+library(lavaan)
+
+df$Interaktion = df$Erfahrung_dummy * df$Konfrontativ
+
+model = '
+Therapieerfolg ~ Erfahrung + Konfrontativ + Interaktion
+'
+```
+]
+
+* Dann wird das formulierte Modell auf Daten angepasst
+.code80[
+
+``` r
+fit = sem(model, data = df)
+```
+]
+]
+
+.pull-right[
+&lt;table class=" lightable-classic" style="font-size: 13px; font-family: Times New Roman; width: auto !important; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; Therapieerfolg &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Erfahrung &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Konfrontativ &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Erfahrung_dummy &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Interaktion &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 89 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; hoch &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 61 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 61 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 54 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; niedrig &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 48 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 62 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; hoch &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 23 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 23 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 36 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; niedrig &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 69 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 54 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; niedrig &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 53 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 77 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; hoch &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 39 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 39 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 41 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; niedrig &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 62 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 46 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; niedrig &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 62 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 54 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; niedrig &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 61 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 71 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; hoch &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 58 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 58 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 50 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; niedrig &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 56 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 75 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; hoch &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 44 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 44 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 51 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; niedrig &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 39 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 66 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; niedrig &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 38 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 73 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; hoch &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 32 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 32 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+---
+class: top, left
+### Multivariate (latente) Modellierung
+
+#### Moderation (Pfadanalyse)
+
+**Moderation - Beispiel: Faktoren für Erfolg einer Therapie**
+
+
+.pull-left[
+.code60[
+
+``` r
+model = lm(Therapieerfolg ~ Erfahrung * Konfrontativ, data = df)
+summary(model)
+```
+
+```
+## 
+## Call:
+## lm(formula = Therapieerfolg ~ Erfahrung * Konfrontativ, data = df)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -13.0279  -4.6580  -0.1674   4.3870  19.0061 
+## 
+## Coefficients:
+##                            Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                 73.1303     5.3550  13.657  &lt; 2e-16 ***
+## Erfahrunghoch              -15.2556     6.2921  -2.425 0.019140 *  
+## Konfrontativ                -0.4427     0.1069  -4.143 0.000138 ***
+## Erfahrunghoch:Konfrontativ   0.8216     0.1263   6.507  4.2e-08 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 7.023 on 48 degrees of freedom
+## Multiple R-squared:  0.7981,	Adjusted R-squared:  0.7855 
+## F-statistic: 63.24 on 3 and 48 DF,  p-value: &lt; 2.2e-16
+```
+]
+]
+
+.pull-right[
+.code60[
+
+``` r
+# In lavaan
+summary(fit, fit.measures = TRUE) # Modellfit
+```
+
+.center[
+&lt;img src="bilder/lavaan_moderation2.png" width="350px" /&gt;
+]
+
+]
+]
+
+---
+class: top, left
+### Multivariate (latente) Modellierung
+
+#### Moderation (Pfadanalyse)
+
+**Moderation - Beispiel: Faktoren für Erfolg einer Therapie**
+
+
+.pull-left[
+.code60[
+
+``` r
+model = lm(Therapieerfolg ~ Erfahrung * Konfrontativ, data = df)
+summary(model)
+```
+
+```
+## 
+## Call:
+## lm(formula = Therapieerfolg ~ Erfahrung * Konfrontativ, data = df)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -13.0279  -4.6580  -0.1674   4.3870  19.0061 
+## 
+## Coefficients:
+##                            Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                 73.1303     5.3550  13.657  &lt; 2e-16 ***
+## Erfahrunghoch              -15.2556     6.2921  -2.425 0.019140 *  
+## Konfrontativ                -0.4427     0.1069  -4.143 0.000138 ***
+## Erfahrunghoch:Konfrontativ   0.8216     0.1263   6.507  4.2e-08 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 7.023 on 48 degrees of freedom
+## Multiple R-squared:  0.7981,	Adjusted R-squared:  0.7855 
+## F-statistic: 63.24 on 3 and 48 DF,  p-value: &lt; 2.2e-16
+```
+]
+]
+
+.pull-right[
+.code60[
+
+``` r
+# In lavaan
+summary(fit, fit.measures = TRUE) # Parameterübersicht
+```
+
+.center[
+&lt;img src="bilder/lavaan_moderation.png" width="350px" /&gt;
+]
+
+]
+]
+
+---
+class: top, left
+### Multivariate (latente) Modellierung
+
+#### Mediation (Pfadanalyse)
+
+
+
+
+
+.pull-left[
+
+**Beispiel Mediation: Flüssigkeitszufuhr**
+
+* UV (X) = Raumtemperatur
+
+* Mediator (M) = Durst (Skala von 1-10)
+
+* AV (Y) = Getrunkene Gläser
+
+* `\(N = 50\)` (rechts nur 15 Zeilen dargestellt)
+
+.center[
+&lt;img src="bilder/Mediation.png" width="500px" /&gt;
+]
+]
+
+.pull-right[
+&lt;table class=" lightable-classic" style="font-size: 13px; font-family: Times New Roman; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; Raumtemperatur &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Durst &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Getraenke &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 18 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 19 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 25 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 20 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 20 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 25 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 21 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 16 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 18 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 19 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 21 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 21 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 20 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 18 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+---
+class: top, left
+### Multivariate (latente) Modellierung
+
+.pull-left[
+#### Mediation (Pfadanalyse)
+
+**Mediation in `lavaan`**
+
+``` r
+model &lt;- ' # Direkter Effekt
+             Y ~ c * X
+           # Mediator
+             M ~ a * X
+             Y ~ b * M
+           # Indirekter Effect (a*b)
+             ab := a*b
+           # Totaler Effect
+             total := c + (a*b)
+         '
+fit &lt;- sem(model, data = df)
+```
+
+]
+
+.pull-right[
+.center[
+&lt;img src="bilder/mediation_gross.png" width="500px" /&gt;
+]
+]
+
+---
+class: top, left
+### Multivariate (latente) Modellierung
+
+#### Mediation (Pfadanalyse)
+
+.pull-left[
+
+**Beispiel Mediation: Flüssigkeitszufuhr**
+
+
+``` r
+model &lt;- ' # Direkter Effekt
+             Getraenke ~ c * Raumtemperatur
+           # Mediator
+             Durst ~ a * Raumtemperatur
+             Getraenke ~ b * Durst
+           # Indirekter Effect (a*b)
+             ab := a*b
+           # Totaler Effect
+             total := c + (a*b)
+         '
+set.seed(123) # Zufällifgkeit reproduzieren
+
+fit &lt;- sem(model, 
+           data = df, 
+           se = "bootstrap", 
+           bootstrap = 1000)
+```
+]
+
+.pull-right[
+&lt;table class=" lightable-classic" style="font-size: 13px; font-family: Times New Roman; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; Raumtemperatur &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Durst &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Getraenke &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 18 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 19 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 25 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 20 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 20 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 25 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 21 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 16 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 18 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 19 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 21 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 21 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 20 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 18 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+---
+class: top, left
+### Multivariate (latente) Modellierung
+
+.pull-left[
+
+#### Mediation (Pfadanalyse)
+
+
+``` r
+summary(fit, fit.measures = TRUE)
+```
+
+* Keine latenten Variablen im Modell (Pfadanalyse)
+
+* Fit Indizes geben optimalen Fit an
+
+* Achtung: Bei Mediation mit latenten Variablen muss vor der Interpretation der Modellfit geprüft werden 
+]
+
+.pull-right[
+.center[
+&lt;img src="bilder/lavaan_mediation1.png" width="450px" /&gt;
+]
+]
+
+---
+class: top, left
+### Multivariate (latente) Modellierung
+
+.pull-left[
+
+#### Mediation (Pfadanalyse)
+
+&lt;small&gt;
+
+* `\(a\)`: Raumtemperatur sagt Durst signifikant vorher `\((\beta=0.20, p&lt;.001)\)`
+
+* `\(b\)`: Durst sagt Getränkezahl signifikant vorher `\((\beta=0.54, p=.001)\)`. 
+
+* Indirekter Pfad `\(a \cdot b\)`: Der Effekt von Raumtemperatur auf Getränkezahl wird signifikant durch Durst mediiert `\((\beta=0.11, p=.008)\)`. 
+
+* Direkter Pfad `\(c\)`: Wenn `\(a \cdot b\)` berücksichtigt wird, ist Pfad von Raumtemperatur auf Getränkezahl nicht signifikant `\((\beta=0.05, p=.407)\)`
+
+* Da `\(a \cdot b\)` signifikant und `\(c\)` nicht signifikant `\(\rightarrow\)` Totale Mediation 
+
+* Falls `\(a \cdot b\)` signifikant und `\(c\)` auch signifikant wäre `\(\rightarrow\)` Partielle Mediation 
+]
+
+.pull-right[
+
+``` r
+summary(fit, fit.measures = TRUE)
+```
+.center[
+&lt;img src="bilder/lavaan_mediation2.png" width="420px" /&gt;
+]
+]
+
+---
+class: top, left
+### Multivariate (latente) Modellierung
+
+#### Mediation (Pfadanalyse)
+
+**Mediation und Bootstrapping**
+
+* In `sem(model, data = df, se = "bootstrap", bootstrap = 1000)` wird ein Bootstrap mit 1000 Wiederholungen angefordert.
+
+* Gründe für die Verwendung von Bootstrappig:
+
+* Indirekter Effekt `\((a \cdot b)\)` hat häufig eine schiefe oder asymmetrische Verteilung. Bootstrapping umgeht die Annahme der Normalverteilung und liefert zuverlässigere Ergebnisse.
+
+* Klassische Tests wie der Sobel-Test setzen Normalverteilung voraus und sind daher oft ungenau. Bootstrapping ermöglicht eine direkte Signifikanzprüfung des indirekten Effekts.
+
+* Bootstrapping erstellt empirische Konfidenzintervalle durch Resampling, die die tatsächliche Verteilung der Daten besser abbilden.
+
+* Bootstrapping liefert auch bei geringer Datenmenge robuste Schätzungen für indirekte Effekte.
+
+---
+class: top, left
+### Multivariate (latente) Modellierung
+
+#### Mediation (Pfadanalyse)
+
+**Darstellung in Tabellenform**
+
+
+``` r
+library(flextable)
+flextable(parameterestimates(fit, boot.ci.type = "bca.simple") )
+```
+
+&lt;div class="tabwid"&gt;&lt;style&gt;.cl-ae362006{}.cl-ae32f5b6{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-ae343e8a{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-ae343e8b{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-ae344c0e{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ae344c18{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ae344c19{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ae344c1a{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ae344c1b{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ae344c22{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}&lt;/style&gt;&lt;table data-quarto-disable-processing='true' class='cl-ae362006'&gt;&lt;thead&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;th class="cl-ae344c0e"&gt;&lt;p class="cl-ae343e8a"&gt;&lt;span class="cl-ae32f5b6"&gt;lhs&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-ae344c0e"&gt;&lt;p class="cl-ae343e8a"&gt;&lt;span class="cl-ae32f5b6"&gt;op&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-ae344c0e"&gt;&lt;p class="cl-ae343e8a"&gt;&lt;span class="cl-ae32f5b6"&gt;rhs&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-ae344c0e"&gt;&lt;p class="cl-ae343e8a"&gt;&lt;span class="cl-ae32f5b6"&gt;label&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-ae344c18"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;est&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-ae344c18"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;se&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-ae344c18"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;z&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-ae344c18"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;pvalue&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-ae344c18"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;ci.lower&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-ae344c18"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;ci.upper&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-ae344c19"&gt;&lt;p class="cl-ae343e8a"&gt;&lt;span class="cl-ae32f5b6"&gt;Getraenke&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c19"&gt;&lt;p class="cl-ae343e8a"&gt;&lt;span class="cl-ae32f5b6"&gt;~&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c19"&gt;&lt;p class="cl-ae343e8a"&gt;&lt;span class="cl-ae32f5b6"&gt;Raumtemperatur&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c19"&gt;&lt;p class="cl-ae343e8a"&gt;&lt;span class="cl-ae32f5b6"&gt;c&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1a"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;0.04825453&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1a"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;0.05816385&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1a"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;0.8296309&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1a"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;0.40674750720299&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1a"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;-0.06549829&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1a"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;0.1717305&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-ae344c19"&gt;&lt;p class="cl-ae343e8a"&gt;&lt;span class="cl-ae32f5b6"&gt;Durst&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c19"&gt;&lt;p class="cl-ae343e8a"&gt;&lt;span class="cl-ae32f5b6"&gt;~&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c19"&gt;&lt;p class="cl-ae343e8a"&gt;&lt;span class="cl-ae32f5b6"&gt;Raumtemperatur&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c19"&gt;&lt;p class="cl-ae343e8a"&gt;&lt;span class="cl-ae32f5b6"&gt;a&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1a"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;0.19715395&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1a"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;0.03785761&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1a"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;5.2077761&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1a"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;0.00000019111732&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1a"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;0.12785061&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1a"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;0.2834503&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-ae344c19"&gt;&lt;p class="cl-ae343e8a"&gt;&lt;span class="cl-ae32f5b6"&gt;Getraenke&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c19"&gt;&lt;p class="cl-ae343e8a"&gt;&lt;span class="cl-ae32f5b6"&gt;~&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c19"&gt;&lt;p class="cl-ae343e8a"&gt;&lt;span class="cl-ae32f5b6"&gt;Durst&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c19"&gt;&lt;p class="cl-ae343e8a"&gt;&lt;span class="cl-ae32f5b6"&gt;b&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1a"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;0.54264600&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1a"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;0.16162837&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1a"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;3.3573684&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1a"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;0.00078688178194&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1a"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;0.15546291&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1a"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;0.8184489&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-ae344c19"&gt;&lt;p class="cl-ae343e8a"&gt;&lt;span class="cl-ae32f5b6"&gt;Getraenke&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c19"&gt;&lt;p class="cl-ae343e8a"&gt;&lt;span class="cl-ae32f5b6"&gt;~~&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c19"&gt;&lt;p class="cl-ae343e8a"&gt;&lt;span class="cl-ae32f5b6"&gt;Getraenke&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c19"&gt;&lt;p class="cl-ae343e8a"&gt;&lt;span class="cl-ae32f5b6"&gt;&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1a"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;0.92348346&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1a"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;0.16560371&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1a"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;5.5764661&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1a"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;0.00000002454537&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1a"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;0.65833290&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1a"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;1.3358763&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-ae344c19"&gt;&lt;p class="cl-ae343e8a"&gt;&lt;span class="cl-ae32f5b6"&gt;Durst&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c19"&gt;&lt;p class="cl-ae343e8a"&gt;&lt;span class="cl-ae32f5b6"&gt;~~&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c19"&gt;&lt;p class="cl-ae343e8a"&gt;&lt;span class="cl-ae32f5b6"&gt;Durst&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c19"&gt;&lt;p class="cl-ae343e8a"&gt;&lt;span class="cl-ae32f5b6"&gt;&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1a"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;0.71393739&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1a"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;0.14465260&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1a"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;4.9355309&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1a"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;0.00000079933038&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1a"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;0.47654349&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1a"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;1.0399607&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-ae344c19"&gt;&lt;p class="cl-ae343e8a"&gt;&lt;span class="cl-ae32f5b6"&gt;Raumtemperatur&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c19"&gt;&lt;p class="cl-ae343e8a"&gt;&lt;span class="cl-ae32f5b6"&gt;~~&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c19"&gt;&lt;p class="cl-ae343e8a"&gt;&lt;span class="cl-ae32f5b6"&gt;Raumtemperatur&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c19"&gt;&lt;p class="cl-ae343e8a"&gt;&lt;span class="cl-ae32f5b6"&gt;&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1a"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;7.73000000&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1a"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;0.00000000&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1a"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1a"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1a"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;7.73000000&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1a"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;7.7300000&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-ae344c19"&gt;&lt;p class="cl-ae343e8a"&gt;&lt;span class="cl-ae32f5b6"&gt;ab&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c19"&gt;&lt;p class="cl-ae343e8a"&gt;&lt;span class="cl-ae32f5b6"&gt;:=&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c19"&gt;&lt;p class="cl-ae343e8a"&gt;&lt;span class="cl-ae32f5b6"&gt;a*b&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c19"&gt;&lt;p class="cl-ae343e8a"&gt;&lt;span class="cl-ae32f5b6"&gt;ab&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1a"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;0.10698480&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1a"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;0.04009173&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1a"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;2.6685004&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1a"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;0.00761906854800&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1a"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;0.03710583&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1a"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;0.1907947&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-ae344c1b"&gt;&lt;p class="cl-ae343e8a"&gt;&lt;span class="cl-ae32f5b6"&gt;total&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1b"&gt;&lt;p class="cl-ae343e8a"&gt;&lt;span class="cl-ae32f5b6"&gt;:=&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1b"&gt;&lt;p class="cl-ae343e8a"&gt;&lt;span class="cl-ae32f5b6"&gt;c+(a*b)&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c1b"&gt;&lt;p class="cl-ae343e8a"&gt;&lt;span class="cl-ae32f5b6"&gt;total&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c22"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;0.15523933&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c22"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;0.05162646&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c22"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;3.0069719&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c22"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;0.00263864184010&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c22"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;0.05179140&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-ae344c22"&gt;&lt;p class="cl-ae343e8b"&gt;&lt;span class="cl-ae32f5b6"&gt;0.2599020&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;
+
+---
+class: top, left
+### Multivariate (latente) Modellierung
+
+.pull-left[
+#### Mediation (Pfadanalyse)
+
+**Graphische Darstellung**
+
+.code80[
+
+``` r
+library(tidySEM)
+
+# Anordnung im Plot definieren
+
+layout = get_layout("", "Durst", "", 
+                    "Raumtemperatur", "", "Getränke",
+                    rows = 2)
+
+# Graph erstellen
+
+graph_sem(model = fit, 
+          layout = layout)
+```
+]
+]
+
+.pull-right[
+![](MVV_09_WS24_files/figure-html/unnamed-chunk-33-1.png)&lt;!-- --&gt;
+]
+
+---
+class: top, left
+### Multivariate (latente) Modellierung
+
+#### Latente Wachstumskurvenmodelle
+
+
+
+* Mit latenten Wachstumskurvenmodellen lassen sich Messwiederholungen modellieren
+
+* Ähnlich wie beim LMM gibt es einen Intercept und einen Slope
+
+  * Intercept = Durchschnitt zu Zeitpunkt 0
+  
+  * Slope = Durchschnittliche Veränderung, wenn Zeit `\((t)\)` um 1 Einheit zunimmt
+
+* In latenten Wachstumskurvenmodellen haben Intercept und Slope eine Varianz (sie dürfen also variieren)
+
+  * `\(\rightarrow\)` entspricht LMM mit random Intercepts und random Slopes
+
+* Vorteil der latenten Wachstumskurvenmodelle gegenüber LMM
+
+  * Veränderung mehrerer AVs gleichzeitig modellierbar (multivariat)
+  
+  * Man kann Veränderung einer Variable mit Veränderung anderer Variable vorhersagen
+
+---
+class: top, left
+### Multivariate (latente) Modellierung
+
+#### Latente Wachstumskurvenmodelle
+
+.pull-left[
+
+**Beispiel: Latente Wachstumskurvenmodelle: Therapieansprechen**
+
+* Depressionsstudie mit `\(N=80\)` Patient:innen
+
+* Baseline `\((t_0)\)` und 5 Verlaufsmessungen `\((t_{1-5})\)`
+
+* Patienten erhalten eine Psychotherapie
+
+* Hypothese: Abnahme der Symptomatik im Verlauf (negativer Slope)
+]
+
+.pull-right[
+&lt;table class=" lightable-classic" style="font-size: 13px; font-family: Times New Roman; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; subject &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; t0 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; t1 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; t2 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; t3 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; t4 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; t5 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 21a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 43 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 39 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 30 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 32 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 32 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 21 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 22a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 35 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 35 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 21 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 23a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 40 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 37 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 31 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 31 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 21 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 24a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 36 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 36 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 32 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 25 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 33 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 26 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 25a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 35 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 32 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 20 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 27 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 27 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 26a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 39 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 34 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 32 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 27 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 34 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 21 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 27a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 32 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 26 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 22 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 28a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 40 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 41 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 26 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 30 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 22 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 29a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 39 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 34 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 32 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 22 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 30a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 38 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 42 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 27 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 19 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 19 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 31a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 39 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 33 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 33 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 29 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 22 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 32a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 36 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 36 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 28 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 27 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 27 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 33a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 37 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 41 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 33 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 34 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 30 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 34a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 34 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 29 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 30 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 23 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 19 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 35a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 36 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 35 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 29 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 19 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 22 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 19 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+---
+class: top, left
+### Multivariate (latente) Modellierung
+
+#### Latente Wachstumskurvenmodelle
+
+.pull-left[
+
+**Beispiel: Latente Wachstumskurvenmodelle: Therapieansprechen**
+
+Vergleich LMM:
+
+.code60[
+
+``` r
+# Datensatz ist im wide Format (s.h. vorherige Folie)
+# In das long Format umstrukturieren
+
+long = pivot_longer(df, 
+                    cols = c("t0", "t1", "t2", "t3", "t4", "t5"),
+                    names_to = "Time",
+                    values_to = "Score")
+
+# Zeitvariable numerisch machen, um kontinuierlichen Slope berechnen zu können
+
+long$Time_num = as.numeric(factor(long$Time)) - 1
+
+library(lme4)
+library(lmerTest)
+
+lmm_model = lmer(Score ~ Time_num + (Time_num|subject), data = long)
+```
+]
+]
+
+.pull-right[
+&lt;table class=" lightable-classic" style="font-size: 13px; font-family: Times New Roman; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; subject &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Time &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Score &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Time_num &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 21a &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; t0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 43 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 21a &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; t1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 39 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 21a &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; t2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 30 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 21a &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; t3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 32 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 21a &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; t4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 32 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 21a &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; t5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 21 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 22a &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; t0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 35 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 22a &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; t1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 35 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 22a &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; t2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 22a &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; t3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 22a &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; t4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 21 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 22a &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; t5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 23a &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; t0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 40 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 23a &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; t1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 37 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 23a &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; t2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 31 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+---
+class: top, left
+### Multivariate (latente) Modellierung
+
+.pull-left[
+
+#### Latente Wachstumskurvenmodelle
+
+**Beispiel: Latente Wachstumskurvenmodelle: Therapieansprechen**
+
+Vergleich LMM:
+
+* Fixed und Randomeffekte enthalten
+
+* Zur Baseline haben Pat. einen Symptomwert von 37.90 (Intercept)
+
+* Pro Messung nehmen Symptome durchschnittlich um -2.41 Punkte ab (Slope)
+
+]
+
+.pull-right[
+.code60[
+
+``` r
+summary(lmm_model)
+```
+
+```
+## Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+## lmerModLmerTest]
+## Formula: Score ~ Time_num + (Time_num | subject)
+##    Data: long
+## 
+## REML criterion at convergence: 2850.7
+## 
+## Scaled residuals: 
+##      Min       1Q   Median       3Q      Max 
+## -2.66966 -0.58568 -0.02789  0.62411  2.54319 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev. Corr
+##  subject  (Intercept)  5.464   2.337        
+##           Time_num     1.026   1.013    0.45
+##  Residual             14.835   3.852        
+## Number of obs: 480, groups:  subject, 80
+## 
+## Fixed effects:
+##             Estimate Std. Error      df t value Pr(&gt;|t|)    
+## (Intercept)  37.8982     0.4067 79.0017   93.18   &lt;2e-16 ***
+## Time_num     -2.4093     0.1530 78.9998  -15.74   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Correlation of Fixed Effects:
+##          (Intr)
+## Time_num -0.210
+```
+]
+]
+
+---
+class: top, left
+### Multivariate (latente) Modellierung
+
+#### Latente Wachstumskurvenmodelle
+
+.pull-left[
+.center[
+&lt;img src="bilder/LGC1.png" width="600px" /&gt;
+]
+]
+
+.pull-right[
+* Im latenten Wachstumskurvenmodell sind messwiederholte Werte manifeste Indikatoren 
+
+* Veränderung (Slope) und Ausgangsniveau (Intercept) werden als latente Variablen modelliert
+
+* Beide haben eine Varianz (random Intercept und random Slope)
+
+* Der Schlüssel für die Modellierung der Messwiederholung liegt in der besonderen Fixierung der Pfade
+]
+
+---
+class: top, left
+### Multivariate (latente) Modellierung
+
+#### Latente Wachstumskurvenmodelle
+
+.pull-left[
+.center[
+&lt;img src="bilder/LGC2.png" width="600px" /&gt;
+]
+]
+
+.pull-right[
+* Der Schlüssel für die Modellierung der Messwiederholung liegt in der besonderen Fixierung der Pfade
+
+* Für den Intercept werden alle Ladungen auf 1 fixiert
+]
+
+---
+class: top, left
+### Multivariate (latente) Modellierung
+
+#### Latente Wachstumskurvenmodelle
+
+.pull-left[
+.center[
+&lt;img src="bilder/LGC3.png" width="600px" /&gt;
+]
+]
+
+.pull-right[
+* Der Schlüssel für die Modellierung der Messwiederholung liegt in der besonderen Fixierung der Pfade
+
+* Für den Slope werden die Ladungen kontinuierlich durchnummeriert (beginnend mit 0 = Baseline)
+
+* Dies entspricht einem linearen Wachstumsfaktor
+
+* Sollen andere Abstände modelliert werden, können die Zahlen angepasst werden (z.B. in tatsächlichen Wochenabständen)
+]
+
+
+---
+class: top, left
+### Multivariate (latente) Modellierung
+
+#### Latente Wachstumskurvenmodelle
+
+.pull-left[
+
+**Beispiel: Latente Wachstumskurvenmodelle: Therapieansprechen**
+
+Latente Wachstumskurvenmodelle in `lavaan`:
+
+
+``` r
+model &lt;- ' 
+
+i =~ 1*t0 + 1*t1 + 1*t2 + 1*t3 + 1*t4 + 1*t5
+
+s =~ 0*t0 + 1*t1 + 2*t2 + 3*t3 + 4*t4 + 5*t5
+'
+
+fit &lt;- growth(model, data = df)
+```
+
+]
+
+.pull-right[
+&lt;table class=" lightable-classic" style="font-size: 13px; font-family: Times New Roman; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; subject &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; t0 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; t1 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; t2 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; t3 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; t4 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; t5 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 21a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 43 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 39 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 30 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 32 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 32 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 21 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 22a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 35 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 35 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 21 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 23a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 40 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 37 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 31 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 31 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 21 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 24a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 36 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 36 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 32 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 25 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 33 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 26 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 25a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 35 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 32 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 20 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 27 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 27 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 26a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 39 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 34 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 32 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 27 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 34 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 21 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 27a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 32 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 26 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 22 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 28a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 40 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 41 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 26 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 30 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 22 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 29a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 39 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 34 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 32 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 22 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 30a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 38 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 42 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 27 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 19 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 19 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 31a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 39 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 33 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 33 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 29 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 22 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 32a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 36 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 36 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 28 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 27 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 27 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 33a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 37 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 41 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 33 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 34 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 30 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 34a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 34 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 29 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 30 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 23 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 19 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 35a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 36 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 35 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 29 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 19 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 22 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 19 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+---
+class: top, left
+### Multivariate (latente) Modellierung
+
+#### Latente Wachstumskurvenmodelle
+
+.pull-left[
+
+``` r
+summary(lmm_model) # lme4
+```
+.center[
+&lt;img src="bilder/lavaan_LMM.png" width="600px" /&gt;
+]
+
+]
+
+.pull-right[
+
+``` r
+summary(fit) # lavaan (Messmodell)
+```
+.center[
+&lt;img src="bilder/lavaan_LGC1.png" width="500px" /&gt;
+]
+]
+
+---
+class: top, left
+### Multivariate (latente) Modellierung
+
+#### Latente Wachstumskurvenmodelle
+
+.pull-left[
+
+``` r
+summary(lmm_model) # lme4
+```
+.center[
+&lt;img src="bilder/lavaan_LMM.png" width="600px" /&gt;
+]
+
+]
+
+.pull-right[
+
+``` r
+summary(fit) # lavaan (Strukturmodell)
+```
+.center[
+&lt;img src="bilder/lavaan_LGC2.png" width="400px" /&gt;
+]
+]
+
+---
+class: top, left
+### Multivariate (latente) Modellierung
+
+#### Latente Wachstumskurvenmodelle 
+
+Latente Wachstumskurvenmodelle ermöglichen komplexe Analysen (z.B. Mediation latenter Variablen)
+
+.center[
+&lt;img src="bilder/lgc_complex.png" width="760px" /&gt;
+]
+
+
+---
+class: top, left
+### Multivariate (latente) Modellierung
+
+#### Messinvarianzprüfung
+
+* Messinvarianz = ein Messinstrument funktioniert über verschiedene Gruppen (z. B. Geschlecht, Altersgruppen, Kulturen) oder über die Zeit hinweg gleich 
+
+* 	Messinvarianzprüfung - Ziel:
+  * Sicherstellen, dass Unterschiede in den gemessenen Werten echte Unterschiede in der zugrunde liegenden latenten Variable darstellen
+  
+  * Unterschiede sind nicht lediglich durch Unterschiede in der Messweise bedingt.
+  
+* Praktische Relevanz:
+
+  * Ermöglicht faire Gruppenvergleiche.
+ 
+  * Prüft, ob das Konstrukt (z. B. Intelligenz, Angst) in allen Gruppen gleich interpretiert wird.
+ 
+  * Sicherstellung, dass Veränderungen über die Zeit tatsächlich auf eine Veränderung des Konstrukts zurückzuführen sind.
+	
+---
+class: top, left
+### Multivariate (latente) Modellierung
+
+#### Messinvarianzprüfung
+
+&lt;small&gt;
+
+Wenn die Daten kontinuierlich sind, umfasst die Prüfung der Messinvarianz eine festgelegte Abfolge von Modellvergleichstests:
+
+**1. Konfigurale Invarianz (engl. configural invariance)**
+
+  * Die gleiche **Faktorstruktur** wird in allen Gruppen angenommen, ohne dass weitere Einschränkungen vorgenommen werden.
+
+**2. Schwache Invarianz (engl. metric invariance)**
+
+  * Die **Faktorladungen** werden zwischen den Gruppen gleichgesetzt 
+  
+  * d. h., die Beziehungen zwischen den Indikatoren und den latenten Variablen sind in allen Gruppen gleich
+
+**3. Starke Invarianz (engl. scalar invariance)**
+
+  * Sowohl die **Faktorladungen** als auch die **Intercepts** werden zwischen den Gruppen gleichgesetzt
+  
+  * d. h., dass die gemessenen Variablen in allen Gruppen die latenten Variablen gleich repräsentieren.
+  
+**4. Strenge Invarianz (engl. strict invariance)**
+
+  * Setzt Gleichheit der einzigartigen Varianzen oder der Residualvarianzen voraus
+  
+  * In der Praxis wird jedoch das Erreichen der ersten drei Invarianzstufen als ausreichend angesehen (Van de Schoot et al., 2012)
+
+---
+class: top, left
+### Multivariate (latente) Modellierung
+
+#### Messinvarianzprüfung
+
+* Gängige Methode: Multi-Group Confirmatory Factor Analysis (MGCFA)
+
+* Nutzbare Funktionen für MGCFA in `lavaan`:
+
+  * `anova()`
+  
+  * `compareFit()`
+  
+  * `lavTestLRT()`
+
+* Modelle werden simultan für alle Gruppen innerhalb eines Gesamtmodells angepasst.
+
+* Für unterschiedliche strenge Invarianzstufen, werden zusätzliche Parameter fixiert (engl. contraints)
+
+* Sollen ganze Gruppen von Parametern (z.B. alle Ladungen) zwischen Gruppen gleichgehalten werden, geht dies mit der Funktion `group.equal`
+
+  * Vorteil: Nicht alle Parameter müssen händisch im Modell angepasst werden
+
+---
+class: top, left
+### Multivariate (latente) Modellierung
+
+#### Messinvarianzprüfung
+
+
+
+
+.pull-left[
+
+**Beispiel: dunkle Triade der Persönlichkeit**
+
+* 3 Faktoren (jeweils 3 Items):
+
+  * Narzissmus
+  
+  * Machiavellismus
+  
+  * subklinische Psychopathie
+
+* Struktur des Fragebogens wurde mittels CFA geprüft
+
+* Frage: Ist Fragebogen messinvariant für Frauen und Männer?
+
+]
+
+.pull-right[
+&lt;table class=" lightable-classic" style="font-size: 13px; font-family: Times New Roman; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Geschlecht &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Item1 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Item2 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Item3 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Item4 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Item5 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Item6 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Item7 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Item8 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Item9 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; weiblich &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; weiblich &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; weiblich &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; weiblich &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; weiblich &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; weiblich &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; weiblich &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; weiblich &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; weiblich &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; weiblich &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; weiblich &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; weiblich &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; weiblich &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; weiblich &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; weiblich &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+---
+class: top, left
+### Multivariate (latente) Modellierung
+
+.pull-left[
+
+#### Messinvarianzprüfung
+
+**Beispiel: dunkle Triade der Persönlichkeit**
+
+* 3 Faktoren (jeweils 3 Items):
+
+  * Narzissmus
+  
+  * Machiavellismus
+  
+  * subklinische Psychopathie
+
+* Struktur des Fragebogens wurde mittels CFA geprüft
+
+* Frage: Ist Fragebogen messinvariant für Frauen und Männer?
+
+]
+
+.pull-right[
+.center[
+&lt;img src="bilder/dark_triad.png" width="300px" /&gt;
+]
+]
+
+---
+class: top, left
+### Multivariate (latente) Modellierung
+
+#### Messinvarianzprüfung
+
+* Zunächst formulieren wir das Mesmodell für die Dunkle Triade der Persönlichkeit
+
+* Dann werden Modelle mit allen Stufen von Parameterfixierungen zwischen den Geschlechtern aufgestellt
+
+
+``` r
+dark.model &lt;- ' Narzissmus  =~ Item1 + Item2 + Item3
+                Machiavellismus =~ Item4 + Item5 + Item6
+                Psychotizismus   =~ Item7 + Item8 + Item9'
+
+# Konfigurale Invarianz
+
+fit1 &lt;- cfa(dark.model, data = df, group = "Geschlecht")
+
+# Metrische Invarianz
+
+fit2 &lt;- cfa(dark.model, data = df, group = "Geschlecht", group.equal = "loadings")
+
+# Skalar Invarianz
+
+fit3 &lt;- cfa(dark.model, data = df, group = "Geschlecht", group.equal = c("intercepts", "loadings"))
+```
+
+---
+class: top, left
+### Multivariate (latente) Modellierung
+
+#### Messinvarianzprüfung
+
+
+``` r
+# Messinvarianzprüfung (Modellvergleich)
+
+lavTestLRT(fit1, fit2, fit3)
+```
+
+```
+## 
+## Chi-Squared Difference Test
+## 
+##      Df    AIC    BIC   Chisq Chisq diff    RMSEA Df diff Pr(&gt;Chisq)    
+## fit1 48 8182.0 8404.5  99.808                                           
+## fit2 54 8180.1 8380.3 109.922     10.113 0.067493       6       0.12    
+## fit3 60 8204.9 8382.8 146.683     36.761 0.184569       6   1.96e-06 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+
+* Wir haben 3 Modellanpassungen angegeben `\(\rightarrow\)` es werden zwei Tests durchgeführt: 
+  
+  * Der 1. Test vergleicht das erste Modell mit dem zweiten Modell
+  
+  * Der 2. Test vergleicht das zweite Modell mit dem dritten Modell  
+  
+---
+class: top, left
+### Multivariate (latente) Modellierung
+
+#### Messinvarianzprüfung
+
+
+``` r
+# Messinvarianzprüfung (Modellvergleich)
+
+lavTestLRT(fit1, fit2, fit3)
+```
+
+```
+## 
+## Chi-Squared Difference Test
+## 
+##      Df    AIC    BIC   Chisq Chisq diff    RMSEA Df diff Pr(&gt;Chisq)    
+## fit1 48 8182.0 8404.5  99.808                                           
+## fit2 54 8180.1 8380.3 109.922     10.113 0.067493       6       0.12    
+## fit3 60 8204.9 8382.8 146.683     36.761 0.184569       6   1.96e-06 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+
+* Erster p-Wert nicht signifikant `\(\rightarrow\)` die schwache Invarianz (gleiche Faktorladungen) wird in diesem Datensatz unterstützt
+
+* Zweiter p-Wert signifikant `\(\rightarrow\)` die starke Invarianz wird in diesem Datensatz nicht unterstützt 
+
+
+---
+class: top, left
+### Take-aways
+
+.full-width[.content-box-gray[
+
+* Mediation ermöglicht Untersuchung indirekter Effekte: Vermittlung zwischen UV und AV.
+
+* Bootstrapping als robuste Methode zur Schätzung von indirekten Effekten.
+
+* Latente Wachstumskurvenmodelle ermöglichen Analyse von Entwicklungsverläufen über die Zeit.
+
+* Vorteil latenter Wachstumskurvenmodelle: Berücksichtigung von Messfehlern und Analyse mehrerer messwiederholter Variablen im selben Modell
+
+*	Messinvarianzprüfung stellt sicher, dass Messinstrumente über Gruppen/Zeiträume hinweg gleich funktionieren.
+
+*	Drei zentrale Stufen der Messinvarianzprüfung: Konfigurale, schwache und starke Invarianz.
+
+*	Messinvarianz ist Voraussetzung für valide Gruppenvergleiche und Interpretation latenter Mittelwerte.
+]
+
+]
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+  "slideNumberFormat": "%current%",
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "countIncrementalSlides": false,
+  "ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
