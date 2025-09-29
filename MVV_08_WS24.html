@@ -1,65 +1,33 @@
----
-title: "Einheit 8"
-subtitle: "⚔<br/>with xaringan"
-author: "Prof. Dr. Stephan Goerigk"
-institute: "RStudio, PBC"
-date: "2016/12/12 (updated: `r Sys.Date()`)"
-output:
-  xaringan::moon_reader:
-    css: [xaringan-themer.css, "hygge", style.css]
-    lib_dir: libs
-    nature:
-      slideNumberFormat: "%current%"
-      highlightStyle: github
-      highlightLines: true
-      countIncrementalSlides: false
-      ratio: '16:9'
-    seal: false
----
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Einheit 8</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Prof. Dr. Stephan Goerigk" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/hygge.css" rel="stylesheet" />
+    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view/tile-view.js"></script>
+    <script src="libs/fabric/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#EE0071"],"pen_size":4,"eraser_size":40,"palette":[]}) })</script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
 
-```{r setup, include=FALSE}
-options(htmltools.dir.version = FALSE)
 
-library(tidyverse)
-library(kableExtra)
-library(ggplot2)
-library(plotly)
-library(htmlwidgets)
-library(MASS)
-library(ggpubr)
-library(xaringanthemer)
-library(xaringanExtra)
-library(lavaan)
 
-style_duo_accent(
-  primary_color = "#621C37",
-  secondary_color = "#EE0071",
-  background_image = "blank.png"
-)
-
-xaringanExtra::use_xaringan_extra(c("tile_view"))
-
-use_scribble(
-  pen_color = "#EE0071",
-  pen_size = 4
-  )
-
-knitr::opts_chunk$set(
-  fig.retina = TRUE,
-  warning = FALSE,
-  message = FALSE
-)
-
-source(file = "base_functions.R")
-```
 
 name: Title slide
 class: middle, left
-<br><br><br><br><br><br><br>
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
 # Multivariate Verfahren
 ***
 ### Einheit 8: Multivariate (latente) Modellierung (2)
-##### `r format(as.Date(data.frame(readxl::read_excel("Multivariate Verfahren Termine.xlsx"))$Datum), "%d.%m.%Y")[8]` | Prof. Dr. Stephan Goerigk
+##### 12.12.2024 | Prof. Dr. Stephan Goerigk
 
 ---
 class: top, left
@@ -69,43 +37,36 @@ class: top, left
 
 #### Strukturgleichungsmodelle in R - CFA Beispiel
 
-<small>
-* Das Modell (rechts) stellt die CFA für einen Kognitionstest dar (Holzinger & Swineford, 1939).
+&lt;small&gt;
+* Das Modell (rechts) stellt die CFA für einen Kognitionstest dar (Holzinger &amp; Swineford, 1939).
 
-*	Ein visueller Faktor, gemessen durch die 3 Variablen: $x_1$, $x_2$ und $x_3$.
+*	Ein visueller Faktor, gemessen durch die 3 Variablen: `\(x_1\)`, `\(x_2\)` und `\(x_3\)`.
 
-*	Ein textueller Faktor, gemessen durch die 3 Variablen: $x_4$, $x_5$ und $x_6$.
+*	Ein textueller Faktor, gemessen durch die 3 Variablen: `\(x_4\)`, `\(x_5\)` und `\(x_6\)`.
 
-*	Ein Geschwindigkeitsfaktor, gemessen durch die 3 Variablen: $x_7$, $x_8$ und $x_9$.
+*	Ein Geschwindigkeitsfaktor, gemessen durch die 3 Variablen: `\(x_7\)`, `\(x_8\)` und `\(x_9\)`.
 
 ***
 
 Modell in `lavaan`:
 
-```{r include=FALSE}
-model <- 'visual  =~ x1 + x2 + x3 
-          textual =~ x4 + x5 + x6
-          speed   =~ x7 + x8 + x9'
 
-fit <- cfa(model, data = HolzingerSwineford1939)
-```
 
 .code90[
-```{r eval=FALSE}
-model <- 'visual  =~ x1 + x2 + x3 
+
+``` r
+model &lt;- 'visual  =~ x1 + x2 + x3 
           textual =~ x4 + x5 + x6
           speed   =~ x7 + x8 + x9'
 
-fit <- cfa(model, data = HolzingerSwineford1939)
+fit &lt;- cfa(model, data = HolzingerSwineford1939)
 ```
 ]
 ]
 
 .pull-right[
 .center[
-```{r eval = TRUE, echo = F, out.width = "300px"}
-knitr::include_graphics("bilder/holzinger.png")
-```
+&lt;img src="bilder/holzinger.png" width="300px" /&gt;
 ]
 ]
 
@@ -113,30 +74,27 @@ knitr::include_graphics("bilder/holzinger.png")
 class: top, left
 ### Multivariate (latente) Modellierung
 
-<small> <small>
+&lt;small&gt; &lt;small&gt;
 
 .pull-left[
 
 #### Strukturgleichungsmodelle in R - CFA Beispiel
 
 .center[
-```{r eval = TRUE, echo = F, out.width = "340px"}
-knitr::include_graphics("bilder/Holzinger_withnumbers.png")
-```
+&lt;img src="bilder/Holzinger_withnumbers.png" width="340px" /&gt;
 ]
 
 ]
 
 .pull-right[
 .code80[
-```{r eval=FALSE}
+
+``` r
 parameterEstimates(fit)
 ```
 ]
 .center[
-```{r eval = TRUE, echo = F, out.width = "300px"}
-knitr::include_graphics("bilder/holzinger2.png")
-```
+&lt;img src="bilder/holzinger2.png" width="300px" /&gt;
 ]
 ]
 
@@ -144,7 +102,7 @@ knitr::include_graphics("bilder/holzinger2.png")
 class: top, left
 ### Multivariate (latente) Modellierung
 
-<small> <small>
+&lt;small&gt; &lt;small&gt;
 
 .pull-left[
 
@@ -160,17 +118,34 @@ Die Ausgabe besteht aus drei Teilen. Die ersten neun Zeilen werden als Header be
 
 *	den Optimizer, der verwendet wurde, um die am besten passenden Parameterwerte für diesen Schätzer zu finden (hier: NLMINB)
 
-*	die Anzahl der Modellparameter (hier: `r fitMeasures(fit)["npar"]`)
+*	die Anzahl der Modellparameter (hier: 21 )
 
-*	die Anzahl der Beobachtungen, die effektiv in der Analyse verwendet wurden (hier: `r nobs(fit)`)
+*	die Anzahl der Beobachtungen, die effektiv in der Analyse verwendet wurden (hier: 301)
 
 *	einen Abschnitt namens Model Test User Model, der einen Teststatistik-Wert, Freiheitsgrade und einen p-Wert für das vom Nutzer spezifizierte Modell bereitstellt.
 ]
 
 .pull-right[
 .code80[
-```{r}
+
+``` r
 fit
+```
+
+```
+## lavaan 0.6-19 ended normally after 35 iterations
+## 
+##   Estimator                                         ML
+##   Optimization method                           NLMINB
+##   Number of model parameters                        21
+## 
+##   Number of observations                           301
+## 
+## Model Test User Model:
+##                                                       
+##   Test statistic                                85.306
+##   Degrees of freedom                                24
+##   P-value (Chi-square)                           0.000
 ```
 ]
 
@@ -181,7 +156,7 @@ fit
 class: top, left
 ### Multivariate (latente) Modellierung
 
-<small> <small>
+&lt;small&gt; &lt;small&gt;
 
 .pull-left[
 
@@ -195,19 +170,18 @@ Anschließend werden alle freien (und festen) Parameter, die im Modell enthalten
 
 *	Die dritte Spalte `(Z-value)` enthält die Wald-Statistik (die einfach durch Division des Parameterwerts durch seinen Standardfehler berechnet wird).
 
-*	Die letzte Spalte `(P(>|z|))` enthält den p-Wert, um die Nullhypothese zu testen, dass der Parameterwert in der Population gleich null ist.
+*	Die letzte Spalte `(P(&gt;|z|))` enthält den p-Wert, um die Nullhypothese zu testen, dass der Parameterwert in der Population gleich null ist.
 ]
 
 .pull-right[
 .code80[
-```{r eval=FALSE}
+
+``` r
 parameterEstimates(fit)
 ```
 ]
 .center[
-```{r eval = TRUE, echo = F, out.width = "300px"}
-knitr::include_graphics("bilder/holzinger2.png")
-```
+&lt;img src="bilder/holzinger2.png" width="300px" /&gt;
 ]
 ]
 
@@ -215,7 +189,7 @@ knitr::include_graphics("bilder/holzinger2.png")
 class: top, left
 ### Multivariate (latente) Modellierung
 
-<small> <small>
+&lt;small&gt; &lt;small&gt;
 
 .pull-left[
 
@@ -236,14 +210,13 @@ Abschnitt `Variances`:
 
 .pull-right[
 .code80[
-```{r eval=FALSE}
+
+``` r
 parameterEstimates(fit)
 ```
 ]
 .center[
-```{r eval = TRUE, echo = F, out.width = "300px"}
-knitr::include_graphics("bilder/holzinger2.png")
-```
+&lt;img src="bilder/holzinger2.png" width="300px" /&gt;
 ]
 ]
 
@@ -254,9 +227,7 @@ class: top, left
 #### Modellpassung und Fit indices
 
 .center[
-```{r eval = TRUE, echo = F, out.width = "800px"}
-knitr::include_graphics("bilder/Fit_indices.png")
-```
+&lt;img src="bilder/Fit_indices.png" width="800px" /&gt;
 ]
 
 ---
@@ -265,25 +236,25 @@ class: top, left
 
 #### Modellpassung und Fit indices
 
-<small>
+&lt;small&gt;
 
 `lavaan` liefert eine Vielzahl von Statistiken zur Modellpassung. Wir konzentrieren uns jedoch auf die 5 gängigsten:
 
 *	Modell-Chi-Quadrat: Dies ist die Chi-Quadrat-Statistik, die aus der Maximum-Likelihood-Schätzung gewonnen wird (in `lavaan` als Test Statistic for the Model Test User Model bezeichnet).
 	
-*	CFI (Comparative Fit Index): Werte liegen zwischen 0 und 1. Werte > 0.90 (konservativ: 0.95) deuten auf eine gute Modellanpassung hin.
+*	CFI (Comparative Fit Index): Werte liegen zwischen 0 und 1. Werte &gt; 0.90 (konservativ: 0.95) deuten auf eine gute Modellanpassung hin.
 
-*	TLI (Tucker-Lewis-Index): Auch dieser liegt zwischen 0 und 1. Werte > 1 werden auf 1 gerundet. Werte über 0.90 weisen auf eine gute Modellanpassung hin. Wenn CFI und TLI beide unter 1 liegen, ist der CFI stets größer als der TLI.
+*	TLI (Tucker-Lewis-Index): Auch dieser liegt zwischen 0 und 1. Werte &gt; 1 werden auf 1 gerundet. Werte über 0.90 weisen auf eine gute Modellanpassung hin. Wenn CFI und TLI beide unter 1 liegen, ist der CFI stets größer als der TLI.
 
 * SRMR (Standardized-Root-Mean-Residual)
 
 *	RMSEA (Root Mean Square Error of Approximation):
 
-  *	In lavaan wird zusätzlich ein p-Wert für die „Close Fit“-Hypothese angegeben, der testet, ob RMSEA < 0.05 ist.
+  *	In lavaan wird zusätzlich ein p-Wert für die „Close Fit“-Hypothese angegeben, der testet, ob RMSEA &lt; 0.05 ist.
 	
 	*	Wird das Modell abgelehnt, bedeutet dies, dass Ihr Modell keine „nahe“ Anpassung an die Daten zeigt.
 
-$\rightarrow$ Diese Fit-Maße gehören zu den wichtigsten Indikatoren für die Bewertung von Strukturgleichungsmodellen.
+`\(\rightarrow\)` Diese Fit-Maße gehören zu den wichtigsten Indikatoren für die Bewertung von Strukturgleichungsmodellen.
 
 ---
 class: top, left
@@ -302,14 +273,13 @@ class: top, left
 ]
 
 .pull-right[
-```{r eval=FALSE}
+
+``` r
 summary(fit, fit.measures = TRUE)
 ```
 
 .center[
-```{r eval = TRUE, echo = F, out.width = "280px"}
-knitr::include_graphics("bilder/Holzinger_fitmeasures.png")
-```
+&lt;img src="bilder/Holzinger_fitmeasures.png" width="280px" /&gt;
 ]
 ]
 
@@ -319,28 +289,28 @@ class: top, left
 
 #### Modellpassung und Fit indices
 
-<small>
+&lt;small&gt;
 
-** $\chi^2$-Test**
+** `\(\chi^2\)`-Test**
 
-Das Modell-Chi-Quadrat wird definiert als entweder $N F_{ML}$ oder $(N - 1) F_{ML}$ (je nach statistischem Paket)
+Das Modell-Chi-Quadrat wird definiert als entweder `\(N F_{ML}\)` oder `\((N - 1) F_{ML}\)` (je nach statistischem Paket)
 
 $$
 (N - 1) F_{ML}[S, \Sigma(\hat{\theta})] \sim \chi^2(df) \quad \text{mit } df = p - q
 $$
 
-* $p$: Anzahl bekannter Parameter  
-* $q$: Anzahl zu schätzender Parameter  
-* $N$: Anzahl der Versuchspersonen  
-* $F_{ML}$ ist die Fit-Funktion aus der Maximum-Likelihood-Methode ist, die zur Schätzung der Parameter im Modell verwendet wird.
+* `\(p\)`: Anzahl bekannter Parameter  
+* `\(q\)`: Anzahl zu schätzender Parameter  
+* `\(N\)`: Anzahl der Versuchspersonen  
+* `\(F_{ML}\)` ist die Fit-Funktion aus der Maximum-Likelihood-Methode ist, die zur Schätzung der Parameter im Modell verwendet wird.
 
 
-Das Hypothesenpaar des $\chi^2$-Tests lautet_
+Das Hypothesenpaar des `\(\chi^2\)`-Tests lautet_
 
-* **H₀**: $\Sigma = S$  
-* **H₁**: $\Sigma \neq S$  
+* **H₀**: `\(\Sigma = S\)`  
+* **H₁**: `\(\Sigma \neq S\)`  
 
-* Unter **H₀** ist dieser Wert $\chi^2$-verteilt mit $df = p - q$.  
+* Unter **H₀** ist dieser Wert `\(\chi^2\)`-verteilt mit `\(df = p - q\)`.  
 
 ---
 class: top, left
@@ -348,11 +318,11 @@ class: top, left
 
 #### Modellpassung und Fit indices
 
-** $\chi^2$-Test**
+** `\(\chi^2\)`-Test**
 
-* Je größer der $\chi^2$-Wert, desto größer ist der Unterschied zwischen der durch das Modell implizierten Kovarianzmatrix und der beobachteten Kovarianzmatrix. 
+* Je größer der `\(\chi^2\)`-Wert, desto größer ist der Unterschied zwischen der durch das Modell implizierten Kovarianzmatrix und der beobachteten Kovarianzmatrix. 
 
-* Ergibt der Signifikanztest für diesen $\chi^2$-Wert ein $p < 0.05$, wird die **H₀** abgelehnt.  
+* Ergibt der Signifikanztest für diesen `\(\chi^2\)`-Wert ein `\(p &lt; 0.05\)`, wird die **H₀** abgelehnt.  
 
   * Das bedeutet, die modell-implizierte Kovarianzmatrix weicht signifikant von der empirischen Kovarianzmatrix ab.  
 
@@ -366,13 +336,13 @@ class: top, left
 
 #### Modellpassung und Fit indices
 
-** $\chi^2$-Test und Stichprobengröße/Power**
+** `\(\chi^2\)`-Test und Stichprobengröße/Power**
 
 * Test ist sehr abhängig von der Stichprobengröße
 
 * Große Stichproben:
 
-  * In der Literatur ist gut dokumentiert, dass der $\chi^2$-Test in der Modellprüfung bei großen Stichproben überempfindlich reagiert. 
+  * In der Literatur ist gut dokumentiert, dass der `\(\chi^2\)`-Test in der Modellprüfung bei großen Stichproben überempfindlich reagiert. 
 
   * Für Modelle mit 75 bis 200 Fällen ein vernünftiges Maß für die Modellanpassung
 
@@ -388,11 +358,11 @@ class: top, left
 
 #### Modellpassung und Fit indices
 
-<small>
+&lt;small&gt;
 
-** $\chi^2$-Test und Stichprobengröße/Power**
+** `\(\chi^2\)`-Test und Stichprobengröße/Power**
 
-* Der $\chi^2$-Test ist empfindlich gegenüber großen Stichprobenumfängen, aber bedeutet das, dass wir uns auf kleine Stichproben beschränken sollten? 
+* Der `\(\chi^2\)`-Test ist empfindlich gegenüber großen Stichprobenumfängen, aber bedeutet das, dass wir uns auf kleine Stichproben beschränken sollten? 
 
   * Nein – größere Stichproben sind vorzuziehen. 
 
@@ -400,13 +370,13 @@ class: top, left
 
 Benötigte Stichprobengröße im SEM:
 
-* Die $n:q$ Regel- (Kline, 2016)
+* Die `\(n:q\)` Regel- (Kline, 2016)
 
   * Stichprobengröße sollte von der Anzahl der Parameter in Ihrem Modell abhängen
   
   * empfohlenes Verhältnis von 20:1  
   
-  * Das bedeutet, dass bei 10 Parametern die Stichprobengröße mindestens $n = 200$ betragen sollte. 
+  * Das bedeutet, dass bei 10 Parametern die Stichprobengröße mindestens `\(n = 200\)` betragen sollte. 
   
   * Laut Kline ist eine Stichprobe von weniger als 100 Fällen nahezu immer unzureichend.
 
@@ -418,11 +388,11 @@ class: top, left
 
 **Exakter vs. approximativer Modellfit**
 
-Historisch war der $\chi^2$-Test die einzige Methode zur Prüfung der Modellanpassung. 
+Historisch war der `\(\chi^2\)`-Test die einzige Methode zur Prüfung der Modellanpassung. 
 
-* In der Praxis wurde die $H_0$ aufgrund der Empfindlichkeit des $\chi^2$-Tests häufig abgelehnt
+* In der Praxis wurde die `\(H_0\)` aufgrund der Empfindlichkeit des `\(\chi^2\)`-Tests häufig abgelehnt
 
-* Daher wurden approximative Fit-Indizes entwickelt $\rightarrow$ basieren nicht auf Verwerfung der $H_0$  
+* Daher wurden approximative Fit-Indizes entwickelt `\(\rightarrow\)` basieren nicht auf Verwerfung der `\(H_0\)`  
 
 * Diese approximativen Fit-Indizes lassen sich weiter unterteilen in:
 
@@ -465,12 +435,12 @@ class: top, left
 $$
 CFI = 1 - \frac{\chi^2_M - df_M}{\chi^2_N - df_N}
 $$
-  * $\chi^2_M:$ Teststatistik des genutzten Modells
-  * $\chi^2_N:$ Teststatistik des Nullmodells
+  * `\(\chi^2_M:\)` Teststatistik des genutzten Modells
+  * `\(\chi^2_N:\)` Teststatistik des Nullmodells
 
 * Der Wertebereich liegt zwischen 0 und 1 (1 = optimaler Fit)
 
-* Vorteil: weniger sensitiv gegenüber der Stichprobengröße $(N)$
+* Vorteil: weniger sensitiv gegenüber der Stichprobengröße `\((N)\)`
 
 ---
 class: top, left
@@ -493,14 +463,12 @@ $$
 
 * Typische Empfehlung: 
 
-  * CFI sollte > 0.95 sein  (Hu & Bentler, 1998)
+  * CFI sollte &gt; 0.95 sein  (Hu &amp; Bentler, 1998)
 ]
 
 .pull-right[
 .center[
-```{r eval = TRUE, echo = F, out.width = "280px"}
-knitr::include_graphics("bilder/Holzinger_fitmeasures.png")
-```
+&lt;img src="bilder/Holzinger_fitmeasures.png" width="280px" /&gt;
 ]
 ]
 
@@ -514,7 +482,7 @@ class: top, left
 
 * TLI wird häufig zusammen mit dem CFI ausgegeben
 
-* TLI nutzt relatives $\chi^2$ (weniger empfindlich gegenüber der Stichprobengröße)
+* TLI nutzt relatives `\(\chi^2\)` (weniger empfindlich gegenüber der Stichprobengröße)
 
 * Ein perfekt angepasstes Modell ergibt einen TLI, der genau 1 beträgt.
 
@@ -538,7 +506,7 @@ RMSEA = \sqrt{\frac{\chi^2 - df}{N \cdot df}}
 $$
 * RMSEA berücksichtigt sowohl Stichprobegröße als auch Modellkomplexität
   * Je komplexer ein Modell, desto weniger Freiheitsgrade
-  * Nenner wird kleiner $\rightarrow$ RMSEA wird größer
+  * Nenner wird kleiner `\(\rightarrow\)` RMSEA wird größer
 
 * Wertebereich zwischen 0 und 1 (optimaler Wert = 0)
 
@@ -563,16 +531,14 @@ $$
 RMSEA = \sqrt{\frac{85.306 - 24}{301 \cdot 24}} = 0.092
 $$
 
-* Typische Empfehlung (Hu & Bentler, 1998):  
-  * RMSEA $\leq 0.06$ bei $N > 250$.  
-  * RMSEA $\leq 0.08$ bei $N < 250$. 
+* Typische Empfehlung (Hu &amp; Bentler, 1998):  
+  * RMSEA `\(\leq 0.06\)` bei `\(N &gt; 250\)`.  
+  * RMSEA `\(\leq 0.08\)` bei `\(N &lt; 250\)`. 
 ]
 
 .pull-right[
 .center[
-```{r eval = TRUE, echo = F, out.width = "280px"}
-knitr::include_graphics("bilder/Holzinger_fitmeasures.png")
-```
+&lt;img src="bilder/Holzinger_fitmeasures.png" width="280px" /&gt;
 ]
 ]
 
@@ -586,25 +552,25 @@ class: top, left
 
 .pull-left[
 
-$$SRMR = \sqrt{\sum_{j} \sum_{k<j}\frac{ r_{jk}^2}{e}}$$
+`$$SRMR = \sqrt{\sum_{j} \sum_{k&lt;j}\frac{ r_{jk}^2}{e}}$$`
 
-$$r_{jk} = \frac{S_{jk}}{S_j \cdot S_k} - \frac{\hat{\sigma}_{jk}}{\hat{\sigma}_j \cdot \hat{\sigma}_k}$$
-$$e = \frac{p \cdot (p+1)}{2}$$
+`$$r_{jk} = \frac{S_{jk}}{S_j \cdot S_k} - \frac{\hat{\sigma}_{jk}}{\hat{\sigma}_j \cdot \hat{\sigma}_k}$$`
+`$$e = \frac{p \cdot (p+1)}{2}$$`
 
 ]
 
 .pull-right[
 
-<small>
+&lt;small&gt;
 
 * Wertebereich  zwischen 0 und 1 (optimale Wert = 0)
 
-* SRMR gibt durchschnittliche Abweichung der beobachteten $(S)$ von der modellimplizierten Korrelationsmatrix $(\Sigma)$ an.  
+* SRMR gibt durchschnittliche Abweichung der beobachteten `\((S)\)` von der modellimplizierten Korrelationsmatrix `\((\Sigma)\)` an.  
 
 * Formel:
-  - $p$: Anzahl der manifesten Variablen  
-  - $S$: modellimplizierte SDs/Kovarianz  
-  - $\sigma$: aus Stichprobe geschätzte SDs/Kovarianz 
+  - `\(p\)`: Anzahl der manifesten Variablen  
+  - `\(S\)`: modellimplizierte SDs/Kovarianz  
+  - `\(\sigma\)`: aus Stichprobe geschätzte SDs/Kovarianz 
   
 *  SRMR berücksichtigt weder Modellkomplexität noch die Stichprobengröße
 ]
@@ -617,19 +583,19 @@ class: top, left
 
 **Zusammenfassung der Cutoff-Empfehlungen:**
 
-* Cutoff-Werte für ML- Schätzalgorithmus (Hu & Bentler, 1999)
+* Cutoff-Werte für ML- Schätzalgorithmus (Hu &amp; Bentler, 1999)
 
-  * RMSEA < 0.06 bei N>250; < 0.08 bei N ≤ 250
+  * RMSEA &lt; 0.06 bei N&gt;250; &lt; 0.08 bei N ≤ 250
 
-  * SRMR < 0.11
+  * SRMR &lt; 0.11
 
-  * CFI > 0.95
+  * CFI &gt; 0.95
 
 * Kritik an Cut-Off Werten
 
-  * Cutoffs in der Praxis oft nicht erreichtbar (Marsh, 2004)
+  * Cutoffs in der Praxis oft ni ht erreichtbar (Marsh, 2004)
   
-  * Hu & Bentler Empfehlungen in Daten mit sehr hohen Ladungen demonstriert
+  * Hu &amp; Bentler Empfehlungen in Daten mit sehr hohen Ladungen demonstriert
 
 
 ---
@@ -644,7 +610,7 @@ class: top, left
 
 * Keine (Multi-) Kollinearität
 
-  * mehrere Items korrelieren sehr hoch miteinander (Daumenregel: $r > .85$ problematisch)
+  * mehrere Items korrelieren sehr hoch miteinander (Daumenregel: `\(r &gt; .85\)` problematisch)
 
 * Ausreichende Stichprobengröße
 
@@ -652,7 +618,7 @@ class: top, left
 
   * Daumenregel: mindestens vier Items pro latenter Variable
   
-  * Mehr Items pro Faktor führen zu besseren Schätzungen (Marsh, Hau, Balla & Grayson, 1998)
+  * Mehr Items pro Faktor führen zu besseren Schätzungen (Marsh, Hau, Balla &amp; Grayson, 1998)
 
 * Zutreffen angenommener Verteilungen
 
@@ -668,22 +634,20 @@ class: top, left
 
 * `lavaan` gibt Hypothesentest für Einzelparameter aus
 
-  * $H_0:$ Parameter = 0
-  * $H_1:$ Parameter $\neq$ 0
+  * `\(H_0:\)` Parameter = 0
+  * `\(H_1:\)` Parameter `\(\neq\)` 0
 
 * Teststatistik ist ein z-verteilter **critical ratio** (ähnlich Wald-Test bei Regression):
 
 $$
 C.R. = \frac{Estimate}{SE}
 $$
-* Wenn `P(>|z|)` < .05 wird $H_0$ verworfen.
+* Wenn `P(&gt;|z|)` &lt; .05 wird `\(H_0\)` verworfen.
 ]
 
 .pull-right[
 .center[
-```{r eval = TRUE, echo = F, out.width = "300px"}
-knitr::include_graphics("bilder/holzinger2.png")
-```
+&lt;img src="bilder/holzinger2.png" width="300px" /&gt;
 ]
 ]
 
@@ -695,11 +659,11 @@ class: top, left
 
 * `lavaan` unterstützt folgende Funktionen um ein Modell auf die Daten anzupassen:
 
-  * `cfa()` $\rightarrow$ Konfirmatorische Faktorenanalysen
+  * `cfa()` `\(\rightarrow\)` Konfirmatorische Faktorenanalysen
   
-  * `sem()` $\rightarrow$ Strukturgleichungsmodelle
+  * `sem()` `\(\rightarrow\)` Strukturgleichungsmodelle
   
-  * `growth()` $\rightarrow$ latente Wachstuskurvenmodelle (Modelle mit Messwiederholungen)
+  * `growth()` `\(\rightarrow\)` latente Wachstuskurvenmodelle (Modelle mit Messwiederholungen)
 
 * Benutzerfreundliche Funktionen, die viele Details automatisch übernehmen
 
@@ -711,19 +675,15 @@ class: top, left
 
 #### Strukturgleichungsmodelle in R - SEM Beispiel
 
-```{r echo = F}
-df = PoliticalDemocracy
-```
 
-<small>
+
+&lt;small&gt;
 
 * Multivariate Zusammenhänge zwischen Schlafdauer, Aufmerksamkeit und Gedächtnisleistung.
 * Aufmerksamkeit gleichzeitig endogen (wird erklärt durch Schlafdauer) und exogen (erklärt Gedächtnisleistung).
 
 .center[
-```{r eval = TRUE, echo = F, out.width = "600px"}
-knitr::include_graphics("bilder/lavaan_SEM.png")
-```
+&lt;img src="bilder/lavaan_SEM.png" width="600px" /&gt;
 ]
 
 ---
@@ -732,11 +692,9 @@ class: top, left
 
 #### Strukturgleichungsmodelle in R - SEM Beispiel
 
-```{r echo = F}
-df = PoliticalDemocracy
-```
 
-<small>
+
+&lt;small&gt;
 
 * Multivariate Zusammenhänge zwischen Schlafdauer, Aufmerksamkeit und Gedächtnisleistung.
 * Aufmerksamkeit gleichzeitig endogen (wird erklärt durch Schlafdauer) und exogen (erklärt Gedächtnisleistung).
@@ -745,8 +703,9 @@ df = PoliticalDemocracy
 
 Aufstellen des Modells in `lavaan`:
 
-```{r eval=FALSE}
-model <- '
+
+``` r
+model &lt;- '
   # measurement model
     sleep =~ x1 + x2 + x3
     attention =~ y1 + y2 + y3 + y4
@@ -757,7 +716,7 @@ model <- '
     memory ~ sleep + attention
 '
 
-fit <- sem(model, data = df)
+fit &lt;- sem(model, data = df)
 ```
 ]
 
@@ -776,14 +735,13 @@ class: top, left
 
 #### Strukturgleichungsmodelle in R - SEM Beispiel
 
-```{r eval=FALSE}
+
+``` r
 summary(fit, standardized = TRUE)
 ```
 
 .center[
-```{r eval = TRUE, echo = F, out.width = "500px"}
-knitr::include_graphics("bilder/lavaan_SEM2.png")
-```
+&lt;img src="bilder/lavaan_SEM2.png" width="500px" /&gt;
 ]
 
 ---
@@ -792,7 +750,7 @@ class: top, left
 
 #### Strukturgleichungsmodelle in R - SEM Beispiel
 
-**Zahlen im Output standardisieren**
+**Zahlen im Outpuut standardisieren**
 
 * Das Argument `standardized = TRUE` innerhalb der `summary()` Funktion erweitert den Output um standardisierte Parameterwerte. 
 
@@ -820,9 +778,10 @@ class: top, left
 
 * Zur Fixierung muss die entsprechende Variable in der Formel mit einem festen Wert multipliziert werden.
 
-Folgende Formel fixiert z.B. alle Ladungen auf 1:
+Folegende Formel fixiert z.B. alle Ladungen auf 1:
 
-```{r eval=TRUE}
+
+``` r
 Faktor =~ x1 + 1*x2 + 1*x3 + 1*x4
 ```
 
@@ -832,7 +791,7 @@ class: top, left
 
 #### Strukturgleichungsmodelle in R 
 
-<small>
+&lt;small&gt;
 
 **Fixieren von Modellparametern**
 
@@ -844,7 +803,8 @@ class: top, left
 
 * Folgender Code würde annehmen, dass es zwischen den Faktoren visual/textual und speed keine Korrelation gibt (diese orthogonal sind), aber zwischen visual und textual schon:
 
-```{r eval=FALSE}
+
+``` r
 model = '
   visual =~ x1 + x2 + x3
   textual =~ x4 + x5 + x6
@@ -867,10 +827,11 @@ class: top, left
 
 * Dies macht Sinn, wenn die Hypothese gleicher Ladungen oder gleicher Effekte zwischen Gruppen getestet werden soll
 
-* Dies wird erreicht, indem für die jeweiligen Variablen ein identischer Multiplikator genutzt wird
+* Dies wird erreicht, indem für die jeweiligen Variablen ein identischer Multiplikator genutzt wird:
 
-* Folgendes Modell nimmt z.B. identische Ladungen für `x2` und `x3` an:
-```{r eval=FALSE}
+* Folgendes Modell nimmt z.B. identische Ladungen für `x2` und `x3` an
+
+``` r
 model = '
 visual  =~ x1 + a*x2 + a*x3
 textual =~ x4 + x5 + x6
@@ -891,9 +852,7 @@ class: top, left
 * Modelle, in denen Parameter fixiert werden sind "einfacher", da weniger freie Werte geschätzt werden müssen
 
 .center[
-```{r eval = TRUE, echo = F, out.width = "700px"}
-knitr::include_graphics("bilder/SEM_simplevscomplex.png")
-```
+&lt;img src="bilder/SEM_simplevscomplex.png" width="700px" /&gt;
 ]
 
 ---
@@ -904,16 +863,16 @@ class: top, left
 
 * Geschachtelte Modelle können mittels **χ²-likelihood-ratio-test** verglichen werden.  
 
-* Teststatistik des Modellvergleichs: $\Delta \chi^2 = \chi^2_{\text{einfach}} - \chi^2_{\text{komplex}}$
-* Freiheitsgrade des Modellvergleichs: $\Delta df = df_{\text{einfach}} - df_{\text{komplex}}$
+* Teststatistik des Modellvergleichs: `\(\Delta \chi^2 = \chi^2_{\text{einfach}} - \chi^2_{\text{komplex}}\)`
+* Freiheitsgrade des Modellvergleichs: `\(\Delta df = df_{\text{einfach}} - df_{\text{komplex}}\)`
 
 * Einfacheres Modell hat immer einen schlechteren Modellfit als ein komplexeres Modell. (Zu prüfen: Ist es signifikant schlechter?)
 
 Interpretation:
 
-* Signifikanter Modellvergleich: Das einfachere Modell ist signifikant schlechter ist als das komplexe Modell $\rightarrow$ komplexes Modell wählen.  
+* Signifikanter Modellvergleich: Das einfachere Modell ist signifikant schlechter ist als das komplexe Modell `\(\rightarrow\)` komplexes Modell wählen.  
   
-* Nicht signifikanter Modellvergleich: Das einfachere Modell ist nicht signifikant schlechter ist als das komplexe Modell $\rightarrow$ einfaches Modell wählen.  
+* Nicht signifikanter Modellvergleich: Das einfachere Modell ist nicht signifikant schlechter ist als das komplexe Modell `\(\rightarrow\)` einfaches Modell wählen.  
 
 ---
 class: top, left
@@ -927,7 +886,8 @@ class: top, left
   
   * einfaches Modell: Ladungen für `x2` und `x3` sind fixiert.
   
-```{r}
+
+``` r
 komplex = '
 visual  =~ x1 + x2 + x3
 textual =~ x4 + x5 + x6
@@ -947,16 +907,28 @@ class: top, left
 
 #### Modellvergleiche
 
-```{r}
+
+``` r
 fiteinfach = cfa(einfach, data = HolzingerSwineford1939)
 fitkomplex = cfa(komplex, data = HolzingerSwineford1939)
 
 anova(fiteinfach, fitkomplex)
 ```
 
-* Komplexes Modell hat zwei freie Parameter mehr als das einfache Model / Einfaches Modell hat zwei zu schätzende Parameter weniger
+```
+## 
+## Chi-Squared Difference Test
+## 
+##            Df    AIC    BIC  Chisq Chisq diff   RMSEA Df diff Pr(&gt;Chisq)   
+## fitkomplex 24 7517.5 7595.3 85.305                                         
+## fiteinfach 26 7524.4 7594.9 96.253     10.948 0.12192       2   0.004195 **
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
 
-* Modellvergleich ist signifikant $\rightarrow$ komplexes Modell hat signifikant bessere Modellpassung
+* Einfaches Modell hat 2 freie Parameter mehr
+
+* Modellvergleich ist signifikant `\(\rightarrow\)` komplexes Modell hat signifikant bessere Modellpassung
 
 ---
 class: top, left
@@ -972,8 +944,20 @@ class: top, left
 
 * AIC-Interpretation: Das Modell mit dem kleineren AIC Wert ist zu bevorzugen.
 
-```{r}
+
+``` r
 anova(fiteinfach, fitkomplex) # Angenommen Modelle wären nicht geschachtelt
+```
+
+```
+## 
+## Chi-Squared Difference Test
+## 
+##            Df    AIC    BIC  Chisq Chisq diff   RMSEA Df diff Pr(&gt;Chisq)   
+## fitkomplex 24 7517.5 7595.3 85.305                                         
+## fiteinfach 26 7524.4 7594.9 96.253     10.948 0.12192       2   0.004195 **
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
 ---
@@ -1012,9 +996,9 @@ class: top, left
   
   * Variable kann wie jede andere numerische Variable behandelt werden.
 
-*	nominale exogene Variable mit  $K > 2$  Kategorien
+*	nominale exogene Variable mit  `\(K &gt; 2\)`  Kategorien
 
-  * muss durch ein Set von  $K-1$  Dummy-Variablen ersetzt werden
+  * muss durch ein Set von  `\(K-1\)`  Dummy-Variablen ersetzt werden
 
 ---
 class: top, left
@@ -1022,7 +1006,7 @@ class: top, left
 
 #### Kategoriale Daten
 
-<small>
+&lt;small&gt;
 
 **Endogene kategoriale Variablen**
 
@@ -1034,14 +1018,16 @@ class: top, left
 
 * Wenn Sie z.B. 3 binäre/ordinale Variablen haben (z. B. item1, item2, item3):
 
-```{r eval=FALSE}
-fit <- cfa(model, data = df, ordered = c("item1","item2", "item3"))
+
+``` r
+fit &lt;- cfa(model, data = df, ordered = c("item1","item2", "item3"))
 ```
 
 * Wenn alle (endogenen) Variablen als kategorial behandelt werden sollen, kann pauschal `ordered = TRUE` verwendet werdeb.
 
-```{r eval=FALSE}
-fit <- cfa(model, data = df, ordered = TRUE)
+
+``` r
+fit &lt;- cfa(model, data = df, ordered = TRUE)
 ```
 
 * Wenn das `ordered = TRUE` Argument verwendet wird, wechselt `lavaan` automatisch auf den `WLSMV` Schätzalgorithmus.
@@ -1060,8 +1046,9 @@ class: top, left
 
 * FIML-Schätzung kann aktiviert werden, indem  das Argument `missing = "ML"` beim Aufruf der Anpassungsfunktion verwendet wird.
 
-```{r eval=FALSE}
-fit <- cfa(model, data = df, missing = "ML")
+
+``` r
+fit &lt;- cfa(model, data = df, missing = "ML")
 ```
 
 ---
@@ -1080,7 +1067,7 @@ class: top, left
 
 **Bootstrapping**
 
-* Es kann entweder `se = "bootstrap"` oder `test = "bootstrap"` beim Anpassen des Modells verwendet werden
+* Es kann entweder entweder `se = "bootstrap"` oder `test = "bootstrap"` beim Anpassen des Modells verwendet werden
 
 * Dadurch werden Bootstrap-Standardfehler bzw. ein auf Bootstrap basierender p-Wert ausgegeben
 
@@ -1101,7 +1088,7 @@ class: top, left
 
 *	ADF-Methode: Verwendet eine spezielle Kovarianzmatrix und basiert auf der Generalized Least Squares (GLS)-Schätzung.
 
-  * benötigt große Stichproben (N > 3000 empfohlen) und ist nur bei wenig komplexen Modellen gut
+  * benötigt große Stichproben (N &gt; 3000 empfohlen) und ist nur bei wenig komplexen Modellen gut
   
   * Vorteil: macht keine Verteilungsannahmen
 
@@ -1130,3 +1117,141 @@ class: top, left
 ]
 
 
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+  "slideNumberFormat": "%current%",
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "countIncrementalSlides": false,
+  "ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
