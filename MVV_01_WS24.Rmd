@@ -101,17 +101,17 @@ class: top, left
 ### Übersicht Lehrveranstaltung 
 
 Termine:
-* Mittwoch 13:05 - 14:35 
-* Raum: HS P5 101
+* Mittwoch 14:45 - 16:15 
+* Raum: HS P2 001
 
 Begleitende Übung zur Vorlesung (Blockunterricht):
 * Dozentin: Janika Saretzki ([janika.saretzki@charlotte-fresenius-uni.de](mailto:janika.saretzki@charlotte-fresenius-uni.de))
 
 Materialien:
-* werden auf [Studynet](https://studynet.hs-fresenius.de/ilias.php?baseClass=ilrepositorygui&cmdNode=zx:oz&cmdClass=ilobjfoldergui&ref_id=26259) bereitgestellt
+* werden auf [Studynet](https://studynet.hs-fresenius.de/ilias.php?baseClass=ilrepositorygui&ref_id=49744) (https://studynet.hs-fresenius.de/ilias.php?baseClass=ilrepositorygui&ref_id=49744) bereitgestellt
 
 Prüfungsleistung:
-* Portfolio (Abgabetermin 10.03.2026)
+* Portfolio (Abgabetermin TBD [vrstl. März 2026]
 
 ---
 class: top, left
