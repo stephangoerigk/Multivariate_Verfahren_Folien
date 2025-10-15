@@ -64,7 +64,7 @@ class: middle, left
 # Multivariate Verfahren
 ***
 ### Einheit 1: Wiederholung und Einführung in multivariate Verfahren
-##### `r format(as.Date(data.frame(readxl::read_excel("Multivariate Verfahren Termine.xlsx"))$Datum), "%d.%m.%Y")[1]` | Prof. Dr. Stephan Goerigk
+##### Wintersemester 2025 | Prof. Dr. Stephan Goerigk
 
 ---
 class: top, left
@@ -101,7 +101,6 @@ class: top, left
 ### Übersicht Lehrveranstaltung 
 
 Termine:
-* 15 Termine
 * Mittwoch 13:05 - 14:35 
 * Raum: HS P5 101
 
@@ -112,7 +111,7 @@ Materialien:
 * werden auf [Studynet](https://studynet.hs-fresenius.de/ilias.php?baseClass=ilrepositorygui&cmdNode=zx:oz&cmdClass=ilobjfoldergui&ref_id=26259) bereitgestellt
 
 Prüfungsleistung:
-* Portfolio (Abgabetermin 10.03.2025)
+* Portfolio (Abgabetermin 10.03.2026)
 
 ---
 class: top, left
