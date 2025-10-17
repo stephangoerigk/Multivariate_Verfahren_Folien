@@ -293,6 +293,8 @@ sampledata_long = sampledata_long[,c(1,2, 4, 5,6)]
 names(sampledata_long) = c("ID", "X", "pred", "Predicted", "Y")
 sampledata_long$Predicted = factor(sampledata_long$Predicted, levels = 0:1, labels = c("yi Beobachtungswert", "ŷi geschätzter Wert"))
 sampledata_long$ID[sampledata_long$Predicted ==  "ŷi geschätzter Wert"] = ""
+
+write.csv(sampledata, "Exam.csv")
 ```
 
 $X \rightarrow Y$ Regressionsfunktion und Beobachtungswerte
@@ -835,6 +837,8 @@ names(df) = names(df) = c("Gruppe",
                           "Sorgen",
                           "Grübelzeit")
 # df$Gruppe_effekt = factor(df$Gruppe_effekt, levels = c(-1,1), labels = c("Gesund", "GAD"))
+
+write.csv(df, "GAD.csv")
 ```
 
 

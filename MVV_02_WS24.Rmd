@@ -356,6 +356,8 @@ ggplot(data, aes(x = Therapiestunden, y = Symptomschwere)) +
   coord_cartesian(ylim = c(0,5)) +
   mytheme +
   theme(legend.position = c(.85,.15), text = element_text(size = 20)) 
+
+write.csv(data, "Kliniken.csv")
 ```
 ]
 .pull-right[
