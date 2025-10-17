@@ -60,7 +60,7 @@ class: middle, left
 # Multivariate Verfahren
 ***
 ### Einheit 4: Mehrebenenanalyse - Lineare gemischte Modelle  (3)
-##### `r format(as.Date(data.frame(readxl::read_excel("Multivariate Verfahren Termine.xlsx"))$Datum), "%d.%m.%Y")[4]` | Prof. Dr. Stephan Goerigk
+##### Wintersemester 2025 | Prof. Dr. Stephan Goerigk
 
 
 ---

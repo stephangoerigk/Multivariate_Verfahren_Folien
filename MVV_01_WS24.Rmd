@@ -588,7 +588,7 @@ $b:$ Veränderung von Y bei Zunahme von $X$ um 1 Einheit
 In dieser Vorlesung nutzen wir oft folgende Notation:
 
 $$Y_i = \beta_0 + \beta_1 \cdot X_i + \varepsilon_i, \quad \varepsilon_i \sim N(0, \sigma^2_{\varepsilon})$$
-
+]
 ---
 class: top, left
 ### Wiederholung: Lineare Regressionsmodelle
@@ -628,6 +628,7 @@ $b:$ Steigungsparameter
 * Theoretisch sind endlos viele Geraden denkbar, die die Punktewolke alle an unterschiedlichen Stellen durchschneiden
 
 * Wir wollen aber genau die Gerade finden, welche die Daten am allerbesten beschreibt.
+
 ]
 
 ---

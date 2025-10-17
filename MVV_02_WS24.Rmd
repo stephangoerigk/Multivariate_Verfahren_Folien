@@ -61,7 +61,7 @@ class: middle, left
 # Multivariate Verfahren
 ***
 ### Einheit 2: Mehrebenenanalyse - Lineare gemischte Modelle  (1)
-##### `r format(as.Date(data.frame(readxl::read_excel("Multivariate Verfahren Termine.xlsx"))$Datum), "%d.%m.%Y")[2]` | Prof. Dr. Stephan Goerigk
+##### Wintersemester 2025 | Prof. Dr. Stephan Goerigk
 
 ---
 class: top, left
@@ -248,7 +248,7 @@ class: top, left
 
 Was folgt aus hierarchische Datenstrukturen:
 
-* Die Merkmale einer höheren Ebene können die Elemente auf niedrigerer Ebene gleichermaßen beeinflussen (z.B. Didaktische Kompetenz des Lehrers die Matheleistun aller Schüler in seiner Klasse)
+* Die Merkmale einer höheren Ebene können die Elemente auf niedrigerer Ebene gleichermaßen beeinflussen (z.B. Didaktische Kompetenz des Lehrers die Matheleistung aller Schüler in seiner Klasse)
 
 * Anders gesagt: Personen innerhalb eines Clusters sind sich ähnlicher, weil sie einem gemeinsamen Einfluss ausgesetzt sind
 
