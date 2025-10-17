@@ -108,7 +108,7 @@ Begleitende Übung zur Vorlesung (Blockunterricht):
 * Dozentin: Janika Saretzki ([janika.saretzki@charlotte-fresenius-uni.de](mailto:janika.saretzki@charlotte-fresenius-uni.de))
 
 Materialien:
-* werden auf [Studynet](https://studynet.hs-fresenius.de/ilias.php?baseClass=ilrepositorygui&ref_id=49744) (https://studynet.hs-fresenius.de/ilias.php?baseClass=ilrepositorygui&ref_id=49744) bereitgestellt
+* werden im **Studynet** bereitgestellt
 
 Prüfungsleistung:
 * Portfolio (Abgabetermin: 09.03.2026)
