@@ -111,7 +111,7 @@ Materialien:
 * werden auf [Studynet](https://studynet.hs-fresenius.de/ilias.php?baseClass=ilrepositorygui&ref_id=49744) (https://studynet.hs-fresenius.de/ilias.php?baseClass=ilrepositorygui&ref_id=49744) bereitgestellt
 
 Prüfungsleistung:
-* Portfolio (Abgabetermin: März 2026)
+* Portfolio (Abgabetermin: 09.03. 2026)
 
 ---
 class: top, left
