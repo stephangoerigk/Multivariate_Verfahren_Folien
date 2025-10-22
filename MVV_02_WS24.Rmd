@@ -256,11 +256,11 @@ Was folgt aus hierarchische Datenstrukturen:
 
 * Folgen der Nichtbeachtung hierarchischer Datenstrukturen:
 
-* Falsche Prüfverteilung der Regressionskoeffizienten für Signifikanztests wird verwendet 
+  * Falsche Prüfverteilung der Regressionskoeffizienten für Signifikanztests wird verwendet 
 
-* $\alpha$-Inflation, da die Nullhypothese $(H_0)$ öfters fälschlich verworfen wird
+  * $\alpha$-Inflation, da die Nullhypothese $(H_0)$ öfters fälschlich verworfen wird
 
-* **Ökologischer Fehlschluss** kann erfolgen
+  * **Ökologischer Fehlschluss** kann erfolgen
 
 ---
 class: top, left
@@ -585,7 +585,7 @@ Standard-Regression:
 
 $$y_i = \beta_0 + \beta_1 x_i + \varepsilon_i$$
 
-* Im Linear mixed Model fürfen Regressionsparameter variieren.
+* Im Linear mixed Model dürfen Regressionsparameter variieren.
 
 Wenn $\beta_0$ und $\beta_1$ in jedem Cluster der höheren Hierarchiestufen unterschiedlich sein dürfen:
 
@@ -724,8 +724,8 @@ p4 <- ggplot(df_random_intercept_slope, aes(x = x, y = y, color = group)) +
   geom_segment(aes(x = 0, xend = max(df_random_intercept_slope$x), y = coef(lm3)["(Intercept)"] + coef(lm3)["group2"] + coef(lm3)["x"], yend = coef(lm3)["(Intercept)"] + coef(lm3)["group2"] + (coef(lm3)["x"] + coef(lm3)["x:group2"]) * max(df_random_intercept_slope$x)), colour = scales::hue_pal()(3)[2]) +
   geom_segment(aes(x = 0, xend = max(df_random_intercept_slope$x), y = coef(lm3)["(Intercept)"] + coef(lm3)["group3"] + coef(lm3)["x"], yend = coef(lm3)["(Intercept)"] + coef(lm3)["group3"] + (coef(lm3)["x"] + coef(lm3)["x:group3"]) * max(df_random_intercept_slope$x)), colour = scales::hue_pal()(3)[3]) +
   annotate("text", x = -1, y = coef(lm3)["(Intercept)"], label = expression(beta["01"]), parse = TRUE, size = 5) +
-  annotate("text", x = -1, y = coef(lm3)["(Intercept)"] + coef(lm3)["group2"], label = expression(alpha["02"]), parse = TRUE, size = 5) +
-  annotate("text", x = -1, y = coef(lm3)["(Intercept)"] + coef(lm3)["group3"] -1, label = expression(alpha["03"]), parse = TRUE, size = 5) +
+  annotate("text", x = -1, y = coef(lm3)["(Intercept)"] + coef(lm3)["group2"], label = expression(beta["02"]), parse = TRUE, size = 5) +
+  annotate("text", x = -1, y = coef(lm3)["(Intercept)"] + coef(lm3)["group3"] -1, label = expression(beta["03"]), parse = TRUE, size = 5) +
   annotate("text", x = max(df_random_intercept_slope$x) + 1, y = coef(lm3)["(Intercept)"] + coef(lm3)["x"] * max(df_random_intercept_slope$x), label = expression(beta["11"]), parse = TRUE, size = 5) +
   annotate("text", x = max(df_random_intercept_slope$x) + 1, y = coef(lm3)["(Intercept)"] + coef(lm3)["group2"] + (coef(lm3)["x"] + coef(lm3)["x:group2"]) * max(df_random_intercept_slope$x), label = expression(beta["12"]), parse = TRUE, size = 5) +
   annotate("text", x = max(df_random_intercept_slope$x) + 1, y = coef(lm3)["(Intercept)"] + coef(lm3)["group3"] + (coef(lm3)["x"] + coef(lm3)["x:group3"]) * max(df_random_intercept_slope$x), label = expression(beta["13"]), parse = TRUE, size = 5) +
@@ -814,8 +814,8 @@ p4 <- ggplot(df_random_intercept_slope, aes(x = x, y = y, color = group)) +
   geom_segment(aes(x = 0, xend = max(df_random_intercept_slope$x), y = coef(lm3)["(Intercept)"] + coef(lm3)["group2"] + coef(lm3)["x"], yend = coef(lm3)["(Intercept)"] + coef(lm3)["group2"] + (coef(lm3)["x"] + coef(lm3)["x:group2"]) * max(df_random_intercept_slope$x)), colour = scales::hue_pal()(3)[2]) +
   geom_segment(aes(x = 0, xend = max(df_random_intercept_slope$x), y = coef(lm3)["(Intercept)"] + coef(lm3)["group3"] + coef(lm3)["x"], yend = coef(lm3)["(Intercept)"] + coef(lm3)["group3"] + (coef(lm3)["x"] + coef(lm3)["x:group3"]) * max(df_random_intercept_slope$x)), colour = scales::hue_pal()(3)[3]) +
   annotate("text", x = -1, y = coef(lm3)["(Intercept)"], label = expression(beta["01"]), parse = TRUE, size = 5) +
-  annotate("text", x = -1, y = coef(lm3)["(Intercept)"] + coef(lm3)["group2"], label = expression(alpha["02"]), parse = TRUE, size = 5) +
-  annotate("text", x = -1, y = coef(lm3)["(Intercept)"] + coef(lm3)["group3"] -1, label = expression(alpha["03"]), parse = TRUE, size = 5) +
+  annotate("text", x = -1, y = coef(lm3)["(Intercept)"] + coef(lm3)["group2"], label = expression(beta["02"]), parse = TRUE, size = 5) +
+  annotate("text", x = -1, y = coef(lm3)["(Intercept)"] + coef(lm3)["group3"] -1, label = expression(beta["03"]), parse = TRUE, size = 5) +
   annotate("text", x = max(df_random_intercept_slope$x) + 1, y = coef(lm3)["(Intercept)"] + coef(lm3)["x"] * max(df_random_intercept_slope$x), label = expression(beta["11"]), parse = TRUE, size = 5) +
   annotate("text", x = max(df_random_intercept_slope$x) + 1, y = coef(lm3)["(Intercept)"] + coef(lm3)["group2"] + (coef(lm3)["x"] + coef(lm3)["x:group2"]) * max(df_random_intercept_slope$x), label = expression(beta["12"]), parse = TRUE, size = 5) +
   annotate("text", x = max(df_random_intercept_slope$x) + 1, y = coef(lm3)["(Intercept)"] + coef(lm3)["group3"] + (coef(lm3)["x"] + coef(lm3)["x:group3"]) * max(df_random_intercept_slope$x), label = expression(beta["13"]), parse = TRUE, size = 5) +
@@ -1093,8 +1093,8 @@ p4 <- ggplot(df_random_intercept_slope, aes(x = x, y = y, color = group)) +
   geom_segment(aes(x = 0, xend = max(df_random_intercept_slope$x), y = coef(lm3)["(Intercept)"] + coef(lm3)["group2"] + coef(lm3)["x"], yend = coef(lm3)["(Intercept)"] + coef(lm3)["group2"] + (coef(lm3)["x"] + coef(lm3)["x:group2"]) * max(df_random_intercept_slope$x)), colour = scales::hue_pal()(3)[2]) +
   geom_segment(aes(x = 0, xend = max(df_random_intercept_slope$x), y = coef(lm3)["(Intercept)"] + coef(lm3)["group3"] + coef(lm3)["x"], yend = coef(lm3)["(Intercept)"] + coef(lm3)["group3"] + (coef(lm3)["x"] + coef(lm3)["x:group3"]) * max(df_random_intercept_slope$x)), colour = scales::hue_pal()(3)[3]) +
   annotate("text", x = -1, y = coef(lm3)["(Intercept)"], label = expression(beta["01"]), parse = TRUE, size = 5) +
-  annotate("text", x = -1, y = coef(lm3)["(Intercept)"] + coef(lm3)["group2"], label = expression(alpha["02"]), parse = TRUE, size = 5) +
-  annotate("text", x = -1, y = coef(lm3)["(Intercept)"] + coef(lm3)["group3"] -1, label = expression(alpha["03"]), parse = TRUE, size = 5) +
+  annotate("text", x = -1, y = coef(lm3)["(Intercept)"] + coef(lm3)["group2"], label = expression(beta["02"]), parse = TRUE, size = 5) +
+  annotate("text", x = -1, y = coef(lm3)["(Intercept)"] + coef(lm3)["group3"] -1, label = expression(beta["03"]), parse = TRUE, size = 5) +
   annotate("text", x = max(df_random_intercept_slope$x) + 1, y = coef(lm3)["(Intercept)"] + coef(lm3)["x"] * max(df_random_intercept_slope$x), label = expression(beta["11"]), parse = TRUE, size = 5) +
   annotate("text", x = max(df_random_intercept_slope$x) + 1, y = coef(lm3)["(Intercept)"] + coef(lm3)["group2"] + (coef(lm3)["x"] + coef(lm3)["x:group2"]) * max(df_random_intercept_slope$x), label = expression(beta["12"]), parse = TRUE, size = 5) +
   annotate("text", x = max(df_random_intercept_slope$x) + 1, y = coef(lm3)["(Intercept)"] + coef(lm3)["group3"] + (coef(lm3)["x"] + coef(lm3)["x:group3"]) * max(df_random_intercept_slope$x), label = expression(beta["13"]), parse = TRUE, size = 5) +
