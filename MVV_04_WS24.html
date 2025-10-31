@@ -1,0 +1,1931 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Einheit 4</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Prof. Dr. Stephan Goerigk" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/hygge.css" rel="stylesheet" />
+    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view/tile-view.js"></script>
+    <script src="libs/fabric/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#EE0071"],"pen_size":4,"eraser_size":40,"palette":[]}) })</script>
+    <script src="libs/kePrint/kePrint.js"></script>
+    <link href="libs/lightable/lightable.css" rel="stylesheet" />
+    <link href="libs/htmltools-fill/fill.css" rel="stylesheet" />
+    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
+    <script src="libs/viz/viz.js"></script>
+    <link href="libs/DiagrammeR-styles/styles.css" rel="stylesheet" />
+    <script src="libs/grViz-binding/grViz.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+name: Title slide
+class: middle, left
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+# Multivariate Verfahren
+***
+### Einheit 4: Mehrebenenanalyse - Lineare gemischte Modelle  (3)
+##### Wintersemester 2025 | Prof. Dr. Stephan Goerigk
+
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Statistische Analyse von Wirksamkeitsstudien (Efficacy trials)
+
+* Klinische Trials sind systematische Studien, die dazu dienen, die Sicherheit und Wirksamkeit klinischer Interventionen wie Medikamente, psychotherapeutische Behandlungen oder neue Therapieverfahren zu testen.
+
+
+* Ziele klinischer Trials:
+
+  * Sicherheit und Wirksamkeit nachweisen
+  
+  * Vergleich mit bestehenden Standardbehandlungen
+  
+  * Neue Interventionen validieren
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Statistische Analyse von Wirksamkeitsstudien (Efficacy trials)
+
+Beispiel: Das randomisiert kontrollierte Trial (RCT)
+
+.center[
+
+&lt;img src="bilder/rct.png" width="900px" /&gt;
+]
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Statistische Analyse von Wirksamkeitsstudien (Efficacy trials)
+
+**Phasen Klinischer Studien**
+
+&lt;table class=" lightable-classic" style='font-size: 18px; font-family: "Arial Narrow", "Source Sans Pro", sans-serif; '&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Phase &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Ziel &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Teilnehmer &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Fokus &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Phase I (Erste Studien am Menschen) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Prüfung der Sicherheit und Festlegung einer Dosierung (bei Medikamenten) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Kleine Gruppe gesunder Freiwilliger (oder Patienten bei riskanten Therapien) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Toxizität, Nebenwirkungen, Dosisfindung &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Phase II (Erste Wirksamkeitsprüfung) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Ermittlung der Wirksamkeit und weitergehende Sicherheitsprüfung &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Größere Gruppe von Patienten, die an der zu behandelnden Krankheit leiden &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Erste Nachweise für die Wirksamkeit, Untersuchung von Nebenwirkungen &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Phase III (Bestätigung der Wirksamkeit und Vergleich) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Vergleich mit bestehenden Standardbehandlungen und Verifikation der Langzeitwirkung und -sicherheit &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Große Patientengruppen (hundert bis tausende) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Bestätigung der Ergebnisse aus Phase II, häufig Randomisierte Kontrollierte Studien (RCTs) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Phase IV (Überwachung nach Markteinführung [Post-Marketing-Studien]) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Langzeitüberwachung der Sicherheit, Wirksamkeit und Nebenwirkungen nach der Markteinführung &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Noch breitere Anwendungspopulation im klinischen Alltag &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Erkennung seltener Nebenwirkungen, Langzeitergebnisse und Vergleich mit neuen Entwicklungen &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+Merke: Klinische Studien sind der Goldstandard zur Sicherstellung der Wirksamkeit und Sicherheit neuer Behandlungsansätze.
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Statistische Analyse von Wirksamkeitsstudien (Efficacy trials)
+
+Spezifische Aspekte für Psychotherapie-Studien
+
+*	Phasenmodelle können angepasst werden (z. B. Pilotstudien statt Phase I).
+
+*	Besondere Herausforderungen: Langfristige Überprüfung der Wirksamkeit, Placeboeffekte, Durchführung randomisierter Studien.
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Statistische Analyse von Wirksamkeitsstudien (Efficacy trials)
+
+&lt;table class=" lightable-classic" style='font-size: 18px; font-family: "Arial Narrow", "Source Sans Pro", sans-serif; '&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Design &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Definition_Beschreibung &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Vorteile &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Beispiele &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Randomisierte Kontrollierte Studien (RCTs) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Teilnehmer werden zufällig in Interventions- und Kontrollgruppen aufgeteilt. &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Hohe interne Validität durch Randomisierung, Minimierung von Bias. &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Vergleich einer neuen kognitiven Verhaltenstherapie (CBT) mit einer Standardtherapie. &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Nicht-Randomisierte Studien &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Kein Zufallsmechanismus bei der Gruppenzuweisung. &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Praktisch, wenn Randomisierung nicht möglich ist; geringere Kosten. &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Praktische Anwendungen, wenn Randomisierung nicht möglich ist. &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Cross-Over-Designs &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Teilnehmer erhalten abwechselnd verschiedene Behandlungen. &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Jeder Teilnehmer fungiert als eigene Kontrolle. &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Vergleich von zwei Psychotherapieansätzen bei derselben Personengruppe zu unterschiedlichen Zeitpunkten. &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Beobachtungsstudien &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Beobachtungen von Teilnehmern ohne experimentelle Eingriffe (z.B., Kohortenstudien, Fall-Kontroll-Studien). &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Einsatz für Hypothesenbildung, Langzeitrisiken. &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Kohortenstudien zur Langzeitverfolgung, Fall-Kontroll-Studien. &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+Merke: Die Wahl des Designs hängt von den Studienzielen, ethischen Überlegungen und praktischen Herausforderungen ab.
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Statistische Analyse von Wirksamkeitsstudien (Efficacy trials)
+
+.pull-left[
+**Randomisierte Kontrollierte Studien (RCTs)**
+<div class="grViz html-widget html-fill-item" id="htmlwidget-8fc02845e50259977953" style="width:504px;height:504px;"></div>
+<script type="application/json" data-for="htmlwidget-8fc02845e50259977953">{"x":{"diagram":"\ndigraph RCT {\n  graph [layout = dot, rankdir = TB]  // \"TB\" for Top to Bottom layout\n  \n  # Nodes\n  node [shape = rectangle, style = filled, fillcolor = white, fontname = Helvetica]\n  Population [label = \"Population\"]\n  Randomisierung [label = \"Randomisierung\"]\n  Interventionsgruppe [label = \"Interventionsgruppe\"]\n  Kontrollgruppe [label = \"Kontrollgruppe\"]\n  ErgebnisIntervention [label = \"Ergebnismessung (Intervention)\"]\n  ErgebnisKontrolle [label = \"Ergebnismessung (Kontrolle)\"]\n\n  # Edges\n  Population -> Randomisierung\n  Randomisierung -> Interventionsgruppe\n  Randomisierung -> Kontrollgruppe\n  Interventionsgruppe -> ErgebnisIntervention\n  Kontrollgruppe -> ErgebnisKontrolle\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+]
+
+.pull-right[
+**Nicht-Randomisierte Studien (Kohortenstudien)**
+<div class="grViz html-widget html-fill-item" id="htmlwidget-cfdae8ca6fa5dc53a5c1" style="width:504px;height:504px;"></div>
+<script type="application/json" data-for="htmlwidget-cfdae8ca6fa5dc53a5c1">{"x":{"diagram":"\ndigraph RCT {\n  graph [layout = dot, rankdir = TB]  // \"TB\" for Top to Bottom layout\n  \n  # Nodes\n  node [shape = rectangle, style = filled, fillcolor = white, fontname = Helvetica]\n  Population [label = \"Population\"]\n  Randomisierung [label = \"Natürliche Allokation\"]\n  Interventionsgruppe [label = \"Interventionsgruppe\"]\n  Kontrollgruppe [label = \"Kontrollgruppe\"]\n  ErgebnisIntervention [label = \"Ergebnismessung (Intervention)\"]\n  ErgebnisKontrolle [label = \"Ergebnismessung (Kontrolle)\"]\n\n  # Edges\n  Population -> Randomisierung\n  Randomisierung -> Interventionsgruppe\n  Randomisierung -> Kontrollgruppe\n  Interventionsgruppe -> ErgebnisIntervention\n  Kontrollgruppe -> ErgebnisKontrolle\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+]
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Statistische Analyse von Wirksamkeitsstudien (Efficacy trials)
+
+.pull-left[
+**Cross-Over-Designs**
+<div class="grViz html-widget html-fill-item" id="htmlwidget-5f302d7a561d3ddc90c1" style="width:504px;height:360px;"></div>
+<script type="application/json" data-for="htmlwidget-5f302d7a561d3ddc90c1">{"x":{"diagram":"\ndigraph CrossOver {\n  graph [layout = dot, rankdir = TB]  // \"TB\" for Top to Bottom layout\n  \n  # Nodes\n  node [shape = rectangle, style = filled, fillcolor = white, fontname = Helvetica]\n  Population [label = \"Population\"]\n  Randomisierung [label = \"Randomisierung\"]\n  GruppeA_Intervention [label = \"Gruppe A: Intervention\"]\n  GruppeA_Kontrolle [label = \"Gruppe A: Kontrolle\"]\n  GruppeB_Intervention [label = \"Gruppe B: Intervention\"]\n  GruppeB_Kontrolle [label = \"Gruppe B: Kontrolle\"]\n  CrossOverPhase [label = \"Cross-Over-Phase\"]\n\n  # Edges\n  Population -> Randomisierung\n  Randomisierung -> GruppeA_Intervention\n  Randomisierung -> GruppeB_Kontrolle\n  GruppeA_Intervention -> CrossOverPhase\n  GruppeB_Kontrolle -> CrossOverPhase\n  CrossOverPhase -> GruppeA_Kontrolle\n  CrossOverPhase -> GruppeB_Intervention\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+]
+
+.pull-right[
+**Beobachtungsstudien**
+<div class="grViz html-widget html-fill-item" id="htmlwidget-9af31bb7839efb3e5edf" style="width:504px;height:360px;"></div>
+<script type="application/json" data-for="htmlwidget-9af31bb7839efb3e5edf">{"x":{"diagram":"\ndigraph Observational {\n  graph [layout = dot, rankdir = TB]  // \"TB\" for Top to Bottom layout\n  \n  # Nodes\n  node [shape = rectangle, style = filled, fillcolor = white, fontname = Helvetica]\n  Population [label = \"Population\"]\n  GruppeExposure [label = \"Gruppe mit Exposition\"]\n  GruppeNoExposure [label = \"Gruppe ohne Exposition\"]\n  OutcomeExposed [label = \"Beobachtung des Ergebnisses\n (Exponierte Gruppe)\"]\n  OutcomeUnexposed [label = \"Beobachtung des Ergebnisses\n (Nicht-Exponierte Gruppe)\"]\n  Vergleich [label = \"Vergleich der Ergebnisse\"]\n\n  # Edges\n  Population -> GruppeExposure\n  Population -> GruppeNoExposure\n  GruppeExposure -> OutcomeExposed\n  GruppeNoExposure -> OutcomeUnexposed\n  OutcomeExposed -> Vergleich\n  OutcomeUnexposed -> Vergleich\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+]
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Statistische Analyse von Wirksamkeitsstudien (Efficacy trials)
+
+&lt;small&gt;
+
+Studiendesign für Phase-III RCT (Methodenteil) - CONSORT Checkliste
+
+&lt;small&gt;
+
+&lt;table style="width:100%; border:1px solid black; border-collapse:collapse;"&gt;
+  &lt;tr&gt;
+    &lt;th style="border:1px solid black; padding:8px;"&gt;Abschnitt/Thema&lt;/th&gt;
+    &lt;th style="border:1px solid black; padding:8px;"&gt;Punkt Nr.&lt;/th&gt;
+    &lt;th style="border:1px solid black; padding:8px;"&gt;Checkliste Punkt&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Studiendesign&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;3a&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Beschreibung des Studiendesigns (z.B. parallel, faktoriell) einschließlich des Zuweisungsverhältnisses&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;3b&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Wichtige Änderungen der Methoden nach Beginn der Studie (z.B. Einschlusskriterien), mit Begründungen&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Teilnehmer&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;4a&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Einschlusskriterien für Teilnehmer&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;4b&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Kontexte und Orte, an denen die Daten erhoben wurden&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Interventionen&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;5&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Die Interventionen für jede Gruppe mit ausreichenden Details zur Replikation, einschließlich wie und wann sie verabreicht wurden&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Outcomes&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;6a&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Vollständig definierte, vorab festgelegte primäre und sekundäre Endpunkte, einschließlich wie und wann sie gemessen wurden&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;6b&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Änderungen der Endpunkte nach Beginn der Studie, mit Begründungen&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Stichprobengröße&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;7a&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Wie die Stichprobengröße bestimmt wurde&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;7b&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Falls zutreffend, Erklärung von Zwischenanalysen und Abbruchkriterien&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+
+https://www.equator-network.org/reporting-guidelines/consort/
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Statistische Analyse von Wirksamkeitsstudien (Efficacy trials)
+
+&lt;small&gt;
+
+Studiendesign für Phase-III RCT (Methodenteil) - CONSORT Checkliste
+
+&lt;small&gt;
+
+&lt;table style="width:100%; border:1px solid black; border-collapse:collapse;"&gt;
+  &lt;tr&gt;
+    &lt;th style="border:1px solid black; padding:8px;"&gt;Abschnitt/Thema&lt;/th&gt;
+    &lt;th style="border:1px solid black; padding:8px;"&gt;Punkt Nr.&lt;/th&gt;
+    &lt;th style="border:1px solid black; padding:8px;"&gt;Checkliste Punkt&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Randomisierung: Sequenzgenerierung&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;8a&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Methode zur Generierung der zufälligen Zuweisungssequenz&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;8b&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Art der Randomisierung; Details zu Einschränkungen (wie Blockbildung und Blockgröße)&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Randomisierung: Zuweisungsmechanismus&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;9&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Mechanismus zur Implementierung der zufälligen Zuweisungssequenz (wie nummerierte Behälter), einschließlich Maßnahmen zur Geheimhaltung der Sequenz&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Randomisierung: Durchführung&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;10&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Wer die zufällige Zuweisungssequenz erstellt hat, wer die Teilnehmer eingeschrieben hat und wer die Teilnehmer zugewiesen hat&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Verblindung&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;11a&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Falls durchgeführt, wer nach der Zuweisung zur Intervention verblindet war (z.B. Teilnehmer, Pflegekräfte, Ergebnisprüfer) und wie&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;11b&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Falls relevant, Beschreibung der Ähnlichkeit der Interventionen&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Statistische Methoden&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;12a&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Statistische Methoden zum Vergleich von Gruppen für primäre und sekundäre Endpunkte&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;12b&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Methoden für zusätzliche Analysen, wie Subgruppenanalysen und angepasste Analysen&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+
+https://www.equator-network.org/reporting-guidelines/consort/
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Statistische Analyse von Wirksamkeitsstudien (Efficacy trials)
+
+Beispieltext Studiendesign für Phase-III RCT (Methodenteil)
+
+*The [...] trial was a double-blind, placebo-controlled randomized clinical trial that enrolled patients with [...]. Randomization was performed using [...].  The study protocol was described elsewhere [Referenz] and performed with no significant changes.
+The  trial was conducted at [...] study centers (Name der Institute) from [...] to [...]. The study was registered on [...], reported per the Consolidated Standards of Reporting Trials (CONSORT) reporting guideline for nonpharmacological treatments, and approved by the [Name der Ethikkommission]. Participants signed informed consent forms per the Declaration of Helsinki guidelines.*
+
+*Die […]-Studie war eine doppelblinde, placebokontrollierte, randomisierte klinische Studie, die Patienten mit […] einschloss. Die Randomisierung wurde mithilfe von […] durchgeführt. Das Studienprotokoll wurde an anderer Stelle beschrieben [Referenz] und ohne signifikante Änderungen durchgeführt. Die Studie wurde in […] Studienzentren (Name der Institute) von […] bis […] durchgeführt. Die Studie wurde am […] registriert, gemäß den CONSORT-Richtlinien für die Berichterstattung über nicht-pharmakologische Behandlungen berichtet und von der [Name der Ethikkommission] genehmigt. Die Teilnehmer unterzeichneten Einverständniserklärungen gemäß den Richtlinien der Deklaration von Helsinki.*
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Statistische Analyse von Wirksamkeitsstudien (Efficacy trials)
+
+**Endpunkte und Outcomes in Klinischen Studien**
+
+* Endpunkte sind messbare Ereignisse oder Ergebnisse, um den Erfolg oder Misserfolg einer Intervention zu bewerten.
+
+* Sie geben an, worauf eine Studie abzielt, und dienen als Grundlage zur Beurteilung der Wirksamkeit und Sicherheit.
+
+* Endpunkte werden i.d.R. hierarchisiert (z.B. Primäre vs. Sekundäre Endpunkte)
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Statistische Analyse von Wirksamkeitsstudien (Efficacy trials)
+
+**Primäre Endpunkte**
+
+*	Definition: Der primäre Endpunkt ist das Hauptziel der Studie und stellt die wichtigste Messgröße zur Bewertung der Wirksamkeit dar.
+
+*	Beispiele:
+  
+  *	In einer Psychotherapiestudie: Reduktion von Depressionssymptomen gemessen durch eine validierte Skala (z. B. Beck-Depressions-Inventar).
+	
+	*	In einer Medikamentenstudie: Überlebensrate, Symptomfreiheit nach einer bestimmten Zeit.
+
+`\(\rightarrow\)`	Bedeutung: Signifikanz des primären Endpunkts entscheidet über den Erfolg oder Misserfolg der Studie.
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Statistische Analyse von Wirksamkeitsstudien (Efficacy trials)
+
+**Sekundäre Endpunkte**
+
+*	Definition: Sekundäre Endpunkte sind zusätzliche Messgrößen, die zur umfassenderen Bewertung der Intervention herangezogen werden.
+
+*	Beispiele (bezogen auf Depression als primären Endpunkt):
+	
+	*	Verbesserung der Lebensqualität.
+	
+	*	Reduktion von Angstzuständen bei einer Therapie.
+	
+	*	Nebenwirkungen oder Langzeiteffekte.
+
+`\(\rightarrow\)` Bedeutung: Sekundäre Endpunkte liefern ergänzende Informationen und helfen, weitere Aspekte der Wirksamkeit und Sicherheit zu verstehen.
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Statistische Analyse von Wirksamkeitsstudien (Efficacy trials)
+
+&lt;small&gt;
+
+**Primäre Endpunkte vs. sekundäre Endpunkte (Studienbeispiel - Methodenteil)**
+
+Praktische Bedeutung für Psychotherapie-Studien:
+
+*	Ein klar definierter primärer Endpunkt hilft, den Fokus der Studie zu behalten und die Hauptfrage zu beantworten.
+
+*	Sekundäre Endpunkte bieten wertvolle zusätzliche Einsichten und unterstützen die Interpretation der Ergebnisse.
+
+&lt;br&gt;
+
+&lt;table style="width:50%; margin:auto; border:1px solid black; border-collapse:collapse;"&gt;
+  &lt;tr&gt;
+    &lt;th style="border:1px solid black; padding:8px;"&gt;Primäre Endpunkte&lt;/th&gt;
+    &lt;th style="border:1px solid black; padding:8px;"&gt;Sekundäre Endpunkte&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Hauptziel der Studie&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Ergänzende, zusätzliche Ziele&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Wesentliche Grundlage für Studienerfolg&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Hilfreich zur umfassenden Bewertung&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Zentrale Messgröße für die Wirksamkeit&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Weitere Messgrößen zur Unterstützung&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Statistische Analyse von Wirksamkeitsstudien (Efficacy trials)
+
+&lt;small&gt;
+
+**Primäre Endpunkte vs. sekundäre Endpunkte**
+
+`\(\rightarrow\)`	Signifikanz des primären Endpunkts entscheidet über den Erfolg oder Misserfolg der Studie.
+
+Zentral für die statistische Auswertung:
+
+* Stichprobenumfangsplanung (Poweranalyse) wird i.d.R. am erwarteten Effekt im primären Endpunkt orientiert
+  
+* Signifikanzniveau gilt für Hypothesentest des primären Endpunkts (**konfirmatorisches Ergebnis**)
+  
+* (mehrere) sekundäre Endpunkte `\(\rightarrow\)` `\(\alpha\)`-Fehler Kumulierung (erhöhte Typ-I-Fehlerrate)
+
+  * Problem: Stichprobengröße `\((N)\)` durch Effekt im primären Endpunkt festgelegt `\(\rightarrow\)` Typ-I-Fehlerkorrektur würde bewirken, dass sekundäre Endpunkte nur schwer signifikant werden
+  
+  * Lösung in der Praxis: Hypothesentests für sekundäre Endpunkte werden nicht für `\(\alpha\)`-Fehler korrigiert
+  
+  * Vorsicht bei der Interpretation: Ergebnisse multipler, nicht-kontrollierter Tests sind **explorative Ergebnisse** (nicht hypothesenprüfend, sondern hypothesengenerierend)
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Statistische Analyse von Wirksamkeitsstudien (Efficacy trials)
+
+Beispieltext Endpunkte (Methodenteil)
+
+*Assessments were performed by trained psychiatrists and psychologists blinded for patients’ condition. Participants were assessed at baseline and then [...] weeks, [...] weeks, [...] weeks (primary endpoint), and [...] weeks (secondary endpoint) after treatment onset. Adverse effects were recorded at [...] weeks after treatment onset.
+The primary outcome was the change in [...] scores until [...] weeks. Secondary outcomes included clinical response (defined as 50% or greater improvement) and remission (defined as a ... score less than ...) as well as changes in the [...] scales.*
+
+*Die Messungen wurden von geschulten Psychiatern und Psychologen durchgeführt, die für die Gruppenzugehörigkeit der Patienten verblindet waren. Die Teilnehmer wurden zu Beginn (Baseline) sowie […] Wochen, […] Wochen, […] Wochen (primärer Endpunkt) und […] Wochen (sekundärer Endpunkt) nach Beginn der Behandlung beurteilt. Nebenwirkungen wurden […] Wochen nach Beginn der Behandlung erfasst.
+Der primäre Endpunkt war die Veränderung der […]-Werte bis […] Wochen. Sekundäre Endpunkte umfassten das klinische Ansprechen (definiert als eine Verbesserung von 50% oder mehr) und die Remission (definiert als ein […]-Wert unter …) sowie Veränderungen auf den […]-Skalen.*
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Statistische Analyse von Wirksamkeitsstudien (Efficacy trials)
+
+**Itention-to-treat vs. Per-protocol Analysen**
+
+Intention-to-Treat Analyse (ITT)
+
+*	Definition: Alle Teilnehmer, die einer Behandlungsgruppe zu Beginn der Studie zufällig zugewiesen wurden, werden in die Analyse einbezogen, unabhängig davon, ob sie die zugewiesene Behandlung vollständig durchgeführt haben oder nicht.
+
+*	Vorteile:
+	
+	*	Erhalt der Randomisierung: Minimiert Bias und bewahrt die Vergleichbarkeit der Gruppen.
+	
+	*	Realitätsnähe: Gibt ein realistisches Bild der Wirksamkeit einer Intervention in der Praxis.
+
+*	Beispiel: Ein Teilnehmer, der eine Therapie vorzeitig abbricht, wird weiterhin der ursprünglichen Gruppe zugerechnet.
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Statistische Analyse von Wirksamkeitsstudien (Efficacy trials)
+
+**Itention-to-treat vs. Per-protocol Analysen**
+
+Per-Protocol Analyse (PP)
+
+*	Definition: Nur die Teilnehmer, die die Behandlung genau nach Protokoll durchgeführt haben, werden in die Analyse aufgenommen.
+
+*	Vorteile:
+
+	*	Reine Wirksamkeitsprüfung: Bietet eine Bewertung der optimalen Wirkung der Intervention unter idealen Bedingungen.
+
+*	Nachteil:
+
+	*	Gefahr von Bias: Durch den Ausschluss von Teilnehmern, die das Protokoll nicht befolgen, kann die Vergleichbarkeit zwischen den Gruppen beeinträchtigt werden.
+
+*	Beispiel: Teilnehmer, die eine Therapie abbrechen, werden nicht in die Analyse einbezogen.
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Statistische Analyse von Wirksamkeitsstudien (Efficacy trials)
+
+**Itention-to-treat vs. Per-protocol Analysen**
+
+Praktische Relevanz:
+
+*	Die ITT-Analyse ist der Goldstandard für die Bewertung der Wirksamkeit in klinischen Studien, da sie die tatsächliche klinische Praxis besser widerspiegelt.
+	
+*	Per-Protocol-Analysen bieten zusätzliche Informationen zur maximalen Wirksamkeit der Behandlung.
+	
+* Die Wahl zwischen ITT- und Per-Protocol-Analysen beeinflusst die Interpretation der Studienergebnisse und sollte klar definiert und begründet sein.
+
+&lt;table style="width:70%; margin:auto; border:1px solid black; border-collapse:collapse;"&gt;
+  &lt;tr&gt;
+    &lt;th style="border:1px solid black; padding:8px;"&gt;ITT-Analyse&lt;/th&gt;
+    &lt;th style="border:1px solid black; padding:8px;"&gt;Per-Protocol-Analyse&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Berücksichtigt alle Teilnehmer&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Nur Teilnehmer, die das Protokoll einhalten&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Erhalt der Randomisierung&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Risiko von Verzerrungen durch Ausfälle&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Realitätsnahe Ergebnisse&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Ergebnisse unter idealen Bedingungen&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Statistische Analyse von Wirksamkeitsstudien (Efficacy trials)
+
+&lt;small&gt;
+
+**Monozentrische vs. Multizentrische Studien**
+
+Monozentrische Studien:
+
+*	Definition: Studien, die an einem einzigen Standort (z.B. Klinik oder Forschungseinrichtung) durchgeführt werden.
+
+*	Vorteile:
+	
+	*	Einheitliche Bedingungen: Kontrollierte und konsistente Durchführung.
+	
+	*	Kostengünstiger: Oft einfacher und kostengünstiger durchführbar.
+	
+	*	Leichtere Koordination: Weniger organisatorischer Aufwand.
+	
+*	Nachteile:
+
+	*	Geringere Generalisierbarkeit: Ergebnisse sind möglicherweise nicht auf andere Standorte oder Populationen übertragbar.
+
+	*	Begrenzte Teilnehmerzahl: Weniger Teilnehmer im Vergleich zu multizentrischen Studien.
+
+*	Beispiele: Pilotstudien, kleinere klinische Studien zur Überprüfung erster Hypothesen.
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Statistische Analyse von Wirksamkeitsstudien (Efficacy trials)
+
+&lt;small&gt;
+
+**Monozentrische vs. Multizentrische Studien**
+
+Multizentrische Studien:
+
+*	Definition: Studien, die an mehreren Standorten gleichzeitig durchgeführt werden.
+
+*	Vorteile:
+	
+	*	Höhere Generalisierbarkeit: Ergebnisse sind repräsentativer und übertragbarer auf verschiedene Populationen und Standorte.
+	
+	*	Größere Teilnehmerzahl: Mehr Teilnehmer erhöhen die statistische Aussagekraft.
+	
+	*	Breitere Vergleichbarkeit: Variabilität zwischen Standorten ermöglicht umfassendere Beurteilungen.
+	
+*	Nachteile:
+
+	*	Komplexere Koordination: Höherer organisatorischer Aufwand und Kommunikationsbedarf.
+
+	*	Höhere Kosten: Meist teurer und ressourcenintensiver.
+
+*	Beispiele: Große klinische Studien zu neuen Medikamenten, nationale oder internationale Studien.
+	
+** `\(\rightarrow\)` Zentrumseffekte sollten (statistisch) berücksichtigt werden**
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Statistische Analyse von Wirksamkeitsstudien (Efficacy trials)
+
+**Monozentrische vs. Multizentrische Studien**
+
+Multizentrische Studien - statistische Kontrolle von Zentrumseffekten im LMM (2 Optionen)
+
+1 - Kontrolle mittels Kovariate (Fixed Effekt):
+
+
+``` r
+lmer(y ~ time * group + center + (time|subject))
+```
+
+* leichter zu schätzen (nur 1 Modellkoeffizient), aber komplexere Hierarchie nicht abbildbar
+
+2 - Kontrolle mittels Random Effekt:
+
+
+``` r
+lmer(y ~ time * group + (time|center/subject))
+```
+
+* komplexer zu schätzen (k Varianzen für pro Zentrum; kann in kleinen Stichproben zu Konvergierungsproblemen führen), aber flexibler
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Poweranalyse
+
+**Zur Erinnerung - Warum Poweranalyse?**
+
+* Bestimmung der benötigten Stichprobengröße: Um sicherzustellen, dass die Studie ausreichend Teilnehmer hat, um statistisch signifikante Effekte zu erkennen ( `\(\beta\)`-Fehler vermeiden).
+
+* Optimierung von Ressourcen: Ressourcen wie Zeit und Kosten effizient einsetzen, indem die Stichprobengröße so gewählt wird, dass unnötig große Studien vermieden werden.
+
+***
+
+Immer nötige Zutaten (neben anderen - je nach Modell):
+
+* Signifikanzniveau `\((\alpha)\)`
+
+* gewünschte Power `\((1-\beta)\)`, i.d.R. mindestens 80%
+
+* Effektschätzung
+
+* Stichprobengröße (oft gesucht)
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Poweranalyse
+
+**Poweranalyse für das LMM - Herausforderungen**
+
+* Anzahl von Messungen muss auf mehreren Ebenen berücksichtigt werden (Messungen, Personen, Zentren...)
+
+* Für eine genaue Schätzung müssen viele Komponenten bekannt sein
+
+  * Für fixed Effekte sind i.d.R. Schätzungen/Vorstellungen verfügbar (Effektstärke)
+  
+  * Für Varianzkomponenten (random Effekte) i.d.R. unbekannt.
+  
+  * Größere Vorstudien - hilfreich, unterscheiden sich jedoch oft in Details
+  
+  * Kleinere Pilotstudien - hilfreich, jedoch oft zu klein für sinnvolle Schätzung
+  
+* Einführen von Kovariaten kann die optimalen Stichprobengrößen auf jedem Level ändern
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Poweranalyse
+
+**Simulationsbasierte Poweranalyse**
+
+* Für genaue Powerschätzungen müssen Daten (inklusive fixed und random Effekte simuliert werden)
+
+* Schätzer für fixed und random Effekte müssen angegeben werden
+
+* Logik:
+
+  * Daten erstellen, die in etwa so aussehen, wie in unserer Studie
+  
+  * In diesen Daten LMM berechnen und den Effekt, der uns interessiert auf Signifikanz prüfen
+  
+  * Vorgang für stabile Ergebnisse oft wiederholen (i.d.R. 1000 oder 10000 mal) 
+  
+  * Power (%) = Anteil der Durchgänge, in denen Test signifikant war
+
+* Implementierung simulationsbasierte Poweranalysen im R-Paket `simr`
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Poweranalyse
+
+**Simulationsbasierte Poweranalyse**
+
+&lt;small&gt;
+
+.pull-left[
+
+Datensatzstruktur erstellen (Anzahl Personen, Gruppen, Zeitpunkte):
+
+
+``` r
+library(simr)
+
+subj &lt;- factor(1:10) # 10 Personen
+class_id &lt;- letters[1:5] # 5 Klassen
+time &lt;- 0:2 # 3 Messzeitpunkte
+group &lt;- c("control", "intervention")
+
+subj_full &lt;- rep(subj, 15)
+class_full &lt;- rep(rep(class_id, each=10), 3)
+time_full &lt;- rep(time, each=50)
+group_full &lt;- rep(rep(group, each=5), 15)
+
+data &lt;- data.frame(id=subj_full, 
+                     class=class_full, 
+                     treatment=group_full, 
+                     time=time_full)
+```
+
+
+]
+
+.pull-right[
+
+Blick in den simulierten Datensatz (erste 10 Zeilen):
+
+
+``` r
+head(data, 10)
+```
+
+```
+   id class   group time
+1   1     a control    0
+2   2     a control    0
+3   3     a control    0
+4   4     a control    0
+5   5     a control    0
+6   6     a therapy    0
+7   7     a therapy    0
+8   8     a therapy    0
+9   9     a therapy    0
+10 10     a therapy    0
+```
+]
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Poweranalyse
+
+&lt;small&gt;
+
+**Simulationsbasierte Poweranalyse**
+
+Wir wollen in der Studie folgendes Modell nutzen:
+
+
+``` r
+lmer(𝑦 ~ group * time + (1|class/id), data = data)
+```
+
+Fixed Effekte und Varianzkomponenten müssen für die genaue Simulation angegeben/geschätzt werden:
+
+
+``` r
+## Intercept und slopes für group, time und treatment:time
+
+fixed &lt;- c(5, 0, 1, 0.6)
+
+## Random intercepts für Teilnehmer gruppiert in Klassen
+
+rand &lt;- list(0.5, 0.1)
+
+## Residualvarianz
+
+res &lt;- 1
+```
+
+
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Poweranalyse
+
+&lt;small&gt;
+
+**Simulationsbasierte Poweranalyse**
+
+Basierend auf den Parametern erstellen wir ein "künstliches" Regressionsmodell:
+
+
+``` r
+model &lt;- makeLmer(y ~ group*time + (1|class/id), fixef=fixed, VarCorr=rand, sigma=res, data=data)
+model
+```
+
+```
+Linear mixed model fit by REML ['lmerMod']
+Formula: y ~ group * time + (1 | class/id)
+   Data: data
+REML criterion at convergence: 478.8519
+Random effects:
+ Groups   Name        Std.Dev.
+ id:class (Intercept) 0.7071  
+ class    (Intercept) 0.3162  
+ Residual             1.0000  
+Number of obs: 150, groups:  id:class, 50; class, 5
+Fixed Effects:
+      (Intercept)       grouptherapy               time  grouptherapy:time  
+              5.0                0.0                1.0                0.6  
+```
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Poweranalyse
+
+&lt;small&gt;
+
+**Simulationsbasierte Poweranalyse**
+
+Wir analysieren die erreichte Power für den Interaktionseffekt:
+
+
+``` r
+powerSim(model, nsim=100, test = fixed("grouptherapy:time", method = "t"))
+```
+
+```
+Simulating: |                                                                                                   |Simulating: |=                                                                                                  |Simulating: |==                                                                                                 |
+```
+
+```
+Simulating: |===                                                                                                |
+```
+
+```
+Simulating: |====                                                                                               |
+```
+
+```
+Simulating: |=====                                                                                              |Simulating: |======                                                                                             |Simulating: |=======                                                                                            |
+```
+
+```
+Simulating: |========                                                                                           |
+```
+
+```
+Simulating: |=========                                                                                          |Simulating: |==========                                                                                         |Simulating: |===========                                                                                        |Simulating: |============                                                                                       |Simulating: |=============                                                                                      |
+```
+
+```
+Simulating: |==============                                                                                     |
+```
+
+```
+Simulating: |===============                                                                                    |
+```
+
+```
+Simulating: |================                                                                                   |Simulating: |=================                                                                                  |Simulating: |==================                                                                                 |Simulating: |===================                                                                                |Simulating: |====================                                                                               |Simulating: |=====================                                                                              |
+```
+
+```
+Simulating: |======================                                                                             |
+```
+
+```
+Simulating: |=======================                                                                            |Simulating: |========================                                                                           |Simulating: |=========================                                                                          |Simulating: |==========================                                                                         |Simulating: |===========================                                                                        |Simulating: |============================                                                                       |
+```
+
+```
+Simulating: |=============================                                                                      |
+```
+
+```
+Simulating: |==============================                                                                     |Simulating: |===============================                                                                    |
+```
+
+```
+Simulating: |================================                                                                   |Simulating: |=================================                                                                  |Simulating: |==================================                                                                 |Simulating: |===================================                                                                |Simulating: |====================================                                                               |Simulating: |=====================================                                                              |Simulating: |======================================                                                             |Simulating: |=======================================                                                            |Simulating: |========================================                                                           |Simulating: |=========================================                                                          |Simulating: |==========================================                                                         |Simulating: |===========================================                                                        |Simulating: |============================================                                                       |Simulating: |=============================================                                                      |
+```
+
+```
+Simulating: |==============================================                                                     |Simulating: |===============================================                                                    |Simulating: |================================================                                                   |Simulating: |=================================================                                                  |Simulating: |==================================================                                                 |Simulating: |===================================================                                                |Simulating: |====================================================                                               |
+```
+
+```
+Simulating: |=====================================================                                              |Simulating: |======================================================                                             |Simulating: |=======================================================                                            |
+```
+
+```
+Simulating: |========================================================                                           |Simulating: |=========================================================                                          |Simulating: |==========================================================                                         |Simulating: |===========================================================                                        |
+```
+
+```
+Simulating: |============================================================                                       |Simulating: |=============================================================                                      |Simulating: |==============================================================                                     |Simulating: |===============================================================                                    |Simulating: |================================================================                                   |Simulating: |=================================================================                                  |Simulating: |==================================================================                                 |Simulating: |===================================================================                                |Simulating: |====================================================================                               |
+```
+
+```
+Simulating: |=====================================================================                              |
+```
+
+```
+Simulating: |======================================================================                             |Simulating: |=======================================================================                            |
+```
+
+```
+Simulating: |========================================================================                           |Simulating: |=========================================================================                          |Simulating: |==========================================================================                         |
+```
+
+```
+Simulating: |===========================================================================                        |Simulating: |============================================================================                       |Simulating: |=============================================================================                      |Simulating: |==============================================================================                     |Simulating: |===============================================================================                    |Simulating: |================================================================================                   |Simulating: |=================================================================================                  |
+```
+
+```
+Simulating: |==================================================================================                 |Simulating: |===================================================================================                |Simulating: |====================================================================================               |Simulating: |=====================================================================================              |Simulating: |======================================================================================             |
+```
+
+```
+Simulating: |=======================================================================================            |
+```
+
+```
+Simulating: |========================================================================================           |Simulating: |=========================================================================================          |
+```
+
+```
+Simulating: |==========================================================================================         |
+```
+
+```
+Simulating: |===========================================================================================        |Simulating: |============================================================================================       |
+```
+
+```
+Simulating: |=============================================================================================      |Simulating: |==============================================================================================     |
+```
+
+```
+Simulating: |===============================================================================================    |Simulating: |================================================================================================   |Simulating: |=================================================================================================  |Simulating: |================================================================================================== |Simulating: |===================================================================================================|
+```
+
+```
+Power for predictor 'grouptherapy:time', (95% confidence interval):
+      84.00% (75.32, 90.57)
+
+Test: t-test with Satterthwaite degrees of freedom (package lmerTest)
+      Effect size for grouptherapy:time is 0.60
+
+Based on 100 simulations, (0 warnings, 0 errors)
+alpha = 0.05, nrow = 150
+
+Time elapsed: 0 h 0 m 2 s
+```
+
+***
+**Anmerkung:** Es werden im Beispiel aus Zeitgründen 100 Simulationen durchgeführt. Für eine Studie würde man öfter simulieren (z.B. `nsim` = 1000 oder besser 10000) 
+
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Poweranalyse
+
+&lt;small&gt;
+
+**Klassische Poweranalyse**
+
+* Aufgrund der Schwierigkeiten bzgl. Schätzung der Varianzkomponenten wird in der Praxis oft eine klassische Poweranalyse herangezogen
+
+* Statt eines LMMs wird eine konventioneller Test (ohne random Effekte) geprüft
+
+* Diese Schätzung ist **konsevativer**, da Berücksichtigung von random Effekten die Power tendenziell eher erhöht
+
+* Beispiel:
+
+  * Im LMM: Unterschied zwischen den durchschnittlichen Steigungen von 2 Gruppen (t-verteilt)
+  
+  * Konventionell: Unterschied zwischen 2 Durchschnittswerten (t-verteilt)
+
+* Diese Analysen können auf Basis herkömmlicher Effektstärkeschätzungen berechnet werden (fixed Effekte)
+
+* Implementierung klassischer Poweranalysen im R-Paket `pwr`
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Poweranalyse
+
+&lt;small&gt;
+
+**Klassische Poweranalyse - Beispiel 2 Gruppen RCT**
+
+.pull-left[
+
+``` r
+library(pwr)
+
+pwr.t.test(d = 0.5, 
+           sig.level = 0.05, 
+           power = 0.80, 
+           type = "two.sample", 
+           alternative = "two.sided")
+```
+
+```
+
+     Two-sample t test power calculation 
+
+              n = 63.76561
+              d = 0.5
+      sig.level = 0.05
+          power = 0.8
+    alternative = two.sided
+
+NOTE: n is number in *each* group
+```
+]
+
+.pull-right[
+* Beispiel: Vergleich der durchschnittlichen Veränderungen von 2 Gruppen
+
+* Annahme eines mittleren Effekts (d=0.5, nach Cohen)
+
+* `\(\alpha=.05\)`
+
+* `\(1-\beta=.80\)` (wird i.d.R. als Untergrenze definiert)
+
+* Es werden `\(N=128\)` Personen benötigt ( `\(n=64\)` pro Gruppe)
+]
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Statistische Analyse von Wirksamkeitsstudien (Efficacy trials)
+
+&lt;small&gt;
+
+**Exkurs: Kategoriale Outcomes für Therapieansprechen**
+
+Response (50% Verbesserung):
+
+* Definition: Eine Verbesserung um 50% oder mehr im Vergleich zum Ausgangswert eines Messinstruments (z.B. Skalen zur Symptomerfassung).
+
+* Bedeutung: 
+
+  * Wird häufig als Kriterium zur Beurteilung des klinischen Ansprechens einer Therapie verwendet. 
+  
+  * Ein Patient, der eine 50%ige Verbesserung zeigt, wird als “Responder” bezeichnet.
+
+* Beispiel: Bei der Behandlung von Depressionen bedeutet dies eine Reduktion der Symptome um mindestens 50% gemäß einer Skala wie dem Hamilton-Depressions-Skala (HAMD).
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Statistische Analyse von Wirksamkeitsstudien (Efficacy trials)
+
+&lt;small&gt;
+
+**Exkurs: Kategoriale Outcomes für Therapieansprechen**
+
+Remission:
+
+*	Definition: 
+
+  * Ein Zustand, bei dem die Symptome einer Erkrankung auf ein normales oder nahezu normales Niveau reduziert werden
+  
+  * Häufig definiert durch einen festgelegten Schwellenwert auf einer Symptombewertungsskala.
+	
+*	Bedeutung: 
+
+  * Remission bedeutet, dass die Krankheitssymptome minimal oder nicht mehr nachweisbar sind und der Patient sich weitgehend normal fühlt. 
+  
+  * Sie stellt ein anspruchsvolleres Ziel als eine bloße Verbesserung dar.
+
+*	Beispiel: Ein Patient gilt als in Remission, wenn der HAMD-Score unter einen bestimmten Wert fällt, der als symptomfrei oder symptomarm definiert wird (z.B. HAMD ≤ 7).	
+	
+	
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Statistische Analyse von Wirksamkeitsstudien (Efficacy trials)
+
+&lt;small&gt;
+
+**Exkurs: Kategoriale Outcomes für Therapieansprechen**
+
+Reliable change index (RCI)
+
+* Statistisches Maß, das verwendet wird, um die Signifikanz einer Veränderung auf individueller Ebene zu beurteilen.
+
+* Zeigt an, ob die Veränderung in den Testergebnissen einer Person zwischen zwei Zeitpunkten größer ist, als es durch Messfehler (eines Tests) erklärbar wäre
+
+
+`$$\text{RCI} = \frac{\text{Post-Test-Score} - \text{Pre-Test-Score}}{\text{Standard Error of Difference (SE\(_{\text{diff}}\))}}$$`
+	
+`$$\text{SE}_{\text{diff}} = \sqrt{2 \cdot (\text{Standard Error of Measurement})^2}$$`
+`\(\rightarrow\)` Der Standardfehler der Messung basiert auf der Reliabilität des Tests und seiner Standardabweichung.
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Statistische Analyse von Wirksamkeitsstudien (Efficacy trials)
+.pull-left[
+
+&lt;small&gt;
+
+**Exkurs: Kategoriale Outcomes für Therapieansprechen**
+
+Reliable change index (RCI)
+
+
+Interpretation des RCI:
+
+*	Positiver Wert (&gt; 1.96): Die Veränderung ist signifikant und kann als echte Verbesserung interpretiert werden 
+
+  * bei einem z-Wert von 1.96 entspricht dies einer Signifikanz auf dem 5%-Niveau
+
+*	Negativer Wert (&lt; -1.96): Die Veränderung ist signifikant und zeigt eine Verschlechterung an.
+
+*	Wert im Bereich von -1.96 bis 1.96: Keine verlässliche Veränderung; die Veränderung könnte durch Messfehler bedingt sein.
+]
+
+.pull-right[
+![](MVV_04_WS24_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
+
+]
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Statistische Analyse von Wirksamkeitsstudien (Efficacy trials)
+
+**Exkurs: Kategoriale Outcomes für Therapieansprechen**
+
+Reliable change index (RCI)
+
+Beispiel: 
+
+Ein Patient erhält zu Beginn einer Therapie (Pre-Test) einen Score von 20 auf einer Depressionsskala und am Ende (Post-Test) einen Score von 10. Mit einem berechneten `\(SE_{\text{diff}}\)` von 4 beträgt der RCI:
+
+`$$\text{RCI} = \frac{10 - 20}{4} = -2.5$$`
+
+Da der Wert kleiner als -1.96 ist, zeigt er eine verlässliche Verbesserung.
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Statistische Analyse von Wirksamkeitsstudien (Efficacy trials)
+.pull-left[
+
+&lt;small&gt;
+**Exkurs: Kategoriale Outcomes für Therapieansprechen - Reliable and clinically significant change**
+
+* Oft wird der RCI mit einem Remissionskriterium kombiniert
+
+* Verbesserungen sind dann vom Messfehler befreit und klinisch bedeutsam
+
+* Hier wurde ein Remissionskrierium von Score &lt; 50 gewählt
+]
+
+.pull-right[
+![](MVV_04_WS24_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
+
+]
+
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Statistische Analyse von Wirksamkeitsstudien (Efficacy trials)
+
+&lt;small&gt;
+
+**Sensitivitätsanalysen**
+
+*	Definition: Eine Sensitivitätsanalyse bewertet, wie empfindlich die Ergebnisse einer klinischen Studie gegenüber Änderungen in den Annahmen, Methoden oder Parametern des Modells sind.
+
+*	Ziel: Sicherstellung der Robustheit und Zuverlässigkeit der Studienergebnisse durch die Analyse, wie sich Änderungen auf die Hauptschlussfolgerungen auswirken.
+
+***
+
+Typische Anwendungsfälle in Klinischen Studien
+
+*	Umgang mit fehlenden Daten: Analyse der Auswirkungen verschiedener Annahmen über fehlende Werte (z.B. vollständig zufälliges Fehlen, imputierte Werte).
+
+*	Abweichungen vom Protokoll: Berücksichtigung von Teilnehmern, die sich nicht an das Studienprotokoll gehalten haben (z.B. Intention-to-Treat-Analyse vs. Per-Protocol-Analyse).
+
+*	Änderung von Modellparametern: Bewertung, wie sich Änderungen in den Parametern oder Variablen auf die Ergebnisse auswirken.
+
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Statistische Analyse von Wirksamkeitsstudien (Efficacy trials)
+
+Beispieltext Endpunkte (Methodenteil)
+
+&lt;small&gt;
+
+*The sample size was estimated for a power of 80% and a 2-tailed α-level of 5% for a 2-group comparison of change over time in the [primary outcome]. Our study was powered to detect a between-group difference of d=0.5, which represents a moderate effect size (Cohen, 1992). Therefore, a targeted sample of 128 patients (50 per group) was obtained.*
+*Data were analyzed in the intention-to-treat sample. Analyses were performed in R in its most recent version. Results were significant at a P value less than .05. For all continuous outcomes, we calculated 2-level linear mixed-effects regression models (LMM), assuming a linear relationship over time with 5 (up to week 6) repeated measurements per patient, respectively. The model included time, group and their interaction as fixed effects. Measurements were assumed to be nested within patients. Effect sizes were calculated as Cohen's d. As secondary outcomes, response (at least 50 improvement from baseline on the [primary outcome]) and remission ([primary outcome] scores below XX) were computed for each group.*
+
+*Die Stichprobengröße wurde für eine Power von 80% und ein zweiseitiges α-Niveau von 5% für einen Vergleich der Veränderung über die Zeit in der [primären Zielgröße] zwischen zwei Gruppen geschätzt. Unsere Studie war darauf ausgelegt, einen Unterschied zwischen den Gruppen mit d=0,5 zu erkennen, was eine moderate Effektgröße darstellt (Cohen, 1992). Daher wurde eine angestrebte Stichprobe von 128 Patienten (50 pro Gruppe) erreicht.*
+*Die Daten wurden in der Intention-to-Treat-Stichprobe analysiert. Die Analysen wurden in der aktuellsten Version von R durchgeführt. Die Ergebnisse wurden als signifikant betrachtet, wenn der P-Wert kleiner als 0.05 war. Für alle kontinuierlichen Endpunkte berechneten wir zweistufige lineare gemischte Regressionsmodelle (LMM), wobei wir von einer linearen Beziehung über die Zeit mit 5 (bis zur Woche 6) Messwiederholungen pro Patient ausgingen. Das Modell umfasste Zeit, Gruppe und deren Interaktion als feste Effekte. Die Messungen wurden als in den Patienten verschachtelt betrachtet. Effektgrößen wurden als Cohen’s d berechnet. Als sekundäre Endpunkte wurden das Ansprechen (mindestens 50% Verbesserung gegenüber dem Ausgangswert auf der [primären Zielgröße]) und die Remission ([primäre Zielgröße]-Werte unter XX) für jede Gruppe berechnet.*
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+&lt;small&gt;
+
+#### Statistische Analyse von Wirksamkeitsstudien (Efficacy trials)
+
+Studiendesign für Phase-III RCT (Ergebnisteil) - CONSORT Checkliste
+
+&lt;table style="width:100%; border:1px solid black; border-collapse:collapse;"&gt;
+  &lt;tr&gt;
+    &lt;th style="border:1px solid black; padding:8px;"&gt;Abschnitt/Thema&lt;/th&gt;
+    &lt;th style="border:1px solid black; padding:8px;"&gt;Punkt Nr.&lt;/th&gt;
+    &lt;th style="border:1px solid black; padding:8px;"&gt;Checkliste Punkt&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Teilnehmerfluss (Diagramm wird empfohlen)&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;13a&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Für jede Gruppe die Anzahl der zufällig zugewiesenen Teilnehmer, die die vorgesehene Behandlung erhalten haben und die für das primäre Ergebnis analysiert wurden&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;13b&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Für jede Gruppe Verluste und Ausschlüsse nach der Randomisierung, zusammen mit Begründungen&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Rekrutierung&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;14a&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Zeitpunkte, die die Rekrutierungs- und Nachbeobachtungszeiträume definieren&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;14b&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Gründe, warum die Studie beendet oder gestoppt wurde&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Baseline-Daten&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;15&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Eine Tabelle mit den demografischen und klinischen Ausgangsdaten für jede Gruppe&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Analysierte Zahlen&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;16&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Für jede Gruppe die Anzahl der in jeder Analyse eingeschlossenen Teilnehmer (Nenner) und ob die Analyse nach den ursprünglichen Zuweisungsgruppen durchgeführt wurde&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+
+https://www.equator-network.org/reporting-guidelines/consort/
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+&lt;small&gt;
+
+#### Statistische Analyse von Wirksamkeitsstudien (Efficacy trials)
+
+Studiendesign für Phase-III RCT (Ergebnisteil) - CONSORT Checkliste
+
+&lt;table style="width:100%; border:1px solid black; border-collapse:collapse;"&gt;
+  &lt;tr&gt;
+    &lt;th style="border:1px solid black; padding:8px;"&gt;Abschnitt/Thema&lt;/th&gt;
+    &lt;th style="border:1px solid black; padding:8px;"&gt;Punkt Nr.&lt;/th&gt;
+    &lt;th style="border:1px solid black; padding:8px;"&gt;Checkliste Punkt&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Outcomes und Schätzungen&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;17a&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Für jedes primäre und sekundäre Ergebnis die Ergebnisse für jede Gruppe und die geschätzte Effektgröße sowie deren Präzision (z.B. 95%-Konfidenzintervall)&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;17b&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Für binäre Outcomes wird die Darstellung sowohl absoluter als auch relativer Effektgrößen empfohlen&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Zusätzliche Analysen&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;18&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Ergebnisse anderer durchgeführter Analysen, einschließlich Subgruppenanalysen und angepasster Analysen, unter Unterscheidung zwischen vordefinierten und explorativen Analysen&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Schädigungen&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;19&lt;/td&gt;
+    &lt;td style="border:1px solid black; padding:8px;"&gt;Alle wichtigen Schädigungen oder unbeabsichtigte Effekte in jeder Gruppe (für spezifische Leitlinien siehe CONSORT für Schädigungen)&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+
+https://www.equator-network.org/reporting-guidelines/consort/
+
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+&lt;small&gt;
+
+#### Statistische Analyse von Wirksamkeitsstudien (Efficacy trials)
+
+**Beispielszenario:**  Vergleich von Kognitiver Verhaltenstherapie (KVT) vs. Kognitive Verhaltenstherapie + Muttraining
+
+Die Studie soll die Wirksamkeit von Kognitiver Verhaltenstherapie (KVT) vs. KVT + Muttraining bei Patienten mit generalisierter Angststörung vergleichen. Es handelt sich um eine doppelblinde, randomisierte klinische Studie, in der 128 Patienten zufällig einer der beiden Therapieformen zugewiesen werden. Die Behandlungen werden über 6 Wochen hinweg in wöchentlichen Sitzungen durchgeführt.
+
+**Ziel der Studie:** Primärer Endpunkt ist die Veränderung der Angstwerte, gemessen anhand der Hamilton-Angst-Skala (HAM-A), 6 Wochen nach Therapiebeginn. Sekundäre Endpunkte umfassen die Response, Remission (definiert als HAM-A-Wert unter 7) sowie die Verbesserung der Lebensqualität, gemessen durch das SF-36-Formular.
+
+**Ablauf:** Die Teilnehmer werden von geschulten Therapeuten behandelt, die für die spezifische Therapieform trainiert sind. Die Bewertung der Ergebnisse erfolgt durch verblindete Psychologen. Nebenwirkungen oder unerwünschte Ereignisse werden dokumentiert.
+
+**Hypothesen:** Es wird erwartet, dass beide Therapieformen zu einer signifikanten Reduktion der Angst führen, jedoch mit unterschiedlichen Schwerpunkten in der Symptomreduktion und Lebensqualitätsverbesserung.
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+&lt;small&gt;
+
+#### Statistische Analyse von Wirksamkeitsstudien (Efficacy trials)
+
+
+.pull-left[
+.code80[
+
+``` r
+ggplot(data, aes(x = time, y = y, colour = treatment)) +
+  stat_summary(aes(group = subject), geom = "line") +
+  labs(colour = "", x = "Wochen", y = "HAM-A") +
+  theme(text = element_text(size = 20), legend.position = "right")
+```
+]
+* Darstellung der Daten in Linegraph (Deskriptivstatistik)
+
+* I.d.R. bekommt primärer Endpunkt einen eigenen Graphen.
+
+]
+
+.pull-right[
+![](MVV_04_WS24_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
+]
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+&lt;small&gt;
+
+#### Statistische Analyse von Wirksamkeitsstudien (Efficacy trials)
+
+.code70[
+
+``` r
+mod = lmer(y ~ time * treatment + (time|subject), data = data)
+summary(mod)
+```
+
+```
+Linear mixed model fit by REML ['lmerMod']
+Formula: y ~ time * treatment + (time | subject)
+   Data: data
+
+REML criterion at convergence: 3359.8
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-3.2231 -0.5451  0.0004  0.5428  3.1874 
+
+Random effects:
+ Groups   Name        Variance Std.Dev. Corr 
+ subject  (Intercept) 3.9859   1.9965        
+          time        1.0146   1.0073   -0.59
+ Residual             0.9966   0.9983        
+Number of obs: 896, groups:  subject, 128
+
+Fixed effects:
+                   Estimate Std. Error t value
+(Intercept)         20.1978     0.2636  76.610
+time                -1.2172     0.1281  -9.502
+treatmentKVTM       -0.2454     0.3729  -0.658
+time:treatmentKVTM  -0.3928     0.1812  -2.168
+
+Correlation of Fixed Effects:
+            (Intr) time   trKVTM
+time        -0.598              
+tretmntKVTM -0.707  0.423       
+tm:trtmKVTM  0.423 -0.707 -0.598
+```
+]
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+&lt;small&gt;
+
+#### Statistische Analyse von Wirksamkeitsstudien (Efficacy trials)
+
+Veränderung innerhalb beider Gruppen und deren Differenz darstellen:
+
+
+``` r
+library(emmeans)
+
+em = emmeans::emtrends(mod, pairwise ~ treatment, var = "time")
+em
+```
+
+```
+$emtrends
+ treatment time.trend    SE  df lower.CL upper.CL
+ KVT            -1.22 0.128 126    -1.47   -0.964
+ KVTM           -1.61 0.128 126    -1.86   -1.357
+
+Degrees-of-freedom method: kenward-roger 
+Confidence level used: 0.95 
+
+$contrasts
+ contrast   estimate    SE  df t.ratio p.value
+ KVT - KVTM    0.393 0.181 126   2.168  0.0320
+
+Degrees-of-freedom method: kenward-roger 
+```
+]
+
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+&lt;small&gt;
+
+.pull-left[
+
+#### Statistische Analyse von Wirksamkeitsstudien (Efficacy trials)
+
+
+``` r
+em
+```
+
+```
+$emtrends
+ treatment time.trend    SE  df lower.CL upper.CL
+ KVT            -1.22 0.128 126    -1.47   -0.964
+ KVTM           -1.61 0.128 126    -1.86   -1.357
+
+Degrees-of-freedom method: kenward-roger 
+Confidence level used: 0.95 
+
+$contrasts
+ contrast   estimate    SE  df t.ratio p.value
+ KVT - KVTM    0.393 0.181 126   2.168  0.0320
+
+Degrees-of-freedom method: kenward-roger 
+```
+]
+
+.pull-right[
+***
+
+**Beispieltext im Ergebnisteil:**
+
+*Es zeigten sich signifikante Verbesserungen im HAM-A für die KVT Gruppe `\((\beta_{KVT}=-7.32, KI_{95\%} -8.82 \text{ bis } -5.78)\)` und die KVTM Gruppe `\((\beta_{KVTM}=-9.66, KI_{95\%} -11.16 \text{ bis } -8.14)\)`. Es wurde ein signifikanter Zeit x Gruppe Interaktionseffekte mit stärken Verbesserungen für die KVTM Gruppe gefunden `\((\beta_{Diff}=2.36, t_{126}=2.17, p=.032)\)`.*
+
+***
+
+Vorsicht: Steigungen müssen mit 6 multipliziert werden, um Veränderung bis zum Endpunkt (Woche 6) der Studie zu berechnen.
+]
+
+
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+&lt;small&gt;
+
+#### Statistische Analyse von Wirksamkeitsstudien (Efficacy trials)
+
+Berechnung der Effektsärke
+
+
+``` r
+eff_size(em, sigma = sum(as.data.frame(VarCorr(mod))[,"sdcor"]), edf = df.residual(mod))
+```
+
+```
+ contrast     effect.size     SE  df lower.CL upper.CL
+ (KVT - KVTM)       0.115 0.0532 126  0.00991     0.22
+
+sigma used for effect sizes: 3.412 
+Degrees-of-freedom method: inherited from kenward-roger when re-gridding 
+Confidence level used: 0.95 
+```
+
+***
+
+**Beispieltext im Ergebnisteil:**
+
+*Die Effektstärke für den Zwischengruppeneffekt betrug ein Cohen's d von 0.69 `\((KI_{95\%} = 0.06 \text{ bis } 1.32)\)`. Dies entspricht einem mittleren Effekt.*
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+&lt;small&gt;
+
+#### Statistische Analyse von Wirksamkeitsstudien (Efficacy trials)
+
+Berechnen der Response und Remissionsraten:
+
+
+``` r
+data_w = pivot_wider(data, id_cols = c(subject, treatment), names_from = time, names_prefix = "week", values_from = y, )
+
+head(data_w, 10)
+```
+
+```
+# A tibble: 10 × 9
+   subject treatment week0 week1 week2 week3 week4 week5 week6
+     &lt;int&gt; &lt;fct&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1      65 KVT        20.1  21.1  17.9  18.0 17.7  14.9  13.5 
+ 2      66 KVT        18.1  18.5  15.0  15.5 12.2  11.9  10.4 
+ 3      67 KVT        22.2  20.4  20.1  19.3 19.3  17.8  15.6 
+ 4      68 KVT        17.2  18.0  16.2  15.2 14.7  13.7  13.4 
+ 5      69 KVT        18.9  21.1  21.0  18.6 20.2  15.8  18.1 
+ 6      70 KVT        19.8  20.1  20.0  18.3 18.0  16.3  15.8 
+ 7      71 KVT        21.1  19.8  17.7  14.2 11.9   8.22  5.93
+ 8      72 KVT        21.0  17.3  15.3  12.4  7.81  5.60  5.04
+ 9      73 KVT        20.4  16.4  16.2  14.5 14.4  12.4  11.8 
+10      74 KVT        16.4  19.0  17.0  17.9 18.4  18.0  18.8 
+```
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+&lt;small&gt;
+
+#### Statistische Analyse von Wirksamkeitsstudien (Efficacy trials)
+
+Berechnen der Response und Remissionsraten:
+
+
+``` r
+data_w = pivot_wider(data, id_cols = c(subject, treatment), names_from = time, names_prefix = "week", values_from = y, )
+
+data_w$response = data_w$week6 &lt; (data_w$week0 * 0.5) 
+data_w$remission = data_w$week6 &lt; 7 
+```
+
+.pull-left[
+.code80[
+
+``` r
+table(data_w$response, data_w$treatment)
+```
+
+```
+       
+        KVT KVTM
+  FALSE  48   33
+  TRUE   16   31
+```
+
+``` r
+table(data_w$remission, data_w$treatment)
+```
+
+```
+       
+        KVT KVTM
+  FALSE  55   46
+  TRUE    9   18
+```
+]
+]
+.code80[
+.pull-right[
+
+``` r
+prop.table(table(data_w$response, data_w$treatment), 2)
+```
+
+```
+       
+             KVT     KVTM
+  FALSE 0.750000 0.515625
+  TRUE  0.250000 0.484375
+```
+
+``` r
+prop.table(table(data_w$remission, data_w$treatment), 2)
+```
+
+```
+       
+             KVT     KVTM
+  FALSE 0.859375 0.718750
+  TRUE  0.140625 0.281250
+```
+]
+]
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+
+
+.pull-left[
+#### Modellvoraussetzungen
+
+
+``` r
+model = lmer(Symptomschwere ~ Therapiestunden + (1|Klinik), data = data)
+
+library(performance)
+check_model(model)
+```
+]
+
+.pull-right[
+.center[
+
+&lt;img src="bilder/vorraussetzungen.png" width="470px" /&gt;
+]
+
+]
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Troubleshooting
+
+* `Warning: „model failed to converge"`
+
+* Keine Modellkonvergierung (vermutliche zu viele Parameter bei zu kleiner Stichprobe)
+
+* Ergebnis darf nicht interpretiert werden - Schätzwerte könnten falsch sein
+
+* Lösung 1: Modell vereinfachen, Variablen transformieren (zentrieren, standardisieren)
+
+* Lösung 2: Anderen Optimizer verwenden (mehr Iterationen bei maximum likelihood Schätzung erzwingen)
+
+
+``` r
+# anderen Optimizer testen bei Konvergierungsproblemen
+
+lmer(y ~ x + (1|group), data = data, control = lmerControl(optimizer = "Nelder_Mead"))
+```
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Troubleshooting
+
+.pull-left[
+
+* `Warning: "singular fit"`
+
+* Grund 1: Mindestens ein Random Effekt ist 0 (oder beinahe 0)
+
+* Grund 2: Eine Korrelation zwischen Random Effekten ist -1 oder 1 (oder beinahe)
+
+* Nicht zwingend problematisch, aber Hinweis, dass Modell vereinfacht werden könnte
+
+* Kann auch potentiell auf Multikolliniarität hinweisen (hohe Korrelation zwischen Prädiktoren)
+]
+
+.pull-right[
+
+
+
+.code40[
+
+``` r
+model = lmer(Symptomschwere ~ Therapiestunden + (Therapiestunden|Klinik), data = data)
+```
+
+```
+boundary (singular) fit: see help('isSingular')
+```
+
+``` r
+summary(model)
+```
+
+```
+Linear mixed model fit by REML ['lmerMod']
+Formula: Symptomschwere ~ Therapiestunden + (Therapiestunden | Klinik)
+   Data: data
+
+REML criterion at convergence: -9.8
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-2.3469 -0.5817 -0.1171  0.5837  2.5651 
+
+Random effects:
+ Groups   Name            Variance Std.Dev. Corr
+ Klinik   (Intercept)     3.182983 1.78409      
+          Therapiestunden 0.001463 0.03825  1.00
+ Residual                 0.033578 0.18324      
+Number of obs: 60, groups:  Klinik, 3
+
+Fixed effects:
+                Estimate Std. Error t value
+(Intercept)       3.8132     1.0376   3.675
+Therapiestunden  -0.4511     0.0465  -9.701
+
+Correlation of Fixed Effects:
+            (Intr)
+Therapstndn 0.367 
+optimizer (nloptwrap) convergence code: 0 (OK)
+boundary (singular) fit: see help('isSingular')
+```
+]
+]
+
+---
+class: top, left
+### Take-aways
+
+.full-width[.content-box-gray[
+* Lineare gemischte Modelle (LMMs) sind ein wichtiges statistisches Instrument zur Analyse hierarchischer und wiederholter Messdaten, wie sie in klinischen Studien häufig auftreten.
+
+* In klinischen Studien sind primäre und sekundäre Endpunkte entscheidend für die Bewertung der Wirksamkeit und Sicherheit einer Intervention. Primäre Endpunkte bestimmen den Studienerfolg, während sekundäre Endpunkte ergänzende Informationen liefern.
+
+* Poweranalysen für LMMs erfordern Simulation auf Basis vieler Axiome, oft wird daher eine konventionelle Poweranalyse durchgeführt.
+
+* Diskrete Endpunkte wie Response, Remission oder RCI können ebenfalls zur Bewertung von Therapieerfolg herangezogen werden. 
+
+* Die CONSORT Checkliste ist ein Katalog zur Qualitätskontrolle beim Berichten von Methoden und Ergebnissen klinischer Studien.
+]
+
+]
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+  "slideNumberFormat": "%current%",
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "countIncrementalSlides": false,
+  "ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

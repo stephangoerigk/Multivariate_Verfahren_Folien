@@ -1,0 +1,2376 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Einheit 3</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Prof. Dr. Stephan Goerigk" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/hygge.css" rel="stylesheet" />
+    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view/tile-view.js"></script>
+    <script src="libs/fabric/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#EE0071"],"pen_size":4,"eraser_size":40,"palette":[]}) })</script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+name: Title slide
+class: middle, left
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+# Multivariate Verfahren
+***
+### Einheit 3: Mehrebenenanalyse - Lineare gemischte Modelle  (2)
+##### Wintersemester 2025 | Prof. Dr. Stephan Goerigk
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Wachstumskurvenmodelle
+
+.pull-left[
+
+* Messwiederholungen lassen sich gut mit LMMs modellieren.
+
+* Haben ebenfalls eine hierarchische Struktur (Messzeitpunkte geschachtelt in Personen)
+
+* Messungen innerhalb Personen geben Informationen über Messung dieser Person zu späterem Zeitpunkt (Autokorrelation)
+
+* Beispiel: Wenn `\(x_t\)` ein hoher Wert ist, dann ist `\(x_{t+1}\)` ggf. auch höher 
+]
+
+.pull-right[
+.center[
+Beispiel: 2-Level Design mit Messwiederholungen
+&lt;br&gt;&lt;br&gt;
+&lt;img src="bilder/Hierarchical_5.png" width="400px" /&gt;
+]
+]
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+
+
+.pull-left[
+#### Wachstumskurvenmodelle
+
+Theoretische Regressionsgerade auf Personenlevel:
+
+`$$Y_{ij} = \beta_{0j} + \beta_{1j} t_{ij} + \varepsilon_{ij}$$`
+
+***
+
+* Zeit/Messung `\((t)\)` wird zu einem Fixed Effekt `\((\beta_1)\)`
+
+* Steigung des Fixed Effekts `\(\rightarrow\)` durchschnittliche Veränderung der Personen über Zeit
+
+* Steigung = Veränderung in `\(y\)`, wenn `\(x\)` `\((t)\)` um eine Einheit zunimmt
+
+* Intercept = Durchschnittlicher `\(y\)`-Wert, wenn `\(x\)` `\((t)\)` = 0 ist (zu Beginn der Studie)
+
+]
+
+.pull-right[
+.center[
+&lt;br&gt;&lt;br&gt;
+![](MVV_03_WS24_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+]
+* Schwarz: Mittwelwerte im Zeitverlauf (Daten)
+* Blau: Regressionsgerade (Modell)
+]
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+.pull-left[
+#### Wachstumskurvenmodelle
+
+&lt;small&gt;
+
+Verläufe lassen sich auch für Gruppen getrennt modellieren (Interaktion)
+
+Theoretische Regressionsgerade auf Personenlevel:
+
+`$$Y_{ij} = \beta_{0j} + \beta_{1j} t_{ij} + \beta_{2j} Gruppe_{ij} + \beta_{3j} t_{ij} \cdot Gruppe_{ij} + \varepsilon_{ij}$$`
+
+***
+
+* `\(\beta_0\)` Intercept in der Referenzgruppe (dummy-codiert)
+
+* `\(\beta_1\)` Steigung in der Referenzgruppe
+
+* `\(\beta_2\)` Unterschied in den Intercepts (Wechsel von Referenz auf andere Gruppe)
+
+* `\(\beta_3\)` Unterschied in den Steigungen (Wechsel von Referenz auf andere Gruppe)
+
+]
+
+.pull-right[
+.center[
+&lt;br&gt;&lt;br&gt;
+![](MVV_03_WS24_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+]
+]
+
+
+
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+.pull-left[
+#### Wachstumskurvenmodelle
+
+Hierarchische Datenstruktur:
+
+* Jede Person hat einen individuellen Startpunkt
+
+* Klinisch: z.B. aufgrund unterschiedlich starker Symptomatik zu Therapiebeginn
+
+* Jede Person hat eine individuelle Trajektorie (Werteverlauf)
+
+* Klinisch: z.B. aufgrund unterschiedlich gutem Therapieansprechen
+]
+
+.pull-right[
+.center[
+&lt;br&gt;&lt;br&gt;
+![](MVV_03_WS24_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+]
+
+&lt;small&gt;
+
+* Schwarz: Mittwelwerte im Zeitverlauf (Daten)
+* Grau: Individuelle Verläufe (Daten)
+* Blau: Regressionsgerade (Modell)
+]
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+.pull-left[
+&lt;small&gt;
+
+#### Wachstumskurvenmodelle - Datenstruktur (long Format)
+
+.code80[
+
+```
+   subject     y time  treatment therapist
+1       1a 35.54    0   Therapie         5
+2       1a 32.89    1   Therapie         5
+3       1a 32.38    2   Therapie         5
+4       1a 23.56    3   Therapie         5
+5       1a 31.79    4   Therapie         5
+6       1a 27.88    5   Therapie         5
+7       1a 26.59    6   Therapie         5
+8       1a 21.99    7   Therapie         5
+9       1a 17.78    8   Therapie         5
+10      1a 11.26    9   Therapie         5
+11      1a 12.66   10   Therapie         5
+12     15b 34.50    0 Warteliste         7
+13     15b 43.21    1 Warteliste         7
+14     15b 39.42    2 Warteliste         7
+15     15b 46.38    3 Warteliste         7
+16     15b 35.18    4 Warteliste         7
+17     15b 36.36    5 Warteliste         7
+18     15b 40.09    6 Warteliste         7
+19     15b 34.54    7 Warteliste         7
+20     15b 45.11    8 Warteliste         7
+21     15b 40.59    9 Warteliste         7
+22     15b 44.72   10 Warteliste         7
+```
+]
+`\(\rightarrow\)` Auszug von 2 zufälligen Personen
+]
+
+.pull-right[
+.center[
+&lt;br&gt;&lt;br&gt;
+![](MVV_03_WS24_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+]
+
+* Schwarz: Mittwelwerte im Zeitverlauf (Daten)
+* Grau: Individuelle Verläufe (Daten)
+* Blau: Regressionsgerade (Modell)
+]
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+.pull-left[
+#### Wachstumskurvenmodelle
+
+Hierarchische Datenstruktur:
+
+* Jede Person hat einen individuellen Startpunkt
+
+* Klinisch: z.B. aufgrund unterschiedlich starker Symptomatik zu Therapiebeginn
+
+* Jede Person hat eine individuelle Trajektorie (Werteverlauf)
+
+* Klinisch: z.B. aufgrund unterschiedlich gutem Therapieansprechen
+]
+
+.pull-right[
+.center[
+Zufällige Auswahl von 6 Personen aus dem Datensatz:
+&lt;br&gt;&lt;br&gt;
+![](MVV_03_WS24_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+]
+]
+
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+.pull-left[
+#### Wachstumskurvenmodelle
+
+Mögliche Implikationen im Regressionsmodell:
+
+* Jede Person hat individuelles Intercept
+
+* Klinisch: z.B. aufgrund unterschiedlich starker Symptomatik zu Therapiebeginn
+
+* Jede Person hat eine individuelle Steigung 
+
+* Klinisch: z.B. aufgrund unterschiedlich gutem Therapieansprechen
+
+]
+
+.pull-right[
+.center[
+&lt;br&gt;&lt;br&gt;
+![](MVV_03_WS24_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+]
+]
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+.pull-left[
+Einfaches Wachstumskurvenmodell (Kein Prädiktor):
+
+&lt;small&gt;
+
+**Random Intercept, fixed Slope Modell:**
+
+$$
+`\begin{aligned}
+&amp;\textbf{Ebene 1} \\
+&amp;Y_{ij} = \beta_{0j} + \beta_{1j} t_{ij} + \varepsilon_{ij} \\
+\\
+&amp;\textbf{Ebene 2} \\
+&amp;\beta_{0j} = \gamma_{00} + u_{0j} \\
+&amp;\beta_{1j} = \gamma_{10}  \\
+\end{aligned}`
+$$
+mit 
+
+`$$u_{0j} \sim \mathcal{N}(0, \tau^2_{00})$$`
+und
+
+$$
+\varepsilon_{ij} \sim \mathcal{N}(0, \sigma^2)
+$$
+
+]
+
+.pull-right[
+.center[
+&lt;br&gt;&lt;br&gt;
+![](MVV_03_WS24_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+]
+]
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+.pull-left[
+Einfaches Wachstumskurvenmodell (Kein Prädiktor):
+
+&lt;small&gt;
+
+**Random Intercept, fixed Slope Modell:**
+
+$$
+`\begin{aligned}
+&amp;\textbf{Ebene 1} \\
+&amp;Y_{ij} = \beta_{0j} + \beta_{1j} t_{ij} + \varepsilon_{ij} \\
+\\
+&amp;\textbf{Ebene 2} \\
+&amp;\beta_{0j} = \gamma_{00} + u_{0j} \\
+&amp;\beta_{1j} = \gamma_{10} \\
+\end{aligned}`
+$$
+mit 
+
+`$$u_{0j} \sim \mathcal{N}(0, \tau^2_{00})$$`
+
+und
+
+$$
+\varepsilon_{ij} \sim \mathcal{N}(0, \sigma^2)
+$$
+
+]
+
+.pull-right[
+.center[
+&lt;br&gt;&lt;br&gt;
+![](MVV_03_WS24_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+]
+`\(\rightarrow\)` Intercepts dürfen über Personen hinweg variieren (Steigungen nicht)
+]
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+.pull-left[
+Einfaches Wachstumskurvenmodell (Kein Prädiktor):
+
+&lt;small&gt;
+
+**Random Intercept, fixed Slope Modell:**
+
+$$
+`\begin{aligned}
+&amp;\textbf{Ebene 1} \\
+&amp;Y_{ij} = \beta_{0j} + \beta_{1j} t_{ij} + \varepsilon_{ij} \\
+\\
+&amp;\textbf{Ebene 2} \\
+&amp;\beta_{0j} = \gamma_{00} + u_{0j} \\
+&amp;\beta_{1j} = \gamma_{10}  \\
+\end{aligned}`
+$$
+mit 
+
+`$$u_{0j} \sim \mathcal{N}(0, \tau^2_{00})$$`
+
+und
+
+$$
+\varepsilon_{ij} \sim \mathcal{N}(0, \sigma^2)
+$$
+
+]
+
+.pull-right[
+wobei:
+- `\(Y_{ij}\)` die Zielvariable zum Zeitpunkt `\(i\)` für die Person `\(j\)` darstellt,
+
+- `\(\beta_{0j}\)` und `\(\beta_{1j}\)` der Intercept und die Steigung für die Person `\(j\)` sind,
+
+- `\(t_{ij}\)` den Zeitpunkt darstellt,
+
+- `\(\gamma_{00}\)` und `\(\gamma_{10}\)` die fixed Effekte sind,
+
+- `\(u_{0j}\)` das random Intercept mit einer Varianz-Kovarianz-Matrix darstellen,
+
+- `\(\varepsilon_{ij}\)` der Residualfehler ist.
+
+Diese Formulierung spezifiziert ein Modell mit zufälligem Intercept und fester Steigung.
+]
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+.pull-left[
+Einfaches Wachstumskurvenmodell (Kein Prädiktor):
+
+&lt;small&gt;
+
+**Random Intercept, fixed Slope Modell:**
+
+$$
+`\begin{aligned}
+&amp;\textbf{Ebene 1} \\
+&amp;Y_{ij} = \beta_{0j} + \beta_{1j} t_{ij} + \varepsilon_{ij} \\
+\\
+&amp;\textbf{Ebene 2} \\
+&amp;\beta_{0j} = \gamma_{00} + u_{0j} \\
+&amp;\beta_{1j} = \gamma_{10} \\
+\end{aligned}`
+$$
+mit 
+
+`$$u_{0j} \sim \mathcal{N}(0, \tau^2_{00})$$`
+
+und
+
+$$
+\varepsilon_{ij} \sim \mathcal{N}(0, \sigma^2)
+$$
+
+]
+
+.pull-right[
+.code80[
+
+``` r
+mod = lmer(y ~ time + (1|subject), data = df)
+summary(mod)
+```
+
+```
+Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Formula: y ~ time + (1 | subject)
+   Data: df
+
+REML criterion at convergence: 5779.5
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-3.3058 -0.6623 -0.0420  0.6050  3.7913 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ subject  (Intercept) 45.53    6.748   
+ Residual             32.27    5.681   
+Number of obs: 880, groups:  subject, 80
+
+Fixed effects:
+             Estimate Std. Error        df t value Pr(&gt;|t|)    
+(Intercept)  37.32898    0.83515 104.48659   44.70   &lt;2e-16 ***
+time         -2.15375    0.06056 799.00000  -35.56   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+     (Intr)
+time -0.363
+```
+]
+]
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+.pull-left[
+Einfaches Wachstumskurvenmodell (Kein Prädiktor):
+
+&lt;small&gt;
+
+**Random Intercept, fixed Slope Modell:**
+
+`\(\gamma_{00}\)` = 37.33 `\(\rightarrow\)` Zur Baseline `\((t=0)\)` haben Personen durchschnittlich einen Wert von 37.33
+
+`\(\gamma_{10}\)` = -2.15 `\(\rightarrow\)` Pro zusätzlicher Messung `\((t+1)\)` verändern sich die Werte der Personen durchschnittlich um einen Wert von -2.15
+
+`\(\tau_{0j}\)` = 45.53 `\(\rightarrow\)` Die Personen variieren mit `\(\sqrt{45.53}= 6.75\)` Punkten um das Durchschnittsintercept `\((\gamma_{00})\)`
+
+`\(\sigma^2=\)` 32.27 `\(\rightarrow\)` Es verbleiben 32.27 Punkte unaufgeklärte Residualvarianz
+]
+
+.pull-right[
+.code80[
+
+``` r
+mod = lmer(y ~ time + (1|subject), data = df)
+summary(mod)
+```
+
+```
+Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Formula: y ~ time + (1 | subject)
+   Data: df
+
+REML criterion at convergence: 5779.5
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-3.3058 -0.6623 -0.0420  0.6050  3.7913 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ subject  (Intercept) 45.53    6.748   
+ Residual             32.27    5.681   
+Number of obs: 880, groups:  subject, 80
+
+Fixed effects:
+             Estimate Std. Error        df t value Pr(&gt;|t|)    
+(Intercept)  37.32898    0.83515 104.48659   44.70   &lt;2e-16 ***
+time         -2.15375    0.06056 799.00000  -35.56   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+     (Intr)
+time -0.363
+```
+]
+]
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+.pull-left[
+Einfaches Wachstumskurvenmodell (Kein Prädiktor):
+
+&lt;small&gt;
+
+**Random Intercept, random Slope Modell:**
+
+$$
+`\begin{aligned}
+&amp;\textbf{Ebene 1} \\
+&amp;Y_{ij} = \beta_{0j} + \beta_{1j} t_{ij} + \varepsilon_{ij} \\
+\\
+&amp;\textbf{Ebene 2} \\
+&amp;\beta_{0j} = \gamma_{00} + u_{0j} \\
+&amp;\beta_{1j} = \gamma_{10} + u_{1j} \\
+\end{aligned}`
+$$
+mit 
+
+$$
+`\begin{pmatrix}
+u_{0j} \\
+u_{1j} \\
+\end{pmatrix}`
+\sim \mathcal{N} 
+`\begin{pmatrix}
+\begin{matrix} 0 \\ 0 \end{matrix}, &amp;
+\begin{matrix} \tau_{00}^2 &amp; \tau_{01} \\ \tau_{01} &amp; \tau_{10}^2 \end{matrix} 
+\end{pmatrix}`
+$$
+und
+
+$$
+\varepsilon_{ij} \sim \mathcal{N}(0, \sigma^2)
+$$
+
+]
+
+.pull-right[
+.center[
+&lt;br&gt;&lt;br&gt;
+![](MVV_03_WS24_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
+]
+]
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+.pull-left[
+Einfaches Wachstumskurvenmodell (Kein Prädiktor):
+
+&lt;small&gt;
+
+**Random Intercept, random Slope Modell:**
+
+$$
+`\begin{aligned}
+&amp;\textbf{Ebene 1} \\
+&amp;Y_{ij} = \beta_{0j} + \beta_{1j} t_{ij} + \varepsilon_{ij} \\
+\\
+&amp;\textbf{Ebene 2} \\
+&amp;\beta_{0j} = \gamma_{00} + u_{0j} \\
+&amp;\beta_{1j} = \gamma_{10} + u_{1j} \\
+\end{aligned}`
+$$
+mit 
+
+$$
+`\begin{pmatrix}
+u_{0j} \\
+u_{1j} \\
+\end{pmatrix}`
+\sim \mathcal{N} 
+`\begin{pmatrix}
+\begin{matrix} 0 \\ 0 \end{matrix}, &amp;
+\begin{matrix} \tau_{00}^2 &amp; \tau_{01} \\ \tau_{01} &amp; \tau_{10}^2 \end{matrix} 
+\end{pmatrix}`
+$$
+und
+
+$$
+\varepsilon_{ij} \sim \mathcal{N}(0, \sigma^2)
+$$
+
+]
+
+.pull-right[
+.center[
+&lt;br&gt;&lt;br&gt;
+![](MVV_03_WS24_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
+]
+`\(\rightarrow\)` Intercepts und Slopes dürfen über Personen hinweg variieren
+]
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+.pull-left[
+Einfaches Wachstumskurvenmodell (Kein Prädiktor):
+
+&lt;small&gt;
+
+**Random Intercept, random Slope Modell:**
+
+$$
+`\begin{aligned}
+&amp;\textbf{Ebene 1} \\
+&amp;Y_{ij} = \beta_{0j} + \beta_{1j} t_{ij} + \varepsilon_{ij} \\
+\\
+&amp;\textbf{Ebene 2} \\
+&amp;\beta_{0j} = \gamma_{00} + u_{0j} \\
+&amp;\beta_{1j} = \gamma_{10} + u_{1j} \\
+\end{aligned}`
+$$
+mit 
+
+$$
+`\begin{pmatrix}
+u_{0j} \\
+u_{1j} \\
+\end{pmatrix}`
+\sim \mathcal{N} 
+`\begin{pmatrix}
+\begin{matrix} 0 \\ 0 \end{matrix}, &amp;
+\begin{matrix} \tau_{00}^2 &amp; \tau_{01} \\ \tau_{01} &amp; \tau_{10}^2 \end{matrix} 
+\end{pmatrix}`
+$$
+und
+
+$$
+\varepsilon_{ij} \sim \mathcal{N}(0, \sigma^2)
+$$
+
+]
+
+.pull-right[
+wobei:
+- `\(Y_{ij}\)` die Zielvariable zum Zeitpunkt `\(i\)` für die Person `\(j\)` darstellt,
+
+- `\(\beta_{0j}\)` und `\(\beta_{1j}\)` der Intercept und die Steigung für die Person `\(j\)` sind,
+
+- `\(t_{ij}\)` den Zeitpunkt darstellt,
+
+- `\(\gamma_{00}\)` und `\(\gamma_{10}\)` die fixed Effekte sind,
+
+- `\(u_{0j}\)` und `\(u_{1j}\)` random Effekte mit einer Varianz-Kovarianz-Matrix darstellen,
+
+- `\(\varepsilon_{ij}\)` der Residualfehler ist.
+
+Diese Formulierung spezifiziert ein Modell mit zufälligem Intercept und zufälliger Steigung.
+]
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+.pull-left[
+Einfaches Wachstumskurvenmodell (Kein Prädiktor):
+
+&lt;small&gt;
+
+**Random Intercept, random Slope Modell:**
+
+$$
+`\begin{aligned}
+&amp;\textbf{Ebene 1} \\
+&amp;Y_{ij} = \beta_{0j} + \beta_{1j} t_{ij} + \varepsilon_{ij} \\
+\\
+&amp;\textbf{Ebene 2} \\
+&amp;\beta_{0j} = \gamma_{00} + u_{0j} \\
+&amp;\beta_{1j} = \gamma_{10} + u_{1j} \\
+\end{aligned}`
+$$
+mit 
+
+$$
+`\begin{pmatrix}
+u_{0j} \\
+u_{1j} \\
+\end{pmatrix}`
+\sim \mathcal{N} 
+`\begin{pmatrix}
+\begin{matrix} 0 \\ 0 \end{matrix}, &amp;
+\begin{matrix} \tau_{00}^2 &amp; \tau_{01} \\ \tau_{01} &amp; \tau_{10}^2 \end{matrix} 
+\end{pmatrix}`
+$$
+und
+
+$$
+\varepsilon_{ij} \sim \mathcal{N}(0, \sigma^2)
+$$
+
+]
+
+.pull-right[
+.code80[
+
+``` r
+mod = lmer(y ~ time + (time|subject), data = df)
+summary(mod)
+```
+
+```
+Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Formula: y ~ time + (time | subject)
+   Data: df
+
+REML criterion at convergence: 5259
+
+Scaled residuals: 
+     Min       1Q   Median       3Q      Max 
+-2.46697 -0.64991  0.01966  0.67732  2.57872 
+
+Random effects:
+ Groups   Name        Variance Std.Dev. Corr 
+ subject  (Intercept)  7.797   2.792         
+          time         1.589   1.260    -0.01
+ Residual             14.996   3.872         
+Number of obs: 880, groups:  subject, 80
+
+Fixed effects:
+            Estimate Std. Error      df t value Pr(&gt;|t|)    
+(Intercept)  37.3290     0.3964 79.0002   94.18   &lt;2e-16 ***
+time         -2.1538     0.1468 78.9996  -14.67   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+     (Intr)
+time -0.155
+```
+]
+]
+
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+.pull-left[
+Einfaches Wachstumskurvenmodell (Kein Prädiktor):
+
+&lt;small&gt;
+
+**Random Intercept, random Slope Modell:**
+
+`\(\gamma_{00}\)` = 37.33 `\(\rightarrow\)` Zur Baseline `\((t=0)\)` haben Personen durchschnittlich einen Wert von 37.33
+
+`\(\gamma_{10}\)` = -2.15 `\(\rightarrow\)` Pro zusätzlicher Messung `\((t+1)\)` verändern sich die Werte der Personen durchschnittlich um einen Wert von -2.15
+
+`\(\tau_{0j}\)` = 7.8 `\(\rightarrow\)` Die Personen variieren mit `\(\sqrt{7.8}= 2.79\)` Punkten um das Durchschnittsintercept `\((\gamma_{00})\)`
+
+`\(\tau_{1j}\)` = 1.59 `\(\rightarrow\)` Die Personen variieren mit `\(\sqrt{1.59}= 1.26\)` Punkten um die Durchschnittssteigung `\((\gamma_{10})\)`
+
+`\(\sigma^2=\)` 15 `\(\rightarrow\)` Es verbleiben 15 Punkte unaufgeklärte Residualvarianz
+]
+
+.pull-right[
+.code80[
+
+``` r
+mod = lmer(y ~ time + (time|subject), data = df)
+summary(mod)
+```
+
+```
+Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Formula: y ~ time + (time | subject)
+   Data: df
+
+REML criterion at convergence: 5259
+
+Scaled residuals: 
+     Min       1Q   Median       3Q      Max 
+-2.46697 -0.64991  0.01966  0.67732  2.57872 
+
+Random effects:
+ Groups   Name        Variance Std.Dev. Corr 
+ subject  (Intercept)  7.797   2.792         
+          time         1.589   1.260    -0.01
+ Residual             14.996   3.872         
+Number of obs: 880, groups:  subject, 80
+
+Fixed effects:
+            Estimate Std. Error      df t value Pr(&gt;|t|)    
+(Intercept)  37.3290     0.3964 79.0002   94.18   &lt;2e-16 ***
+time         -2.1538     0.1468 78.9996  -14.67   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+     (Intr)
+time -0.155
+```
+]
+]
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+.pull-left[
+&lt;small&gt;
+
+Konditionales Wachstumskurvenmodell (mit Prädiktor):
+
+
+
+**Random Intercept, random Slope Modell (2 Gruppen):**
+
+$$
+`\begin{aligned}
+&amp;\textbf{Ebene 1} \\
+&amp;Y_{ij} = \beta_{0j} + \beta_{1j} t_{ij} + \varepsilon_{ij} \\
+\\
+&amp;\textbf{Ebene 2} \\
+&amp;\beta_{0j} = \gamma_{00} + \gamma_{01}Gruppe_{j} + u_{0j} \\
+&amp;\beta_{1j} = \gamma_{10} + \gamma_{11}Gruppe_{j} + u_{1j} \\
+\end{aligned}`
+$$
+mit 
+
+$$
+`\begin{pmatrix}
+u_{0j} \\
+u_{1j} \\
+\end{pmatrix}`
+\sim \mathcal{N} 
+`\begin{pmatrix}
+\begin{matrix} 0 \\ 0 \end{matrix}, &amp;
+\begin{matrix} \tau_{00}^2 &amp; \tau_{01} \\ \tau_{01} &amp; \tau_{10}^2 \end{matrix} 
+\end{pmatrix}`
+$$
+und
+
+$$
+\varepsilon_{ij} \sim \mathcal{N}(0, \sigma^2)
+$$
+
+]
+
+.pull-right[
+.center[
+&lt;br&gt;&lt;br&gt;
+![](MVV_03_WS24_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
+]
+]
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+.pull-left[
+&lt;small&gt;
+
+Konditionales Wachstumskurvenmodell (mit Prädiktor):
+
+**Random Intercept, random Slope Modell (2 Gruppen):**
+
+$$
+`\begin{aligned}
+&amp;\textbf{Ebene 1} \\
+&amp;Y_{ij} = \beta_{0j} + \beta_{1j} t_{ij} + \varepsilon_{ij} \\
+\\
+&amp;\textbf{Ebene 2} \\
+&amp;\beta_{0j} = \gamma_{00} + \gamma_{01}Gruppe_{j} + u_{0j} \\
+&amp;\beta_{1j} = \gamma_{10} + \gamma_{11}Gruppe_{j} + u_{1j} \\
+\end{aligned}`
+$$
+mit 
+
+$$
+`\begin{pmatrix}
+u_{0j} \\
+u_{1j} \\
+\end{pmatrix}`
+\sim \mathcal{N} 
+`\begin{pmatrix}
+\begin{matrix} 0 \\ 0 \end{matrix}, &amp;
+\begin{matrix} \tau_{00}^2 &amp; \tau_{01} \\ \tau_{01} &amp; \tau_{10}^2 \end{matrix} 
+\end{pmatrix}`
+$$
+und
+
+$$
+\varepsilon_{ij} \sim \mathcal{N}(0, \sigma^2)
+$$
+
+]
+
+.pull-right[
+.center[
+&lt;br&gt;&lt;br&gt;
+![](MVV_03_WS24_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
+]
+`\(\rightarrow\)` Intercepts und Slopes dürfen über Personen hinweg variieren
+]
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+.pull-left[
+&lt;small&gt;
+
+Konditionales Wachstumskurvenmodell (mit Prädiktor):
+
+**Random Intercept, random Slope Modell (2 Gruppen):**
+
+$$
+`\begin{aligned}
+&amp;\textbf{Ebene 1} \\
+&amp;Y_{ij} = \beta_{0j} + \beta_{1j} t_{ij} + \varepsilon_{ij} \\
+\\
+&amp;\textbf{Ebene 2} \\
+&amp;\beta_{0j} = \gamma_{00} + \gamma_{01}Gruppe_{j} + u_{0j} \\
+&amp;\beta_{1j} = \gamma_{10} + \gamma_{11}Gruppe_{j} + u_{1j} \\
+\end{aligned}`
+$$
+mit 
+
+$$
+`\begin{pmatrix}
+u_{0j} \\
+u_{1j} \\
+\end{pmatrix}`
+\sim \mathcal{N} 
+`\begin{pmatrix}
+\begin{matrix} 0 \\ 0 \end{matrix}, &amp;
+\begin{matrix} \tau_{00}^2 &amp; \tau_{01} \\ \tau_{01} &amp; \tau_{10}^2 \end{matrix} 
+\end{pmatrix}`
+$$
+und
+
+$$
+\varepsilon_{ij} \sim \mathcal{N}(0, \sigma^2)
+$$
+
+]
+
+.pull-right[
+wobei:
+- `\(Y_{ij}\)` die Zielvariable zum Zeitpunkt `\(i\)` für die Person `\(j\)` darstellt,
+
+- `\(\beta_{0j}\)` und `\(\beta_{1j}\)` der Intercept und die Steigung für die Person `\(j\)` sind,
+
+- `\(t_{ij}\)` den Zeitpunkt darstellt,
+
+- `\(\gamma_{00}\)`, `\(\gamma_{10}\)`, `\(\gamma_{10}\)` und `\(\gamma_{11}\)` die fixed Effekte sind,
+
+- `\(u_{0j}\)` und `\(u_{1j}\)` random Effekte mit einer Varianz-Kovarianz-Matrix darstellen,
+
+- `\(\varepsilon_{ij}\)` der Residualfehler ist.
+
+Diese Formulierung spezifiziert ein Modell mit zufälligem Intercept und zufälliger Steigung.
+]
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+.pull-left[
+&lt;small&gt;
+
+Konditionales Wachstumskurvenmodell (mit Prädiktor):
+
+**Random Intercept, random Slope Modell (2 Gruppen):**
+
+$$
+`\begin{aligned}
+&amp;\textbf{Ebene 1} \\
+&amp;Y_{ij} = \beta_{0j} + \beta_{1j} t_{ij} + \varepsilon_{ij} \\
+\\
+&amp;\textbf{Ebene 2} \\
+&amp;\beta_{0j} = \gamma_{00} + \gamma_{01}Gruppe_{j} + u_{0j} \\
+&amp;\beta_{1j} = \gamma_{10} + \gamma_{11}Gruppe_{j} + u_{1j} \\
+\end{aligned}`
+$$
+mit 
+
+$$
+`\begin{pmatrix}
+u_{0j} \\
+u_{1j} \\
+\end{pmatrix}`
+\sim \mathcal{N} 
+`\begin{pmatrix}
+\begin{matrix} 0 \\ 0 \end{matrix}, &amp;
+\begin{matrix} \tau_{00}^2 &amp; \tau_{01} \\ \tau_{01} &amp; \tau_{10}^2 \end{matrix} 
+\end{pmatrix}`
+$$
+und
+
+$$
+\varepsilon_{ij} \sim \mathcal{N}(0, \sigma^2)
+$$
+
+]
+
+.pull-right[
+.code60[
+
+``` r
+mod = lmer(y ~ time * treatment + (time|subject), data = df)
+summary(mod)
+```
+
+```
+Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Formula: y ~ time * treatment + (time | subject)
+   Data: df
+
+REML criterion at convergence: 5200.7
+
+Scaled residuals: 
+     Min       1Q   Median       3Q      Max 
+-2.56293 -0.65340  0.03682  0.67657  2.57674 
+
+Random effects:
+ Groups   Name        Variance Std.Dev. Corr 
+ subject  (Intercept)  7.5847  2.7540        
+          time         0.8341  0.9133   -0.23
+ Residual             14.9960  3.8725        
+Number of obs: 880, groups:  subject, 80
+
+Fixed effects:
+                       Estimate Std. Error      df t value Pr(&gt;|t|)    
+(Intercept)             37.9325     0.5558 77.9988  68.249  &lt; 2e-16 ***
+time                    -1.2835     0.1558 77.9921  -8.241 3.22e-12 ***
+treatmentTherapie       -1.2070     0.7860 77.9988  -1.536    0.129    
+time:treatmentTherapie  -1.7405     0.2203 77.9921  -7.901 1.46e-11 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+            (Intr) time   trtmnT
+time        -0.367              
+tretmntThrp -0.707  0.260       
+tm:trtmntTh  0.260 -0.707 -0.367
+```
+]
+]
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+.pull-left[
+&lt;small&gt;
+
+Konditionales Wachstumskurvenmodell (mit Prädiktor):
+
+**Random Intercept, random Slope Modell (2 Gruppen):**
+
+`\(\gamma_{00}\)` = 37.93 `\(\rightarrow\)` Zur Baseline `\((t=0)\)` haben Personen in der Wartelistengruppe durchschnittlich einen Wert von 37.93
+
+`\(\gamma_{10}\)` = -1.28 `\(\rightarrow\)` Pro zusätzlicher Messung `\((t+1)\)` verändern sich die Werte der Personen in der Wartelistengruppe durchschnittlich um einen Wert von -1.28
+
+`\(\gamma_{01}\)` = -1.21 `\(\rightarrow\)` Zur Baseline `\((t=0)\)` haben Personen in der Therapiegruppe durchschnittlich einen Wert von -1.21 mehr als die in der Wartelistengruppe
+
+`\(\gamma_{10}\)` = -1.74 `\(\rightarrow\)` Pro zusätzlicher Messung `\((t+1)\)` reduzieren sich die Werte der Personen in der Therapiegruppe durchschnittlich um einen Wert von -1.74 mehr als in der Wartelistengruppe
+
+]
+
+.pull-right[
+.code60[
+
+``` r
+mod = lmer(y ~ time * treatment + (time|subject), data = df)
+summary(mod)
+```
+
+```
+Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Formula: y ~ time * treatment + (time | subject)
+   Data: df
+
+REML criterion at convergence: 5200.7
+
+Scaled residuals: 
+     Min       1Q   Median       3Q      Max 
+-2.56293 -0.65340  0.03682  0.67657  2.57674 
+
+Random effects:
+ Groups   Name        Variance Std.Dev. Corr 
+ subject  (Intercept)  7.5847  2.7540        
+          time         0.8341  0.9133   -0.23
+ Residual             14.9960  3.8725        
+Number of obs: 880, groups:  subject, 80
+
+Fixed effects:
+                       Estimate Std. Error      df t value Pr(&gt;|t|)    
+(Intercept)             37.9325     0.5558 77.9988  68.249  &lt; 2e-16 ***
+time                    -1.2835     0.1558 77.9921  -8.241 3.22e-12 ***
+treatmentTherapie       -1.2070     0.7860 77.9988  -1.536    0.129    
+time:treatmentTherapie  -1.7405     0.2203 77.9921  -7.901 1.46e-11 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+            (Intr) time   trtmnT
+time        -0.367              
+tretmntThrp -0.707  0.260       
+tm:trtmntTh  0.260 -0.707 -0.367
+```
+]
+]
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+.pull-left[
+&lt;small&gt;
+
+Konditionales Wachstumskurvenmodell (mit Prädiktor):
+
+**Random Intercept, random Slope Modell (2 Gruppen):**
+
+`\(\tau_{0j}\)` = 7.58 `\(\rightarrow\)` Die Personen variieren mit `\(\sqrt{7.58}= 2.75\)` Punkten um das Durchschnittsintercept `\((\gamma_{00})\)`
+
+`\(\tau_{1j}\)` = 0.83 `\(\rightarrow\)` Die Personen variieren mit `\(\sqrt{0.83}= 0.91\)` Punkten um die Durchschnittssteigung `\((\gamma_{10})\)`
+
+`\(\sigma^2=\)` 15 `\(\rightarrow\)` Es verbleiben 15 Punkte unaufgeklärte Residualvarianz
+]
+
+.pull-right[
+.code60[
+
+``` r
+mod = lmer(y ~ time * treatment + (time|subject), data = df)
+summary(mod)
+```
+
+```
+Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Formula: y ~ time * treatment + (time | subject)
+   Data: df
+
+REML criterion at convergence: 5200.7
+
+Scaled residuals: 
+     Min       1Q   Median       3Q      Max 
+-2.56293 -0.65340  0.03682  0.67657  2.57674 
+
+Random effects:
+ Groups   Name        Variance Std.Dev. Corr 
+ subject  (Intercept)  7.5847  2.7540        
+          time         0.8341  0.9133   -0.23
+ Residual             14.9960  3.8725        
+Number of obs: 880, groups:  subject, 80
+
+Fixed effects:
+                       Estimate Std. Error      df t value Pr(&gt;|t|)    
+(Intercept)             37.9325     0.5558 77.9988  68.249  &lt; 2e-16 ***
+time                    -1.2835     0.1558 77.9921  -8.241 3.22e-12 ***
+treatmentTherapie       -1.2070     0.7860 77.9988  -1.536    0.129    
+time:treatmentTherapie  -1.7405     0.2203 77.9921  -7.901 1.46e-11 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+            (Intr) time   trtmnT
+time        -0.367              
+tretmntThrp -0.707  0.260       
+tm:trtmntTh  0.260 -0.707 -0.367
+```
+]
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+
+
+
+.pull-left[
+&lt;small&gt;
+
+Konditionales Wachstumskurvenmodell (mit Prädiktor):
+
+**Random Intercept, random Slope Modell (3 Gruppen):**
+
+$$
+`\begin{aligned}
+&amp;\textbf{Ebene 1} \\
+&amp;Y_{ij} = \beta_{0j} + \beta_{1j} t_{ij} + \varepsilon_{ij} \\
+\\
+&amp;\textbf{Ebene 2} \\
+&amp;\beta_{0j} = \gamma_{00} + \gamma_{01}TAU_{j} + \gamma_{02}Therapie_{j} + u_{0j} \\
+&amp;\beta_{1j} = \gamma_{10} + \gamma_{11}TAU_{j} + \gamma_{12}Therapie_{j}+ u_{1j} \\
+\end{aligned}`
+$$
+mit 
+
+$$
+`\begin{pmatrix}
+u_{0j} \\
+u_{1j} \\
+\end{pmatrix}`
+\sim \mathcal{N} 
+`\begin{pmatrix}
+\begin{matrix} 0 \\ 0 \end{matrix}, &amp;
+\begin{matrix} \tau_{00}^2 &amp; \tau_{01} \\ \tau_{01} &amp; \tau_{10}^2 \end{matrix} 
+\end{pmatrix}`
+$$
+und
+
+$$
+\varepsilon_{ij} \sim \mathcal{N}(0, \sigma^2)
+$$
+
+]
+
+.pull-right[
+.center[
+&lt;br&gt;&lt;br&gt;
+![](MVV_03_WS24_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
+]
+]
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+.pull-left[
+&lt;small&gt;
+
+Konditionales Wachstumskurvenmodell (mit Prädiktor):
+
+**Random Intercept, random Slope Modell (3 Gruppen):**
+
+$$
+`\begin{aligned}
+&amp;\textbf{Ebene 1} \\
+&amp;Y_{ij} = \beta_{0j} + \beta_{1j} t_{ij} + \varepsilon_{ij} \\
+\\
+&amp;\textbf{Ebene 2} \\
+&amp;\beta_{0j} = \gamma_{00} + \gamma_{01}TAU_{j} + \gamma_{02}Therapie_{j} + u_{0j} \\
+&amp;\beta_{1j} = \gamma_{10} + \gamma_{11}TAU_{j} + \gamma_{12}Therapie_{j}+ u_{1j} \\
+\end{aligned}`
+$$
+mit 
+
+$$
+`\begin{pmatrix}
+u_{0j} \\
+u_{1j} \\
+\end{pmatrix}`
+\sim \mathcal{N} 
+`\begin{pmatrix}
+\begin{matrix} 0 \\ 0 \end{matrix}, &amp;
+\begin{matrix} \tau_{00}^2 &amp; \tau_{01} \\ \tau_{01} &amp; \tau_{10}^2 \end{matrix} 
+\end{pmatrix}`
+$$
+und
+
+$$
+\varepsilon_{ij} \sim \mathcal{N}(0, \sigma^2)
+$$
+
+]
+
+.pull-right[
+.center[
+&lt;br&gt;&lt;br&gt;
+![](MVV_03_WS24_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
+]
+`\(\rightarrow\)` Intercepts und Slopes dürfen über Personen hinweg variieren
+]
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+.pull-left[
+&lt;small&gt;
+
+Konditionales Wachstumskurvenmodell (mit Prädiktor):
+
+**Random Intercept, random Slope Modell (3 Gruppen):**
+
+$$
+`\begin{aligned}
+&amp;\textbf{Ebene 1} \\
+&amp;Y_{ij} = \beta_{0j} + \beta_{1j} t_{ij} + \varepsilon_{ij} \\
+\\
+&amp;\textbf{Ebene 2} \\
+&amp;\beta_{0j} = \gamma_{00} + \gamma_{01}TAU_{j} + \gamma_{02}Therapie_{j} + u_{0j} \\
+&amp;\beta_{1j} = \gamma_{10} + \gamma_{11}TAU_{j} + \gamma_{12}Therapie_{j}+ u_{1j} \\
+\end{aligned}`
+$$
+mit 
+
+$$
+`\begin{pmatrix}
+u_{0j} \\
+u_{1j} \\
+\end{pmatrix}`
+\sim \mathcal{N} 
+`\begin{pmatrix}
+\begin{matrix} 0 \\ 0 \end{matrix}, &amp;
+\begin{matrix} \tau_{00}^2 &amp; \tau_{01} \\ \tau_{01} &amp; \tau_{10}^2 \end{matrix} 
+\end{pmatrix}`
+$$
+und
+
+$$
+\varepsilon_{ij} \sim \mathcal{N}(0, \sigma^2)
+$$
+
+]
+
+.pull-right[
+wobei:
+- `\(Y_{ij}\)` die Zielvariable zum Zeitpunkt `\(i\)` für die Person `\(j\)` darstellt,
+
+- `\(\beta_{0j}\)` und `\(\beta_{1j}\)` der Intercept und die Steigung für die Person `\(j\)` sind,
+
+- `\(t_{ij}\)` den Zeitpunkt darstellt,
+
+- `\(\gamma_{00}\)`, `\(\gamma_{10}\)`, `\(\gamma_{01}\)`,  `\(\gamma_{11}\)`, `\(\gamma_{02}\)` und `\(\gamma_{12}\)` die fixed Effekte sind,
+
+- `\(u_{0j}\)` und `\(u_{1j}\)` random Effekte mit einer Varianz-Kovarianz-Matrix darstellen,
+
+- `\(\varepsilon_{ij}\)` der Residualfehler ist.
+
+Diese Formulierung spezifiziert ein Modell mit zufälligem Intercept und zufälliger Steigung.
+]
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+.pull-left[
+&lt;small&gt;
+
+Konditionales Wachstumskurvenmodell (mit Prädiktor):
+
+**Random Intercept, random Slope Modell (3 Gruppen):**
+
+$$
+`\begin{aligned}
+&amp;\textbf{Ebene 1} \\
+&amp;Y_{ij} = \beta_{0j} + \beta_{1j} t_{ij} + \varepsilon_{ij} \\
+\\
+&amp;\textbf{Ebene 2} \\
+&amp;\beta_{0j} = \gamma_{00} + \gamma_{01}TAU_{j} + \gamma_{02}Therapie_{j} + u_{0j} \\
+&amp;\beta_{1j} = \gamma_{10} + \gamma_{11}TAU_{j} + \gamma_{12}Therapie_{j}+ u_{1j} \\
+\end{aligned}`
+$$
+mit 
+
+$$
+`\begin{pmatrix}
+u_{0j} \\
+u_{1j} \\
+\end{pmatrix}`
+\sim \mathcal{N} 
+`\begin{pmatrix}
+\begin{matrix} 0 \\ 0 \end{matrix}, &amp;
+\begin{matrix} \tau_{00}^2 &amp; \tau_{01} \\ \tau_{01} &amp; \tau_{10}^2 \end{matrix} 
+\end{pmatrix}`
+$$
+und
+
+$$
+\varepsilon_{ij} \sim \mathcal{N}(0, \sigma^2)
+$$
+
+]
+
+.pull-right[
+.code60[
+
+``` r
+mod = lmer(y ~ time * treatment + (time|subject), data = df3)
+summary(mod)
+```
+
+```
+Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Formula: y ~ time * treatment + (time | subject)
+   Data: df3
+
+REML criterion at convergence: 4673.6
+
+Scaled residuals: 
+     Min       1Q   Median       3Q      Max 
+-2.30994 -0.67003  0.00986  0.66630  2.30505 
+
+Random effects:
+ Groups   Name        Variance Std.Dev. Corr 
+ subject  (Intercept)  7.557   2.749         
+          time         1.253   1.119    -0.40
+ Residual             14.538   3.813         
+Number of obs: 792, groups:  subject, 72
+
+Fixed effects:
+                       Estimate Std. Error      df t value Pr(&gt;|t|)    
+(Intercept)             37.4845     0.7125 69.0022  52.613  &lt; 2e-16 ***
+time                    -0.9104     0.2402 68.9972  -3.790 0.000319 ***
+treatmentTAU            -1.1782     1.0076 69.0022  -1.169 0.246303    
+treatmentTherapie       -3.1087     1.0076 69.0022  -3.085 0.002925 ** 
+time:treatmentTAU       -0.1467     0.3397 68.9972  -0.432 0.667181    
+time:treatmentTherapie  -1.5044     0.3397 68.9972  -4.428 3.48e-05 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+            (Intr) time   trtTAU trtmnT tm:TAU
+time        -0.463                            
+treatmntTAU -0.707  0.328                     
+tretmntThrp -0.707  0.328  0.500              
+tm:trtmnTAU  0.328 -0.707 -0.463 -0.232       
+tm:trtmntTh  0.328 -0.707 -0.232 -0.463  0.500
+```
+]
+]
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+.pull-left[
+&lt;small&gt;
+
+Konditionales Wachstumskurvenmodell (mit Prädiktor):
+
+**Random Intercept, random Slope Modell (3 Gruppen):**
+
+&lt;small&gt;
+`\(\gamma_{00}\)` = 37.48 `\(\rightarrow\)` Zur Baseline `\((t=0)\)` haben Personen in der Wartelistengruppe durchschnittlich einen Wert von 37.48
+
+`\(\gamma_{10}\)` = -0.91 `\(\rightarrow\)` Pro zusätzlicher Messung `\((t+1)\)` verändern sich die Werte der Personen in der Wartelistengruppe durchschnittlich um einen Wert von -0.91
+
+`\(\gamma_{01}\)` = -1.18 `\(\rightarrow\)` Zur Baseline `\((t=0)\)` haben Personen in der TAU Gruppe durchschnittlich einen Wert von -1.18 mehr als die in der Wartelistengruppe
+
+`\(\gamma_{11}\)` = -0.15 `\(\rightarrow\)` Pro zusätzlicher Messung `\((t+1)\)` reduzieren sich die Werte der Personen in der TAU Gruppe durchschnittlich um einen Wert von -0.15 mehr als in der Wartelistengruppe
+
+`\(\gamma_{02}\)` = -3.11 `\(\rightarrow\)` Zur Baseline `\((t=0)\)` haben Personen in der Therapiegruppe durchschnittlich einen Wert von -3.11 mehr als die in der Wartelistengruppe
+
+`\(\gamma_{12}\)` = -1.5 `\(\rightarrow\)` Pro zusätzlicher Messung `\((t+1)\)` reduzieren sich die Werte der Personen in der Therapiegruppe durchschnittlich um einen Wert von -1.5 mehr als in der Wartelistengruppe
+
+]
+
+.pull-right[
+.code60[
+
+``` r
+mod = lmer(y ~ time * treatment + (time|subject), data = df3)
+summary(mod)
+```
+
+```
+Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Formula: y ~ time * treatment + (time | subject)
+   Data: df3
+
+REML criterion at convergence: 4673.6
+
+Scaled residuals: 
+     Min       1Q   Median       3Q      Max 
+-2.30994 -0.67003  0.00986  0.66630  2.30505 
+
+Random effects:
+ Groups   Name        Variance Std.Dev. Corr 
+ subject  (Intercept)  7.557   2.749         
+          time         1.253   1.119    -0.40
+ Residual             14.538   3.813         
+Number of obs: 792, groups:  subject, 72
+
+Fixed effects:
+                       Estimate Std. Error      df t value Pr(&gt;|t|)    
+(Intercept)             37.4845     0.7125 69.0022  52.613  &lt; 2e-16 ***
+time                    -0.9104     0.2402 68.9972  -3.790 0.000319 ***
+treatmentTAU            -1.1782     1.0076 69.0022  -1.169 0.246303    
+treatmentTherapie       -3.1087     1.0076 69.0022  -3.085 0.002925 ** 
+time:treatmentTAU       -0.1467     0.3397 68.9972  -0.432 0.667181    
+time:treatmentTherapie  -1.5044     0.3397 68.9972  -4.428 3.48e-05 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+            (Intr) time   trtTAU trtmnT tm:TAU
+time        -0.463                            
+treatmntTAU -0.707  0.328                     
+tretmntThrp -0.707  0.328  0.500              
+tm:trtmnTAU  0.328 -0.707 -0.463 -0.232       
+tm:trtmntTh  0.328 -0.707 -0.232 -0.463  0.500
+```
+]
+]
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+.pull-left[
+&lt;small&gt;
+
+Konditionales Wachstumskurvenmodell (mit Prädiktor):
+
+**Random Intercept, random Slope Modell (3 Gruppen):**
+
+&lt;small&gt;
+`\(\gamma_{00}\)` = 37.48 `\(\rightarrow\)` Zur Baseline `\((t=0)\)` haben Personen in der Wartelistengruppe durchschnittlich einen Wert von 37.48
+
+`\(\gamma_{10}\)` = -0.91 `\(\rightarrow\)` Pro zusätzlicher Messung `\((t+1)\)` verändern sich die Werte der Personen in der Wartelistengruppe durchschnittlich um einen Wert von -0.91
+
+`\(\gamma_{01}\)` = -1.18 `\(\rightarrow\)` Zur Baseline `\((t=0)\)` haben Personen in der TAU Gruppe durchschnittlich einen Wert von -1.18 mehr als die in der Wartelistengruppe
+
+`\(\gamma_{11}\)` = -0.15 `\(\rightarrow\)` Pro zusätzlicher Messung `\((t+1)\)` reduzieren sich die Werte der Personen in der TAU Gruppe durchschnittlich um einen Wert von -0.15 mehr als in der Wartelistengruppe
+
+`\(\gamma_{02}\)` = -3.11 `\(\rightarrow\)` Zur Baseline `\((t=0)\)` haben Personen in der Therapiegruppe durchschnittlich einen Wert von -3.11 mehr als die in der Wartelistengruppe
+
+`\(\gamma_{12}\)` = -1.5 `\(\rightarrow\)` Pro zusätzlicher Messung `\((t+1)\)` reduzieren sich die Werte der Personen in der Therapiegruppe durchschnittlich um einen Wert von -1.5 mehr als in der Wartelistengruppe
+
+]
+
+.pull-right[
+.code60[
+
+``` r
+mod = lmer(y ~ time * treatment + (time|subject), data = df3)
+summary(mod)
+```
+
+```
+Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Formula: y ~ time * treatment + (time | subject)
+   Data: df3
+
+REML criterion at convergence: 4673.6
+
+Scaled residuals: 
+     Min       1Q   Median       3Q      Max 
+-2.30994 -0.67003  0.00986  0.66630  2.30505 
+
+Random effects:
+ Groups   Name        Variance Std.Dev. Corr 
+ subject  (Intercept)  7.557   2.749         
+          time         1.253   1.119    -0.40
+ Residual             14.538   3.813         
+Number of obs: 792, groups:  subject, 72
+
+Fixed effects:
+                       Estimate Std. Error      df t value Pr(&gt;|t|)    
+(Intercept)             37.4845     0.7125 69.0022  52.613  &lt; 2e-16 ***
+time                    -0.9104     0.2402 68.9972  -3.790 0.000319 ***
+treatmentTAU            -1.1782     1.0076 69.0022  -1.169 0.246303    
+treatmentTherapie       -3.1087     1.0076 69.0022  -3.085 0.002925 ** 
+time:treatmentTAU       -0.1467     0.3397 68.9972  -0.432 0.667181    
+time:treatmentTherapie  -1.5044     0.3397 68.9972  -4.428 3.48e-05 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+            (Intr) time   trtTAU trtmnT tm:TAU
+time        -0.463                            
+treatmntTAU -0.707  0.328                     
+tretmntThrp -0.707  0.328  0.500              
+tm:trtmnTAU  0.328 -0.707 -0.463 -0.232       
+tm:trtmntTh  0.328 -0.707 -0.232 -0.463  0.500
+```
+]
+]
+
+**Problem:** Multiple Vergleiche und nicht alle paarweisen Vergleiche sichtbar (z.B. TAU vs. Therapie) `\(\rightarrow\)` Omnibustest
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+.pull-left[
+&lt;small&gt;
+
+Konditionales Wachstumskurvenmodell (mit Prädiktor):
+
+**Random Intercept, random Slope Modell (3 Gruppen):**
+
+`\(\tau_{0j}\)` = 7.56 `\(\rightarrow\)` Die Personen variieren mit `\(\sqrt{7.56}= 2.75\)` Punkten um das Durchschnittsintercept `\((\gamma_{00})\)`
+
+`\(\tau_{1j}\)` = 1.25 `\(\rightarrow\)` Die Personen variieren mit `\(\sqrt{1.25}= 1.12\)` Punkten um die Durchschnittssteigung `\((\gamma_{10})\)`
+
+`\(\sigma^2=\)` 14.54 `\(\rightarrow\)` Es verbleiben 14.54 Punkte unaufgeklärte Residualvarianz
+]
+
+.pull-right[
+.code60[
+
+``` r
+mod = lmer(y ~ time * treatment + (time|subject), data = df3)
+summary(mod)
+```
+
+```
+Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Formula: y ~ time * treatment + (time | subject)
+   Data: df3
+
+REML criterion at convergence: 4673.6
+
+Scaled residuals: 
+     Min       1Q   Median       3Q      Max 
+-2.30994 -0.67003  0.00986  0.66630  2.30505 
+
+Random effects:
+ Groups   Name        Variance Std.Dev. Corr 
+ subject  (Intercept)  7.557   2.749         
+          time         1.253   1.119    -0.40
+ Residual             14.538   3.813         
+Number of obs: 792, groups:  subject, 72
+
+Fixed effects:
+                       Estimate Std. Error      df t value Pr(&gt;|t|)    
+(Intercept)             37.4845     0.7125 69.0022  52.613  &lt; 2e-16 ***
+time                    -0.9104     0.2402 68.9972  -3.790 0.000319 ***
+treatmentTAU            -1.1782     1.0076 69.0022  -1.169 0.246303    
+treatmentTherapie       -3.1087     1.0076 69.0022  -3.085 0.002925 ** 
+time:treatmentTAU       -0.1467     0.3397 68.9972  -0.432 0.667181    
+time:treatmentTherapie  -1.5044     0.3397 68.9972  -4.428 3.48e-05 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+            (Intr) time   trtTAU trtmnT tm:TAU
+time        -0.463                            
+treatmntTAU -0.707  0.328                     
+tretmntThrp -0.707  0.328  0.500              
+tm:trtmnTAU  0.328 -0.707 -0.463 -0.232       
+tm:trtmntTh  0.328 -0.707 -0.232 -0.463  0.500
+```
+]
+]
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+&lt;small&gt;
+
+Konditionales Wachstumskurvenmodell (mit Prädiktor):
+
+**Random Intercept, random Slope Modell (3 Gruppen):**
+
+.code80[
+
+``` r
+mod = lmer(y ~ time * treatment + (time|subject), data = df3)
+anova(mod)
+```
+
+```
+Type III Analysis of Variance Table with Satterthwaite's method
+                Sum Sq Mean Sq NumDF  DenDF  F value    Pr(&gt;F)    
+time           1612.74 1612.74     1 68.997 110.9355 5.263e-16 ***
+treatment       141.09   70.55     2 69.002   4.8527   0.01067 *  
+time:treatment  346.64  173.32     2 68.997  11.9220 3.571e-05 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+]
+
+***
+
+* Omnibustest (F-Test) der Modellfaktoren (Gruppe, Zeit, Interaktion), um zu prüfen, ob diese signifikant Varianz aufklären
+
+* Keine multiplen Vergleiche `\(\rightarrow\)` `\(\alpha\)`-Fehler Kontrolle
+
+* Anschließend (korrigierte) paarweise Vergleiche für Gruppenvariablen rechnen
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+&lt;small&gt;
+
+Konditionales Wachstumskurvenmodell (mit Prädiktor):
+
+**Random Intercept, random Slope Modell (3 Gruppen):**
+
+.pull-left[
+(Korrigierte) paarweise Vergleiche:
+
+.code80[
+
+``` r
+library(emmeans)
+mod = lmer(y ~ time * treatment + (time|subject), data = df3)
+emtrends(mod, pairwise ~ treatment, var = "time", adjust = "tukey")
+```
+
+```
+$emtrends
+ treatment  time.trend   SE df lower.CL upper.CL
+ Warteliste      -0.91 0.24 69    -1.39   -0.431
+ TAU             -1.06 0.24 69    -1.54   -0.578
+ Therapie        -2.41 0.24 69    -2.89   -1.936
+
+Degrees-of-freedom method: kenward-roger 
+Confidence level used: 0.95 
+
+$contrasts
+ contrast              estimate   SE df t.ratio p.value
+ Warteliste - TAU         0.147 0.34 69   0.432  0.9025
+ Warteliste - Therapie    1.504 0.34 69   4.428  0.0001
+ TAU - Therapie           1.358 0.34 69   3.996  0.0005
+
+Degrees-of-freedom method: kenward-roger 
+P value adjustment: tukey method for comparing a family of 3 estimates 
+```
+]
+]
+.pull-right[
+&lt;small&gt;
+
+* `emtrends` für kontinuierliche Zeitvariable) oder `emmeans` für diskrete Zeitvariable zur Berechnung der paarweise Vergleiche (beides Funktionen aus dem `emmeans` Paket
+
+* `$emtrends` zeigt die Steigungen innerhalb der 3 Gruppen
+
+* `$contrasts` zeigt die paarweisen Vergleiche der Steitungen zwischen den 3 Gruppen
+
+* Vergleiche werden (in diesem Fall) Tukey-korrigiert ( `\(\alpha\)`-Fehler Korrektur)
+
+***
+Interpretation:
+
+* Warteliste - TAU nicht signifikant `\((t_{(69)}=1.74, p=.196)\)`
+
+* Warteliste - Therapie  signifikant `\((t_{(69)}=7.08, p&lt;.001)\)`
+
+* TAU - Therapie  signifikant `\((t_{(69)}=5.33, p&lt;.001)\)`
+]
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+&lt;small&gt;
+
+Konditionales Wachstumskurvenmodell (mit Prädiktor):
+
+**Effektstärken:**
+
+.pull-left[
+`\(\eta^2\)` Variante (Modellfaktor)
+.code80[
+
+``` r
+library(effectsize)
+mod = lmer(y ~ time * treatment + (time|subject), data = df3)
+eta_squared(mod, alternative = "two.sided")
+```
+
+```
+# Effect Size for ANOVA (Type III)
+
+Parameter      | Eta2 (partial) |       95% CI
+----------------------------------------------
+time           |           0.62 | [0.47, 0.71]
+treatment      |           0.12 | [0.01, 0.27]
+time:treatment |           0.26 | [0.09, 0.41]
+```
+]
+]
+
+.pull-right[
+Cohen's d Variante (paarweise Vergleiche)
+.code80[
+
+``` r
+library(emmeans) 
+mod = lmer(y ~ time * treatment + (time|subject), data = df3)
+mod_trends = emtrends(mod, pairwise ~ treatment, var = "time")
+eff_size(mod_trends, 
+         sigma = 3.098 + 1.004 + 3.781, 
+         edf = df.residual(mod))
+```
+
+```
+ contrast                effect.size     SE df lower.CL upper.CL
+ (Warteliste - TAU)           0.0186 0.0431 69  -0.0674    0.105
+ (Warteliste - Therapie)      0.1908 0.0434 69   0.1043    0.277
+ (TAU - Therapie)             0.1722 0.0433 69   0.0858    0.259
+
+sigma used for effect sizes: 7.883 
+Degrees-of-freedom method: inherited from kenward-roger when re-gridding 
+Confidence level used: 0.95 
+```
+]
+&lt;small&gt;
+
+* Vorsicht: Effektschätzungen für Steigung (bei Änderung um 1 Einheit)
+
+* Für Effektstärke von Baseline bis Endpunkt müssen Schätzer mit Anzahl der Messungen (hier 10) multipliziert werden.
+]
+
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### 3-Level Modelle
+
+.pull-left[
+
+.center[
+Beispiel: 3-Level Design mit Messwiederholungen
+&lt;br&gt;&lt;br&gt;
+&lt;img src="bilder/Hierarchical_4.png" width="400px" /&gt;
+]
+]
+
+.pull-right[
+.code50[
+
+``` r
+mod = lmer(y ~ time + (time|therapist/subject), data = df)
+summary(mod)
+```
+
+```
+Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Formula: y ~ time + (time | therapist/subject)
+   Data: df
+
+REML criterion at convergence: 5259
+
+Scaled residuals: 
+     Min       1Q   Median       3Q      Max 
+-2.46696 -0.64991  0.01965  0.67732  2.57871 
+
+Random effects:
+ Groups            Name        Variance  Std.Dev.  Corr 
+ subject:therapist (Intercept) 7.797e+00 2.792e+00      
+                   time        1.589e+00 1.260e+00 -0.01
+ therapist         (Intercept) 0.000e+00 0.000e+00      
+                   time        1.547e-10 1.244e-05  NaN 
+ Residual                      1.500e+01 3.872e+00      
+Number of obs: 880, groups:  subject:therapist, 80; therapist, 8
+
+Fixed effects:
+            Estimate Std. Error      df t value Pr(&gt;|t|)    
+(Intercept)  37.3290     0.3964 79.0021   94.18   &lt;2e-16 ***
+time         -2.1538     0.1468 79.0003  -14.67   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+     (Intr)
+time -0.155
+optimizer (nloptwrap) convergence code: 0 (OK)
+boundary (singular) fit: see help('isSingular')
+```
+]
+]
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Möglichkeiten Messwiederholungen zu modellieren
+
+.center[
+![](MVV_03_WS24_files/figure-html/unnamed-chunk-36-1.png)&lt;!-- --&gt;
+]
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Möglichkeiten Messwiederholungen zu modellieren
+
+.pull-left[
+.center[
+![](MVV_03_WS24_files/figure-html/unnamed-chunk-37-1.png)&lt;!-- --&gt;
+]
+`$$Δ = Gruppe + Baseline$$`
+
+]
+
+.pull-right[
+&lt;small&gt;
+Datenstruktur für n=15 zufällig ausgewählte Personen
+
+.code80[
+
+```
+   subject  treatment     t0   t10  delta
+1      14a   Therapie  17.72 16.99  17.72
+2      17a   Therapie  26.01 10.93  26.01
+3      26a   Therapie  25.48 13.86  25.48
+4      27a   Therapie  28.10  4.00  28.10
+5      23a   Therapie  30.33 10.13  30.33
+6      24a   Therapie  21.61 14.76  21.61
+7      30b Warteliste -18.78 55.49 -18.78
+8      27b Warteliste  12.78 31.86  12.78
+9      32a   Therapie  26.62  9.49  26.62
+10     21a   Therapie  41.18  1.87  41.18
+```
+]
+* 1 Zeile pro Person (wide Format)
+
+* Delta = Differenz aus erstem und letztem Wert der Person
+
+* `\(t_0\)` = Baseline
+]
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Möglichkeiten Messwiederholungen zu modellieren
+
+.pull-left[
+.center[
+![](MVV_03_WS24_files/figure-html/unnamed-chunk-39-1.png)&lt;!-- --&gt;
+]
+`$$Δ = Gruppe + Baseline$$`
+
+]
+
+.pull-right[
+&lt;small&gt;
+
+* AV: Nicht einzelne Messwerte, sondern Differenz 1. vs. letzte Messung für jede Person
+
+* Differenz = Gesamtveränderung
+
+* Kein Zeiteffekt (Veränderung direkt durch AV ausgedrückt)
+
+* Einfacher Gruppenvergleich
+
+* Modell beinhaltet i.d.R. Baseline-Wert als Kontrollvariable 
+
+***
+
+Nachteile:
+
+* Igenorieren der Messungen zwischen der 1. und letzten Messung
+
+* Personen mit fehlender letzten Messung fallen raus
+
+* weniger Power
+]
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Möglichkeiten Messwiederholungen zu modellieren
+
+.pull-left[
+.center[
+![](MVV_03_WS24_files/figure-html/unnamed-chunk-40-1.png)&lt;!-- --&gt;
+]
+`$$Y = Zeit_{diskret} + Gruppe + Zeit_{diskret} \cdot Gruppe$$`
+
+]
+
+.pull-right[
+&lt;small&gt;
+
+* AV: Einzelne Messwerte (mehrere pro Person)
+
+* Zeiteffekt zur Modellierung der Veränderung über Zeit
+
+* Zeit x Gruppe Interaktion
+
+* Modell beinhaltet oft Baseline-Wert als Kontrollvariable (ANCOVA)
+
+* Unterschiedlichkeit zwischen Gruppen wird durch Vergleich von Mittelwerten (pro Zeitpunkt) modelliert
+
+***
+
+Nachteile:
+
+* Personen mit fehlenden Messungen fallen raus
+
+]
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Möglichkeiten Messwiederholungen zu modellieren
+
+.pull-left[
+.center[
+![](MVV_03_WS24_files/figure-html/unnamed-chunk-41-1.png)&lt;!-- --&gt;
+]
+`$$Y = Zeit_{kontinuierlich} + Gruppe + Zeit_{kontinuierlich} \cdot Gruppe$$`
+
+]
+
+.pull-right[
+&lt;small&gt;
+
+* AV: Rinzelne Messwerte (mehrere pro Person)
+
+* Zeiteffekt zur Modellierung der Veränderung über Zeit
+
+* Zeit x Gruppe Interaktion
+
+* Kontrolle der Baseline-Unterschiede durch random Intercept
+
+* Unterschiedlichkeit zwischen Gruppen wird durch Vergleich von Steigungen (pro Gruppe) modelliert
+
+]
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Möglichkeiten Messwiederholungen zu modellieren
+
+**Diskrete vs. kontinuierliche Zeiteffekte**
+
+Diskreter Zeiteffekt:
+
+.code60[
+
+``` r
+fixef(lmer(y ~ factor(time) * treatment + (1|subject), data = df))
+```
+
+```
+                     (Intercept)                    factor(time)1                    factor(time)2 
+                      36.9154654                        1.5904272                       -0.5372784 
+                   factor(time)3                    factor(time)4                    factor(time)5 
+                      -1.6928889                       -5.9012877                       -8.4758683 
+                   factor(time)6                    factor(time)7                    factor(time)8 
+                      -5.9563514                       -9.6084005                       -7.9916707 
+                   factor(time)9                   factor(time)10                treatmentTherapie 
+                      -7.5879334                      -13.2448315                        0.1445469 
+ factor(time)1:treatmentTherapie  factor(time)2:treatmentTherapie  factor(time)3:treatmentTherapie 
+                      -3.1487437                       -7.6808702                       -9.9417674 
+ factor(time)4:treatmentTherapie  factor(time)5:treatmentTherapie  factor(time)6:treatmentTherapie 
+                      -4.5114214                       -5.9094193                      -11.9766895 
+ factor(time)7:treatmentTherapie  factor(time)8:treatmentTherapie  factor(time)9:treatmentTherapie 
+                     -14.6319608                      -15.8541235                      -22.0108451 
+factor(time)10:treatmentTherapie 
+                     -14.9276570 
+```
+]
+
+&lt;small&gt;
+
+* Zeit = kategoriale Faktorvariable mit `\(t_0\)` als Referenzkategorie
+
+* Einzelvergleiche über jede Stufe der diskreten Zeitvariable
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Möglichkeiten Messwiederholungen zu modellieren
+
+**Diskrete vs. kontinuierliche Zeiteffekte**
+
+Kontinuierlicher Zeiteffekt:
+
+.code60[
+
+``` r
+fixef(lmer(y ~ time * treatment + (1|subject), data = df))
+```
+
+```
+           (Intercept)                   time      treatmentTherapie time:treatmentTherapie 
+             37.932497              -1.283517              -1.207039              -1.740474 
+```
+]
+
+&lt;small&gt;
+
+* Zeit = kontinuierliche (numerische) Variable mit 0 als niedrigstem Wert
+
+* Eine einzige Steigung (pro Gruppe) zur Quantifizierung der Veränderung über die Zeit
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Möglichkeiten Messwiederholungen zu modellieren
+
+&lt;small&gt;
+
+&lt;table&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Vorteil&lt;/th&gt;
+    &lt;th&gt;Linear Mixed Model (LMM)&lt;/th&gt;
+    &lt;th&gt;Mixed ANOVA&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Umgang mit fehlenden Daten&lt;/td&gt;
+    &lt;td&gt;Flexibel, benötigt keine vollständigen Daten&lt;/td&gt;
+    &lt;td&gt;Meistens nur vollständige Daten&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Mehrere Ebenen von Zufallseffekten&lt;/td&gt;
+    &lt;td&gt;Ja, verschachtelte und gekreuzte Zufallseffekte&lt;/td&gt;
+    &lt;td&gt;Eingeschränkt auf einfache Zufallseffekte&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Varianz- und Kovarianzstrukturen&lt;/td&gt;
+    &lt;td&gt;Flexibel anpassbar&lt;/td&gt;
+    &lt;td&gt;Setzt oft Sphärizität und homogene Varianzen voraus&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Robustheit gegenüber Verteilungsannahmen&lt;/td&gt;
+    &lt;td&gt;Robuster, besonders bei kleinen Stichproben&lt;/td&gt;
+    &lt;td&gt;Anfällig gegenüber Annahmeverletzungen&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Interzepte und Steigungen für Individuen&lt;/td&gt;
+    &lt;td&gt;Zufällige Interzepte und Steigungen möglich&lt;/td&gt;
+    &lt;td&gt;Eingeschränkte Modellierung individueller Unterschiede&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Interpretation&lt;/td&gt;
+    &lt;td&gt;Klar und flexibel bei komplexen Designs&lt;/td&gt;
+    &lt;td&gt;Schwierig bei verschachtelten Strukturen&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+
+---
+class: top, left
+### Mehrebenenanalyse - Lineare gemischte Modelle
+
+#### Möglichkeiten Messwiederholungen zu modellieren
+
+&lt;small&gt;
+
+&lt;table&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Nachteil&lt;/th&gt;
+    &lt;th&gt;Linear Mixed Model (LMM)&lt;/th&gt;
+    &lt;th&gt;Mixed ANOVA&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Komplexität der Modellierung und Interpretation&lt;/td&gt;
+    &lt;td&gt;Höher, erfordert mehr statistisches Wissen (z.B. Auswahl von random Effekten)&lt;/td&gt;
+    &lt;td&gt;Einfacher&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Anforderungen an Rechenleistung und Laufzeit&lt;/td&gt;
+    &lt;td&gt;Rechenintensiv und längere Laufzeiten (für moderne Computer kein Problem mehr)&lt;/td&gt;
+    &lt;td&gt;Weniger Rechenintensiv&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Konvergenzprobleme&lt;/td&gt;
+    &lt;td&gt;Manchmal bei komplexen Modellen&lt;/td&gt;
+    &lt;td&gt;Selten&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Modellvalidierung und -güte&lt;/td&gt;
+    &lt;td&gt;Weniger standardisierte Tests&lt;/td&gt;
+    &lt;td&gt;Klare und standardisierte Verfahren&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Verfügbarkeit in Statistik-Programmen&lt;/td&gt;
+    &lt;td&gt;Manchmal schwierig zu implementieren (mittlerweise aber weit verbreitet)&lt;/td&gt;
+    &lt;td&gt;Weit verbreitet und einfach zu verwenden&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Effektgrößen und Post-hoc-Tests&lt;/td&gt;
+    &lt;td&gt;Weniger standardisiert, teils schwierig umzusetzen&lt;/td&gt;
+    &lt;td&gt;Klare Verfahren&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Verallgemeinerbarkeit bei kleinen Stichproben&lt;/td&gt;
+    &lt;td&gt;Anfälliger für Überanpassung (komplexere Modelle)&lt;/td&gt;
+    &lt;td&gt;Robuster bei kleineren Stichproben&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+
+
+---
+class: top, left
+### Take-aways
+
+.full-width[.content-box-gray[
+*	**Wachstumskurvenmodelle** (Growth Curve Models) eigenen sich für die Analyse von zeitabhängigen Veränderungen innerhalb von Individuen, wie z.B. den Fortschritt in Therapien.
+
+*	**Random Intercepts und Steigungen:** Es können individuelle Unterschiede in der Ausgangslage und Veränderungsrate berücksichtigt werden.
+
+*	**Unterschiedliche Hierarchieebenen:** Wachstumskurvenmodelle können Daten auf mehreren Ebenen berücksichtigen, z.B. Messzeitpunkte innerhalb von Personen und Personen innerhalb von Gruppen (z.B.Kliniken) `\(\rightarrow\)` realistische Abbildung von Datenstrukturen in der Praxis sorgt.
+
+*	**Modellierung nicht-linearer Verläufe:** Neben linearen Veränderungen können durch das Einfügen von Polynomtermen (z.B. quadratische oder kubische Terme) auch nicht-lineare Wachstumskurven abgebildet werden, was für komplexere Entwicklungsverläufe wichtig ist.
+
+*	**Handhabung fehlender Daten:** Im Gegensatz zu traditionellen Methoden wie ANOVA oder MANOVA kann ein lineares gemischtes Modell mit fehlenden Werten umgehen, ohne dass ganze Probanden ausgeschlossen werden müssen. Dies erhöht die statistische Power und reduziert Bias.
+
+]
+]
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+  "slideNumberFormat": "%current%",
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "countIncrementalSlides": false,
+  "ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
