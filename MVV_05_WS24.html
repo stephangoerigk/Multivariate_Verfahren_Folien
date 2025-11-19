@@ -1,62 +1,29 @@
----
-title: "Einheit 5"
-subtitle: "⚔<br/>with xaringan"
-author: "Prof. Dr. Stephan Goerigk"
-institute: "RStudio, PBC"
-date: "2016/12/12 (updated: `r Sys.Date()`)"
-output:
-  xaringan::moon_reader:
-    css: [xaringan-themer.css, "hygge", style.css]
-    lib_dir: libs
-    nature:
-      slideNumberFormat: "%current%"
-      highlightStyle: github
-      highlightLines: true
-      countIncrementalSlides: false
-      ratio: '16:9'
-    seal: false
----
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Einheit 5</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Prof. Dr. Stephan Goerigk" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/hygge.css" rel="stylesheet" />
+    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view/tile-view.js"></script>
+    <script src="libs/fabric/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#EE0071"],"pen_size":4,"eraser_size":40,"palette":[]}) })</script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
 
-```{r setup, include=FALSE}
-options(htmltools.dir.version = FALSE)
 
-library(tidyverse)
-library(kableExtra)
-library(ggplot2)
-library(plotly)
-library(htmlwidgets)
-library(MASS)
-library(ggpubr)
-library(xaringanthemer)
-library(dbscan)
-library(xaringanExtra)
-library(NbClust)
 
-style_duo_accent(
-  primary_color = "#621C37",
-  secondary_color = "#EE0071",
-  background_image = "blank.png"
-)
-
-xaringanExtra::use_xaringan_extra(c("tile_view"))
-
-use_scribble(
-  pen_color = "#EE0071",
-  pen_size = 4
-)
-
-knitr::opts_chunk$set(
-  fig.retina = TRUE,
-  warning = FALSE,
-  message = FALSE
-)
-
-source(file = "base_functions.R")
-```
 
 name: Title slide
 class: middle, left
-<br><br><br><br><br><br><br>
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
 # Multivariate Verfahren
 ***
 ### Einheit 5: Gruppieren: Clusteranalyse
@@ -82,38 +49,7 @@ class: top, left
 ]
 
 .pull-right[
-```{r echo=FALSE, fig.height=4}
-# Set seed for reproducibility
-set.seed(123)
-
-# Simulate data for two clusters (e.g., Patient group A and B)
-n <- 100  # Total number of patients
-cluster <- rep(c("Group A", "Group B"), each = n/2)
-
-# Symptom severity (e.g., depression severity score) and treatment response (e.g., symptom improvement)
-symptom_severity <- c(rnorm(n/2, mean = 70, sd = 10), rnorm(n/2, mean = 50, sd = 10))
-treatment_response <- c(rnorm(n/2, mean = 40, sd = 10), rnorm(n/2, mean = 60, sd = 10))
-
-# Create a dataframe with the simulated data
-data_clinical <- data.frame(
-  cluster = factor(cluster),
-  symptom_severity = symptom_severity,
-  treatment_response = treatment_response
-)
-
-# Create scatter plot
-ggplot(data_clinical, aes(x = symptom_severity, y = treatment_response, color = cluster)) +
-  geom_point(size = 3, alpha = 0.8) +
-  labs(
-    x = "Symptomausprägung\n(Depressionsschwere)",
-    y = "Therapieansprechen\n(Symptomverbesserung)",
-    color = "Patientencluster"
-  ) +
-  mytheme +
-  theme(text = element_text(size = 20),
-        legend.position = "right") +
-  scale_color_manual(values = c("Group A" = "blue", "Group B" = "red"))
-```
+![](MVV_05_WS24_files/figure-html/unnamed-chunk-30-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -133,38 +69,7 @@ class: top, left
 ]
 
 .pull-right[
-```{r echo=FALSE, fig.height=4}
-# Set seed for reproducibility
-set.seed(123)
-
-# Simulate data for two clusters (e.g., Patient group A and B)
-n <- 100  # Total number of patients
-cluster <- rep(c("Group A", "Group B"), each = n/2)
-
-# Symptom severity (e.g., depression severity score) and treatment response (e.g., symptom improvement)
-symptom_severity <- c(rnorm(n/2, mean = 70, sd = 10), rnorm(n/2, mean = 50, sd = 10))
-treatment_response <- c(rnorm(n/2, mean = 40, sd = 10), rnorm(n/2, mean = 60, sd = 10))
-
-# Create a dataframe with the simulated data
-data_clinical <- data.frame(
-  cluster = factor(cluster),
-  symptom_severity = symptom_severity,
-  treatment_response = treatment_response
-)
-
-# Create scatter plot
-ggplot(data_clinical, aes(x = symptom_severity, y = treatment_response, color = cluster)) +
-  geom_point(size = 3, alpha = 0.8) +
-  labs(
-    x = "Symptomausprägung\n(Depressionsschwere)",
-    y = "Therapieansprechen\n(Symptomverbesserung)",
-    color = "Patientencluster"
-  ) +
-  mytheme +
-  theme(text = element_text(size = 20),
-        legend.position = "right") +
-  scale_color_manual(values = c("Group A" = "blue", "Group B" = "red"))
-```
+![](MVV_05_WS24_files/figure-html/unnamed-chunk-31-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -179,85 +84,11 @@ class: top, left
 
 .pull-left[
 
-```{r echo=F, fig.height=5}
-# Setze den Seed für Reproduzierbarkeit
-set.seed(123)
-
-# Generiere Daten für zwei Cluster
-n <- 100  # Anzahl der Datenpunkte
-cluster <- rep(c("Cluster 1", "Cluster 2"), each = n/2)
-
-# Cluster 1: Hohe Kohäsion, enge Datenpunkte
-cluster1_x <- rnorm(n/2, mean = 5, sd = 0.5)
-cluster1_y <- rnorm(n/2, mean = 5, sd = 0.5)
-
-# Cluster 2: Gute Separation, weiter entfernt von Cluster 1
-cluster2_x <- rnorm(n/2, mean = 12, sd = 0.5)
-cluster2_y <- rnorm(n/2, mean = 12, sd = 0.5)
-
-# Daten zusammenführen
-data_clusters <- data.frame(
-  cluster = factor(cluster),
-  x = c(cluster1_x, cluster2_x),
-  y = c(cluster1_y, cluster2_y)
-)
-
-# Scatterplot erstellen, der Kohäsion und Separation zeigt
-ggplot(data_clusters, aes(x = x, y = y, color = cluster)) +
-  geom_point(size = 3) +
-  labs(
-    x = "X",
-    y = "Y",
-    color = "Cluster"
-  ) +
-  mytheme +
-  theme(text = element_text(size = 20),
-        legend.position = "none") +
-  scale_color_manual(values = c("Cluster 1" = "blue", "Cluster 2" = "red")) +
-  annotate("text", x = 4, y = 7, label = "Hohe Kohäsion", color = "black", size = 5, hjust = 0) +
-  annotate("text", x = 7, y = 10, label = "Gute Separation", color = "black", size = 5, hjust = 0)
-```
+![](MVV_05_WS24_files/figure-html/unnamed-chunk-32-1.png)&lt;!-- --&gt;
 ]
 
 .pull-right[
-```{r echo=F, fig.height=5}
-# Setze den Seed für Reproduzierbarkeit
-set.seed(123)
-
-# Generiere Daten für zwei Cluster
-n <- 100  # Anzahl der Datenpunkte
-cluster <- rep(c("Cluster 1", "Cluster 2"), each = n/2)
-
-# Cluster 1: Hohe Kohäsion, enge Datenpunkte
-cluster1_x <- rnorm(n/2, mean = 8, sd = 2)
-cluster1_y <- rnorm(n/2, mean = 8, sd = 2)
-
-# Cluster 2: Gute Separation, weiter entfernt von Cluster 1
-cluster2_x <- rnorm(n/2, mean = 9, sd = 1)
-cluster2_y <- rnorm(n/2, mean = 9, sd = 1)
-
-# Daten zusammenführen
-data_clusters <- data.frame(
-  cluster = factor(cluster),
-  x = c(cluster1_x, cluster2_x),
-  y = c(cluster1_y, cluster2_y)
-)
-
-# Scatterplot erstellen, der Kohäsion und Separation zeigt
-ggplot(data_clusters, aes(x = x, y = y, color = cluster)) +
-  geom_point(size = 3) +
-  labs(
-    x = "X",
-    y = "Y",
-    color = "Cluster"
-  ) +
-  mytheme +
-  theme(text = element_text(size = 20),
-        legend.position = "none") +
-  scale_color_manual(values = c("Cluster 1" = "blue", "Cluster 2" = "red")) +
-  annotate("text", x = 4, y = 5, label = "Niedrige Kohäsion", color = "black", size = 5, hjust = 0) +
-  annotate("text", x = 9.5, y = 12, label = "Schlechte Separation", color = "black", size = 5, hjust = 0)
-```
+![](MVV_05_WS24_files/figure-html/unnamed-chunk-33-1.png)&lt;!-- --&gt;
 ]
 
 
@@ -268,7 +99,7 @@ class: top, left
 
 #### Arten der Clusteranalyse
 
-<small>
+&lt;small&gt;
 
 - **Hierarchische Clusteranalyse**:
   - Organisiert Objekte in eine **hierarchische Struktur** von Clustern.
@@ -307,56 +138,7 @@ class: top, left
   
 ]
 .pull-right[
-```{r echo = F, fig.height=5}
-# Load necessary libraries
-library(ggdendro)
-library(ggpubr)
-
-# Generate some example data for clustering
-set.seed(123)
-data <- data.frame(
-  x = c(rnorm(50, mean = 2), rnorm(50, mean = 5)),
-  y = c(rnorm(50, mean = 2), rnorm(50, mean = 5))
-)
-
-# Perform hierarchical clustering
-dist_matrix <- dist(data)  # Compute distance matrix
-hc <- hclust(dist_matrix, method = "complete")  # Hierarchical clustering
-
-# Cut the dendrogram to form 2 clusters
-clusters <- cutree(hc, k = 2)  # Assign cluster labels (2 clusters)
-
-# Add cluster information to the dataset
-data$cluster <- as.factor(clusters)
-
-# Convert to dendrogram data
-dendro_data <- dendro_data(hc)
-
-# Plot the dendrogram with colored clusters
-dendrogram_plot <- ggplot() +
-  geom_segment(data = segment(dendro_data), aes(x = x, y = y, xend = xend, yend = yend)) +
-  geom_point(data = label(dendro_data), aes(x = x, y = y, color = as.factor(clusters)), size = 3) +
-  scale_color_manual(values = c("red", "blue")) +
-  mytheme +
-  labs(x = "Probanden", y = "Distanz") +
-  theme(text = element_text(size = 20),
-        legend.position = "none")  +
-  theme(axis.line = element_blank(), axis.text.x = element_blank(),
-        axis.ticks = element_blank(),
-        legend.position = "none")
-
-# Create scatter plot with colored clusters
-scatter_plot <- ggplot(data, aes(x = x, y = y, color = cluster)) +
-  geom_point(size = 3) +
-  labs(x = "X", y = "Y") +
-  scale_color_manual(values = c("red", "blue")) +
-  mytheme +
-  theme(text = element_text(size = 20),
-        legend.position = "none") 
-
-# Arrange both plots side by side
-ggarrange(dendrogram_plot, scatter_plot, ncol = 2)
-```
+![](MVV_05_WS24_files/figure-html/unnamed-chunk-34-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -425,7 +207,7 @@ class: top, left
 
 #### Hierarchisches Clustering - Linkage
 
-<small>
+&lt;small&gt;
 
 *	Maximum- oder Complete-Linkage-Clustering:
   *	Berechnet alle paarweisen Unähnlichkeiten zwischen den Elementen von Cluster 1 und Cluster 2.
@@ -477,7 +259,7 @@ class: top, left
 
 * Durch das Clustern von Patienten basierend auf Biomarkern können biologisch unterschiedliche Subtypen identifiziert werden
 
-* Subtypen $\rightarrow$ maßgeschneiderte Behandlungen
+* Subtypen `\(\rightarrow\)` maßgeschneiderte Behandlungen
 
 
 ---
@@ -520,22 +302,26 @@ Dimensionen für das Clustering:
 ]
 
 .pull-right[
-Ausschnitt von $N=15$ Personen aus Datensatz (Werte sind z-standardisiert)
+Ausschnitt von `\(N=15\)` Personen aus Datensatz (Werte sind z-standardisiert)
 
-```{r, echo=FALSE}
-library('factoextra')
-df <- iris #loading data
 
-df <- dplyr::select(df, 
-                    -Species) #removing Species
-
-df <- as.data.frame(scale(df)) #scaling
-
-df = df[,c(1,3)]
-
-names(df) = c("DLPFC Aktivität", "Interleukin-6")
-
-head(df, 15)
+```
+##    DLPFC Aktivität Interleukin-6
+## 1      -0.89767388     -1.335752
+## 2      -1.13920048     -1.335752
+## 3      -1.38072709     -1.392399
+## 4      -1.50149039     -1.279104
+## 5      -1.01843718     -1.335752
+## 6      -0.53538397     -1.165809
+## 7      -1.50149039     -1.335752
+## 8      -1.01843718     -1.279104
+## 9      -1.74301699     -1.335752
+## 10     -1.13920048     -1.279104
+## 11     -0.53538397     -1.279104
+## 12     -1.25996379     -1.222456
+## 13     -1.25996379     -1.335752
+## 14     -1.86378030     -1.505695
+## 15     -0.05233076     -1.449047
 ```
 ]
 
@@ -546,18 +332,13 @@ class: top, left
 #### Agglomoratives hierarchisches Clustering
 
 .pull-left[
-```{r echo=FALSE, fig.height=6}
-ggplot(df, aes(y = `DLPFC Aktivität`, x = `Interleukin-6`)) +
-  geom_point() +
-  mytheme +
-  theme(text = element_text(size = 20),
-        legend.position = "none")
-```
+![](MVV_05_WS24_files/figure-html/unnamed-chunk-36-1.png)&lt;!-- --&gt;
 
 ]
 
 .pull-right[
-```{r, eval=FALSE}
+
+``` r
 ggplot(df, aes(y = `DLPFC Aktivität`, 
                x = `Interleukin-6`)) +
   geom_point()
@@ -594,20 +375,20 @@ class: top, left
 
 **Berechnung der (Un-)Ähnlichkeit ([Dis]similarities)**
 
-<small>
+&lt;small&gt;
 
 Euklidische Distanz:
 
 * Die euklidische Distanz ist die geradlinige Entfernung zwischen zwei Punkten (Personen) in einem mehrdimensionalen Raum.
 
-* Für zwei Punkte $A(x_1, y_1)$ und $B(x_2, y_2)$ im zweidimensionalen Raum:
+* Für zwei Punkte `\(A(x_1, y_1)\)` und `\(B(x_2, y_2)\)` im zweidimensionalen Raum:
 
-$$d(A, B) = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}$$
+`$$d(A, B) = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}$$`
 
 
 * Für n-dimensionale Punkte:
 
-$$d(A, B) = \sqrt{\sum_{i=1}^{n} (x_{iB} - x_{iA})^2}$$
+`$$d(A, B) = \sqrt{\sum_{i=1}^{n} (x_{iB} - x_{iA})^2}$$`
 * Eigenschaften der euklidische Distanz
 
 *	Positive Werte: Die Distanz ist immer positiv (oder 0, wenn beide Punkte identisch sind).
@@ -622,15 +403,13 @@ class: top, left
 
 **Berechnung der (Un-)Ähnlichkeit ([Dis]similarities)**
 
-<small>
+&lt;small&gt;
 
 Euklidische Distanz:
 
 .center[
 
-```{r eval = TRUE, echo = F, out.width = "500px"}
-knitr::include_graphics("bilder/ED.png")
-```
+&lt;img src="bilder/ED.png" width="500px" /&gt;
 ]
 
 ---
@@ -641,7 +420,7 @@ class: top, left
 
 **Berechnung der (Un-)Ähnlichkeit ([Dis]similarities)**
 
-<small>
+&lt;small&gt;
 
 Exkurs: Alternative Distanzmetriken:
 
@@ -651,7 +430,7 @@ Manhattan-Distanz (City-Block-Distanz)
 
 *	Formel:
 
-$$d(A, B) = \sum_{i=1}^{n} |x_{iA} - x_{iB}|$$
+`$$d(A, B) = \sum_{i=1}^{n} |x_{iA} - x_{iB}|$$`
 
 *	Beispiel: Geeignet für hochdimensionale Daten und bei Daten, die wie in einem Raster (z. B. Stadtstraßen) strukturiert sind.
 
@@ -665,7 +444,7 @@ class: top, left
 
 **Berechnung der (Un-)Ähnlichkeit ([Dis]similarities)**
 
-<small>
+&lt;small&gt;
 
 Exkurs: Alternative Distanzmetriken:
 
@@ -675,7 +454,7 @@ Minkowski-Distanz
 
 *	Formel:
 
-$$d(A, B) = \left( \sum_{i=1}^{n} |x_{iA} - x_{iB}|^p \right)^{\frac{1}{p}}$$
+`$$d(A, B) = \left( \sum_{i=1}^{n} |x_{iA} - x_{iB}|^p \right)^{\frac{1}{p}}$$`
 
 *	Parameter p:
 
@@ -693,7 +472,7 @@ class: top, left
 
 **Berechnung der (Un-)Ähnlichkeit ([Dis]similarities)**
 
-<small>
+&lt;small&gt;
 
 Exkurs: Alternative Distanzmetriken:
 
@@ -703,9 +482,9 @@ Cosinus-Distanz (Cosine Similarity)
 
 *	Formel (Ähnlichkeit):
 
-$$\text{Cosine Similarity} = \frac{\vec{A} \cdot \vec{B}}{\|\vec{A}\| \|\vec{B}\|}$$
+`$$\text{Cosine Similarity} = \frac{\vec{A} \cdot \vec{B}}{\|\vec{A}\| \|\vec{B}\|}$$`
 
-Cosinus-Distanz = 1 - $\text{Cosine Similarity}$.
+Cosinus-Distanz = 1 - `\(\text{Cosine Similarity}\)`.
 
 *	Beispiel: Häufig in Textanalysen verwendet, z. B. bei der Analyse von Wortfrequenzen (Bag-of-Words).
 
@@ -727,7 +506,7 @@ Mahalanobis-Distanz
 
 *	Formel:
 
-$$d(A, B) = \sqrt{(x_A - x_B)^T \Sigma^{-1} (x_A - x_B)}$$
+`$$d(A, B) = \sqrt{(x_A - x_B)^T \Sigma^{-1} (x_A - x_B)}$$`
 
 wobei \Sigma^{-1} die inverse Kovarianzmatrix ist.
 
@@ -744,7 +523,7 @@ class: top, left
 
 **Berechnung der (Un-)Ähnlichkeit ([Dis]similarities)**
 
-<small>
+&lt;small&gt;
 
 Exkurs: Alternative Distanzmetriken:
 
@@ -754,9 +533,9 @@ Jaccard-Distanz
 
 *	Formel:
 
-$$\text{Jaccard Similarity} = \frac{|A \cap B|}{|A \cup B|}$$
+`$$\text{Jaccard Similarity} = \frac{|A \cap B|}{|A \cup B|}$$`
 
-Jaccard-Distanz $= 1 - \text{Jaccard Similarity}$.
+Jaccard-Distanz `\(= 1 - \text{Jaccard Similarity}\)`.
 
 *	Beispiel: Verwendung bei Clustering von Merkmalen wie „Ja/Nein“-Antworten.
 
@@ -768,12 +547,25 @@ class: top, left
 
 **Berechnung der (Un-)Ähnlichkeit ([Dis]similarities) - Distanzmatrix**
 
-```{r}
+
+``` r
 # Berechnung der (Un-)Ähnlichkeitsmatrix
 
-d <- dist(df, method = "euclidean")
+d &lt;- dist(df, method = "euclidean")
 
 as.matrix(d)[1:8, 1:8] # Anzeigen für die ersten 8 Personen
+```
+
+```
+##           1         2         3          4          5         6          7          8
+## 1 0.0000000 0.2415266 0.4863634 0.60646792 0.12076330 0.4001682 0.60381651 0.13338940
+## 2 0.2415266 0.0000000 0.2480807 0.36669188 0.12076330 0.6272758 0.36228991 0.13338940
+## 3 0.4863634 0.2480807 0.0000000 0.16558865 0.36669188 0.8751847 0.13338940 0.37959163
+## 4 0.6064679 0.3666919 0.1655887 0.00000000 0.48636340 0.9727268 0.05664765 0.48305321
+## 5 0.1207633 0.1207633 0.3666919 0.48636340 0.00000000 0.5120752 0.48305321 0.05664765
+## 6 0.4001682 0.6272758 0.8751847 0.97272680 0.51207520 0.0000000 0.98093946 0.49616149
+## 7 0.6038165 0.3622899 0.1333894 0.05664765 0.48305321 0.9809395 0.00000000 0.48636340
+## 8 0.1333894 0.1333894 0.3795916 0.48305321 0.05664765 0.4961615 0.48636340 0.00000000
 ```
 
 ---
@@ -784,12 +576,17 @@ class: top, left
 
 **Berechnung der (Un-)Ähnlichkeit ([Dis]similarities) - Distanzmatrix**
 
-```{r echo=FALSE}
-# Berechnung der (Un-)Ähnlichkeitsmatrix
 
-d <- dist(df, method = "euclidean")
-
-as.matrix(d)[1:8, 1:8] # Anzeigen für die ersten 8 Personen
+```
+##           1         2         3          4          5         6          7          8
+## 1 0.0000000 0.2415266 0.4863634 0.60646792 0.12076330 0.4001682 0.60381651 0.13338940
+## 2 0.2415266 0.0000000 0.2480807 0.36669188 0.12076330 0.6272758 0.36228991 0.13338940
+## 3 0.4863634 0.2480807 0.0000000 0.16558865 0.36669188 0.8751847 0.13338940 0.37959163
+## 4 0.6064679 0.3666919 0.1655887 0.00000000 0.48636340 0.9727268 0.05664765 0.48305321
+## 5 0.1207633 0.1207633 0.3666919 0.48636340 0.00000000 0.5120752 0.48305321 0.05664765
+## 6 0.4001682 0.6272758 0.8751847 0.97272680 0.51207520 0.0000000 0.98093946 0.49616149
+## 7 0.6038165 0.3622899 0.1333894 0.05664765 0.48305321 0.9809395 0.00000000 0.48636340
+## 8 0.1333894 0.1333894 0.3795916 0.48305321 0.05664765 0.4961615 0.48636340 0.00000000
 ```
 
 ***
@@ -812,11 +609,22 @@ class: top, left
 
 * Typischerweise werden hierfür die Complete-Linkage-Methode oder die Ward-Methode bevorzugt.
 
-```{r}
+
+``` r
 # Linkage berechnen (Distanzmatrix geben)
-hc <- hclust(d = d, method = "ward.D2")
+hc &lt;- hclust(d = d, method = "ward.D2")
 
 hc
+```
+
+```
+## 
+## Call:
+## hclust(d = d, method = "ward.D2")
+## 
+## Cluster method   : ward.D2 
+## Distance         : euclidean 
+## Number of objects: 150
 ```
 
 ---
@@ -828,9 +636,12 @@ class: top, left
 **Dendrogram visualisieren**
 
 .center[
-```{r, fig.height=5, fig.width=12}
+
+``` r
 fviz_dend(hc, cex = 0.2) + coord_flip()
 ```
+
+![](MVV_05_WS24_files/figure-html/unnamed-chunk-42-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -859,7 +670,7 @@ class: top, left
 
 **Dendrogram - Modellpassung**
 
-<small>
+&lt;small&gt;
 
 *	Wir können überprüfen, wie gut der Baum die tatsächlichen Daten widerspiegelt, indem wir die Distanzmatrix betrachten, die mit der Funktion dist() berechnet wird.
 
@@ -869,14 +680,19 @@ class: top, left
 
 *	In der Theorie sollte diese Korrelation hoch sein.Idealerweise liegt die Korrelation über 0.75.
 
-* Wenn die Korrelation nicht ausreichend ist $\rightarrow$ andere Linkage-Methoden ausprobieren
+* Wenn die Korrelation nicht ausreichend ist `\(\rightarrow\)` andere Linkage-Methoden ausprobieren
 
-```{r}
+
+``` r
 # cophenetischen Distanzen berechnen
-coph <- cophenetic(hc)
+coph &lt;- cophenetic(hc)
 
 # Korrelation zwischen den cophenetischen Distanzen und den ursprünglichen Distanzen
 cor(d, coph)
+```
+
+```
+## [1] 0.774994
 ```
 
 ---
@@ -889,11 +705,11 @@ class: top, left
 
 *	Als Nächstes können wir die Cluster tatsächlich benennen, da der Algorithmus zwar ein Dendrogramm erzeugt, wir dieses aber interpretieren müssen.
 
-*	Wir müssen die Anzahl der Cluster $k$ bestimmen. In unserem Graph sah es so aus, als wäre $k = 2$.
+*	Wir müssen die Anzahl der Cluster `\(k\)` bestimmen. In unserem Graph sah es so aus, als wäre `\(k = 2\)`.
 
-*	Es ist jedoch möglich, komplexere Methoden zu verwenden, um ein geeignetes $k$ zu bestimmen, indem das Dendrogramm genauer betrachtet und analysiert wird (folgt später).
+*	Es ist jedoch möglich, komplexere Methoden zu verwenden, um ein geeignetes `\(k\)` zu bestimmen, indem das Dendrogramm genauer betrachtet und analysiert wird (folgt später).
 
-*	Wir fahren mit $k = 2$ fort.
+*	Wir fahren mit `\(k = 2\)` fort.
 
 ---
 class: top, left
@@ -903,10 +719,13 @@ class: top, left
 
 **Zuweisung der Fälle zu den Clustern**
 
-```{r, fig.height=5, fig.width=12}
+
+``` r
 fviz_dend(hc, cex = 0.2, k = 2, color_labels_by_k = TRUE) + coord_flip() # Nach k einfärben
 ```
 
+![](MVV_05_WS24_files/figure-html/unnamed-chunk-44-1.png)&lt;!-- --&gt;
+
 ---
 class: top, left
 ### Clusteranalyse
@@ -915,23 +734,19 @@ class: top, left
 
 **Zuweisung der Fälle zu den Clustern**
 
-```{r}
-df$cluster <- cutree(hc, k = 2)
+
+``` r
+df$cluster &lt;- cutree(hc, k = 2)
 ```
 
 .pull-left[
-```{r echo=FALSE, fig.height=5}
-ggplot(df, aes(y = `DLPFC Aktivität`, x = `Interleukin-6`, colour = cluster)) +
-  geom_point() +
-  mytheme +
-  theme(text = element_text(size = 20),
-        legend.position = "none")
-```
+![](MVV_05_WS24_files/figure-html/unnamed-chunk-46-1.png)&lt;!-- --&gt;
 
 ]
 
 .pull-right[
-```{r, eval=FALSE}
+
+``` r
 ggplot(df, aes(y = `DLPFC Aktivität`, 
                x = `Interleukin-6`,
                colour = cluster)) +
@@ -969,22 +784,26 @@ Dimensionen für das Clustering (mehr als 2):
 ]
 
 .pull-right[
-Ausschnitt von $N=15$ Personen aus Datensatz (Werte sind z-standardisiert)
+Ausschnitt von `\(N=15\)` Personen aus Datensatz (Werte sind z-standardisiert)
 
-```{r, echo=FALSE}
-library('factoextra')
-df <- iris #loading data
 
-df <- dplyr::select(df, 
-                    -Species) #removing Species
-
-df <- as.data.frame(scale(df)) #scaling
-
-df = df[,c(1:4)]
-
-names(df) = c("DLPFC", "CRP", "IL-6", " TNF-α")
-
-head(df, 15)
+```
+##          DLPFC         CRP      IL-6     TNF-α
+## 1  -0.89767388  1.01560199 -1.335752 -1.311052
+## 2  -1.13920048 -0.13153881 -1.335752 -1.311052
+## 3  -1.38072709  0.32731751 -1.392399 -1.311052
+## 4  -1.50149039  0.09788935 -1.279104 -1.311052
+## 5  -1.01843718  1.24503015 -1.335752 -1.311052
+## 6  -0.53538397  1.93331463 -1.165809 -1.048667
+## 7  -1.50149039  0.78617383 -1.335752 -1.179859
+## 8  -1.01843718  0.78617383 -1.279104 -1.311052
+## 9  -1.74301699 -0.36096697 -1.335752 -1.311052
+## 10 -1.13920048  0.09788935 -1.279104 -1.442245
+## 11 -0.53538397  1.47445831 -1.279104 -1.311052
+## 12 -1.25996379  0.78617383 -1.222456 -1.311052
+## 13 -1.25996379 -0.13153881 -1.335752 -1.442245
+## 14 -1.86378030 -0.13153881 -1.505695 -1.442245
+## 15 -0.05233076  2.16274279 -1.449047 -1.311052
 ```
 ]
 
@@ -995,11 +814,14 @@ class: top, left
 
 #### Agglomoratives hierarchisches Clustering (mehr als 2 Dimensionen)
 
-```{r, fig.height=5, fig.width=12}
-d <- dist(df, method = "euclidean")
-hc <- hclust(d = d, method = "ward.D2")
+
+``` r
+d &lt;- dist(df, method = "euclidean")
+hc &lt;- hclust(d = d, method = "ward.D2")
 fviz_dend(hc, cex = 0.2, k = 2, color_labels_by_k = TRUE) + coord_flip()
 ```
+
+![](MVV_05_WS24_files/figure-html/unnamed-chunk-49-1.png)&lt;!-- --&gt;
 
 ---
 class: top, left
@@ -1008,20 +830,13 @@ class: top, left
 #### Agglomoratives hierarchisches Clustering (mehr als 2 Dimensionen)
 
 .pull-left[
-```{r echo=FALSE, fig.height=6}
-cut <- cutree(hc, k = 2)
-
-fviz_cluster(list(data = df, cluster=cut), labelsize = 0) +
-  mytheme +
-  labs(title = "") +
-  theme(text = element_text(size = 20),
-        legend.position = "none")
-```
+![](MVV_05_WS24_files/figure-html/unnamed-chunk-50-1.png)&lt;!-- --&gt;
 ]
 
 .pull-right[
-```{r eval=FALSE}
-cut <- cutree(hc, k = 2)
+
+``` r
+cut &lt;- cutree(hc, k = 2)
 
 fviz_cluster(list(data = df, 
                   cluster=cut), 
@@ -1030,13 +845,13 @@ fviz_cluster(list(data = df,
   labs(title = "")
 ```
 
-<small>
+&lt;small&gt;
 
 * Problem: 4 Dimensionen aber nur 2 Achsen
 
 * Lösung: R rechnet erst eine Hauptkomponentenanalyse (PCA), um Daten auf 2 Komponenten herunterzubrechen
 
-* Komponentenwerte werden auf X- und Y-Achse dargestellt $\rightarrow$ Clustertrennung sichtbar
+* Komponentenwerte werden auf X- und Y-Achse dargestellt `\(\rightarrow\)` Clustertrennung sichtbar
 
 * Nachteil: Variablen nicht in Ursprungseinheit sichtbar
 ]
@@ -1053,7 +868,7 @@ class: top, left
 
 * Dieser Prozess wird so lange wiederholt, bis jedes Objekt seinen eigenen Cluster bildet
 
-$\rightarrow$ Gegenteil der agglomerativen Clusteranalyse.
+`\(\rightarrow\)` Gegenteil der agglomerativen Clusteranalyse.
 
 ---
 class: top, left
@@ -1061,14 +876,19 @@ class: top, left
 
 #### Divisives hierarchisches Clustering 
 
-```{r}
+
+``` r
 library(cluster)
 
-di <- diana(x = df, 
+di &lt;- diana(x = df, 
             stand = TRUE, # Standardisieren vor dem clustern
             metric = "euclidean")
 
 di$dc
+```
+
+```
+## [1] 0.9408201
 ```
 
 * Ergebnis: **Divisiver Koeffizient** - Maß für die gefundene Clusterstruktur
@@ -1081,9 +901,12 @@ class: top, left
 
 #### Divisives hierarchisches Clustering 
 
-```{r, fig.height=5, fig.width=12}
+
+``` r
 fviz_dend(di, cex = 0.2, k = 2) + coord_flip() # Einfärben passiert automatisch
 ```
+
+![](MVV_05_WS24_files/figure-html/unnamed-chunk-53-1.png)&lt;!-- --&gt;
 
 ---
 class: top, left
@@ -1092,20 +915,13 @@ class: top, left
 #### Divisives hierarchisches Clustering 
 
 .pull-left[
-```{r echo=FALSE, fig.height=6}
-cut <- cutree(di, k = 2)
-
-fviz_cluster(list(data = df, cluster=cut), labelsize = 0) +
-  mytheme +
-  labs(title = "") +
-  theme(text = element_text(size = 20),
-        legend.position = "none")
-```
+![](MVV_05_WS24_files/figure-html/unnamed-chunk-54-1.png)&lt;!-- --&gt;
 ]
 
 .pull-right[
-```{r eval=FALSE}
-cut <- cutree(di, k = 2)
+
+``` r
+cut &lt;- cutree(di, k = 2)
 
 fviz_cluster(list(data = df, 
                   cluster=cut), 
@@ -1124,20 +940,13 @@ class: top, left
 #### Wahl der optimalen Anzahl von Clustern
 
 .pull-left[
-```{r echo=FALSE, fig.height=6}
-cut <- cutree(hc, k = 3)
-
-fviz_cluster(list(data = df, cluster=cut), labelsize = 0) +
-  mytheme +
-  labs(title = "") +
-  theme(text = element_text(size = 20),
-        legend.position = "none")
-```
+![](MVV_05_WS24_files/figure-html/unnamed-chunk-56-1.png)&lt;!-- --&gt;
 ]
 
 .pull-right[
-```{r eval=FALSE}
-cut <- cutree(hc, k = 3)
+
+``` r
+cut &lt;- cutree(hc, k = 3)
 
 fviz_cluster(list(data = df, 
                   cluster=cut), 
@@ -1146,7 +955,7 @@ fviz_cluster(list(data = df,
   labs(title = "")
 ```
 
-<small>
+&lt;small&gt;
 
 * Prinzipiell wären auch andere Clusterzahlen denkbar
 
@@ -1162,20 +971,13 @@ class: top, left
 #### Wahl der optimalen Anzahl von Clustern
 
 .pull-left[
-```{r echo=FALSE, fig.height=6}
-cut <- cutree(hc, k = 4)
-
-fviz_cluster(list(data = df, cluster=cut), labelsize = 0) +
-  mytheme +
-  labs(title = "") +
-  theme(text = element_text(size = 20),
-        legend.position = "none")
-```
+![](MVV_05_WS24_files/figure-html/unnamed-chunk-58-1.png)&lt;!-- --&gt;
 ]
 
 .pull-right[
-```{r eval=FALSE}
-cut <- cutree(hc, k = 4)
+
+``` r
+cut &lt;- cutree(hc, k = 4)
 
 fviz_cluster(list(data = df, 
                   cluster=cut), 
@@ -1184,7 +986,7 @@ fviz_cluster(list(data = df,
   labs(title = "")
 ```
 
-<small>
+&lt;small&gt;
 
 * Prinzipiell wären auch andere Clusterzahlen denkbar
 
@@ -1199,7 +1001,7 @@ class: top, left
 
 #### Wahl der optimalen Anzahl von Clustern
 
-*	$k$ ist die Anzahl der Cluster, die ein Algorithmus erzeugt.
+*	`\(k\)` ist die Anzahl der Cluster, die ein Algorithmus erzeugt.
 
 *	Die Wahl beeinflusst direkt die Ergebnisse und die Interpretierbarkeit des Clusterings.
 
@@ -1213,7 +1015,7 @@ class: top, left
 
 #### Wahl der optimalen Anzahl von Clustern
 
-<small>
+&lt;small&gt;
 
 Methoden zur Wahl der optimalen Clusterzahl (Beispiele)
 
@@ -1246,14 +1048,11 @@ class: top, left
 **Elbow-Methode:**
 
 .pull-left[
-```{r, echo=FALSE, fig.height=5}
-factoextra::fviz_nbclust(x = df, FUN = hcut, method = c("wss")) + 
-  geom_vline(xintercept = 3,linetype=2) +
-  geom_vline(xintercept = 4, linetype=2)
-```
+![](MVV_05_WS24_files/figure-html/unnamed-chunk-60-1.png)&lt;!-- --&gt;
 ]
 .pull-right[
-```{r, eval=FALSE, fig.height=5}
+
+``` r
 library(factoextra)
 
 fviz_nbclust(x = df, 
@@ -1272,15 +1071,15 @@ class: top, left
 
 *	Wir suchen nach dem „Knick“ im Diagramm, der darauf hinweist, dass zusätzliche Cluster nur noch geringfügigen Nutzen bringen.
 	
-*	Hier: Der Knick deutet darauf hin, dass $k = 3$ wahrscheinlich angemessen ist.
+*	Hier: Der Knick deutet darauf hin, dass `\(k = 3\)` wahrscheinlich angemessen ist.
 	
 *	Im Wesentlichen gilt: Wenn der Liniendiagramm wie ein Arm aussieht, dann ist der „Ellbogen“ des Arms der Wert von k, der am besten geeignet ist.
 
-*	Die Idee ist, dass wir eine geringe WSS (Within-Cluster Sum of Squares) anstreben, aber die WSS dazu neigt, gegen 0 zu sinken, wenn $k$ erhöht wird.
+*	Die Idee ist, dass wir eine geringe WSS (Within-Cluster Sum of Squares) anstreben, aber die WSS dazu neigt, gegen 0 zu sinken, wenn `\(k\)` erhöht wird.
 
-*	Unser Ziel ist es, einen kleinen Wert für $k$ zu wählen, der dennoch eine niedrige WSS aufweist.
+*	Unser Ziel ist es, einen kleinen Wert für `\(k\)` zu wählen, der dennoch eine niedrige WSS aufweist.
 	
-*	Der Knickpunkt („Ellbogen“) repräsentiert normalerweise den Punkt, an dem der Nutzen abnimmt, wenn $k$ weiter erhöht wird.
+*	Der Knickpunkt („Ellbogen“) repräsentiert normalerweise den Punkt, an dem der Nutzen abnimmt, wenn `\(k\)` weiter erhöht wird.
 	
 	
 ---
@@ -1292,12 +1091,11 @@ class: top, left
 **Silhouettenanalyse:**
 
 .pull-left[
-```{r, echo=FALSE, fig.height=5}
-factoextra::fviz_nbclust(x = df, FUN = hcut, method = c("silhouette"))
-```
+![](MVV_05_WS24_files/figure-html/unnamed-chunk-62-1.png)&lt;!-- --&gt;
 ]
 .pull-right[
-```{r, eval=FALSE, fig.height=5}
+
+``` r
 fviz_nbclust(x = df, 
              FUN = hcut, 
              method = c("silhouette"))
@@ -1316,13 +1114,13 @@ class: top, left
 	
 *	Anschließend wird die durchschnittliche Distanz zwischen p und allen Punkten im nächsten Cluster berechnet (dies misst die Separation vom nächstgelegenen anderen Cluster, nennen wir sie B).
 	
-*	Der Silhouetten-Koeffizient für p wird definiert als der Unterschied zwischen B und A, geteilt durch den größeren der beiden Werte $(\max(A, B))$.
+*	Der Silhouetten-Koeffizient für p wird definiert als der Unterschied zwischen B und A, geteilt durch den größeren der beiden Werte `\((\max(A, B))\)`.
 	
 *	Ziel: Den Abstand zwischen Clustern messen.
 	
 *	Wenn die Clusterkohäsion gut ist (A ist klein) und die Clustertrennung gut ist (B ist groß), wird der Zähler groß, was auf gut getrennte Cluster hinweist.
 	
-*	Im Beispiel zeigt der zweite Plot, dass $k=2$ der ideale Wert ist.
+*	Im Beispiel zeigt der zweite Plot, dass `\(k=2\)` der ideale Wert ist.
 
 
 ---
@@ -1332,18 +1130,15 @@ class: top, left
 #### Wahl der optimalen Anzahl von Clustern
 
 **Gap-Statistik:**
-```{r include=FALSE}
-gap_stat <- clusGap(x = df, FUN = hcut, K.max = 10, B = 10)
-```
+
 
 .pull-left[
-```{r, echo = FALSE, fig.height=5}
-fviz_gap_stat(gap_stat)
-```
+![](MVV_05_WS24_files/figure-html/unnamed-chunk-65-1.png)&lt;!-- --&gt;
 ]
 .pull-right[
-```{r, eval=FALSE, fig.height=5}
-gap_stat <- clusGap(x = df, 
+
+``` r
+gap_stat &lt;- clusGap(x = df, 
                     FUN = hcut, 
                     K.max = 10, 
                     B = 10)
@@ -1357,7 +1152,7 @@ class: top, left
 
 #### Wahl der optimalen Anzahl von Clustern
 
-<small>
+&lt;small&gt;
 
 **Gap-Statistik:**
 
@@ -1367,15 +1162,15 @@ class: top, left
 
 * Ein zufälliger Datensatz wird generiert, der die gleiche Anzahl von Datenpunkten und die gleichen Grenzen wie die Originaldaten hat.
 
-* Für jeden potentiellen Wert von $k$ wird die Variation innerhalb der Cluster auch im zufälligen Datensatz berechnet.
+* Für jeden potentiellen Wert von `\(k\)` wird die Variation innerhalb der Cluster auch im zufälligen Datensatz berechnet.
 
 * Der Unterschied (Gap) zwischen der Variation im Referenzdatensatz und im Originaldatensatz wird berechnet:
 
-$$\text{Gap}(k) = E[\log(W_k^{\text{random}})] - \log(W_k^{\text{data}})$$
+`$$\text{Gap}(k) = E[\log(W_k^{\text{random}})] - \log(W_k^{\text{data}})$$`
 
-* Der optimale Wert für $k$ ist der Punkt, an dem die Gap-Statistik den größten Wert hat.
+* Der optimale Wert für `\(k\)` ist der Punkt, an dem die Gap-Statistik den größten Wert hat.
 
-*	Im Beispiel zeigt der dritte Plot, dass $k=2$ der ideale Wert ist
+*	Im Beispiel zeigt der dritte Plot, dass `\(k=2\)` der ideale Wert ist
 
 ---
 class: top, left
@@ -1385,20 +1180,37 @@ class: top, left
 
 * Manche R Pakete berechnen viele Cluster Validity Indices (CVIs) auf einmal und entscheiden dann nach dem Mehrheitsprinzip (Majority rule)
 
-```{r eval=FALSE}
+
+``` r
 library(NbClust)
 nb = NbClust(df, distance = "euclidean", min.nc = 2, max.nc = 10, method = "ward.D2")
 ```
 
-```{r include=FALSE}
-nb = NbClust(df, distance = "euclidean", min.nc = 2, max.nc = 10, method = "ward.D2")
 
-```
 
 .code70[
-```{r echo=FALSE}
-library(NbClust)
-roundallnumerics(nb$All.index, 2)
+
+```
+##       KL     CH Hartigan  CCC  Scott   Marriot  TrCovW TraceW Friedman Rubin Cindex   DB Silhouette Duda Pseudot2 Beale Ratkowsky   Ball Ptbiserial Frey McClain Dunn Hubert
+## 2   4.22 240.25    79.38 2.86 344.78 1605323.8 1417.97 227.20    46.68  2.62   0.25 0.68       0.58 0.58    72.86  1.76      0.55 113.60       0.77 1.38    0.35 0.21      0
+## 3   2.71 222.72    40.31 4.00 460.89 1665618.1 1131.29 147.88    54.55  4.03   0.32 0.90       0.45 0.61    43.89  1.51      0.50  49.29       0.70 1.14    0.69 0.10      0
+## 4   1.14 201.25    33.55 3.28 568.42 1445874.1 1083.84 116.06    61.53  5.14   0.29 1.08       0.40 0.46    55.29  2.78      0.45  29.01       0.63 1.24    1.04 0.11      0
+## 5  11.95 192.68    15.18 2.72 635.44 1445078.9  683.25  94.37    66.05  6.32   0.32 1.07       0.33 0.65    14.76  1.23      0.41  18.87       0.58 0.45    1.33 0.07      0
+## 6   0.26 172.12    16.69 2.02 689.40 1452249.1  670.89  85.43    69.85  6.98   0.35 1.08       0.31 0.63    14.13  1.36      0.38  14.24       0.57 0.54    1.38 0.08      0
+## 7   0.73 161.71    17.14 1.89 759.18 1241321.6  511.50  76.56    79.63  7.79   0.36 1.07       0.32 0.44    34.44  2.97      0.35  10.94       0.56 0.81    1.45 0.09      0
+## 8   0.80 156.57    18.16 2.08 796.54 1263919.0  392.42  68.36    82.16  8.72   0.37 1.04       0.31 0.37    27.45  3.90      0.33   8.55       0.55 0.21    1.55 0.10      0
+## 9   0.80 155.69    20.46 2.57 853.89 1091330.6  339.73  60.61    87.72  9.83   0.37 0.95       0.31 0.71    17.95  0.98      0.32   6.73       0.55 0.77    1.56 0.10      0
+## 10  1.27 159.60    17.51 3.45 911.37  918477.9  242.05  52.93    91.14 11.26   0.38 0.99       0.32 0.58    16.42  1.65      0.30   5.29       0.50 0.55    1.93 0.11      0
+##    SDindex Dindex SDbw
+## 2     1.51   1.06 0.41
+## 3     1.68   0.88 0.53
+## 4     2.17   0.78 0.54
+## 5     1.92   0.70 0.47
+## 6     2.07   0.68 0.22
+## 7     2.04   0.64 0.17
+## 8     2.09   0.60 0.15
+## 9     2.08   0.58 0.14
+## 10    2.44   0.54 0.10
 ```
 ]
 
@@ -1408,15 +1220,14 @@ class: top, left
 
 #### Wahl der optimalen Anzahl von Clustern - Majority rule
 
-```{r eval=FALSE}
+
+``` r
 library(NbClust)
 nb = NbClust(df, distance = "euclidean", min.nc = 2, max.nc = 10, method = "ward.D2")
 ```
 
 .center[
-```{r eval = TRUE, echo = F, out.width = "700px"}
-knitr::include_graphics("bilder/majority.png")
-```
+&lt;img src="bilder/majority.png" width="700px" /&gt;
 ]
 
 ---
@@ -1433,7 +1244,7 @@ class: top, left
 
 * Diese Methode sollte jedoch mit Vorsicht angewendet werden. 
 
-* Es ist ratsam, den Algorithmus mehrmals auszuführen und die Cluster zu analysieren, um zu überprüfen, welches $k$ am besten geeignet ist.
+* Es ist ratsam, den Algorithmus mehrmals auszuführen und die Cluster zu analysieren, um zu überprüfen, welches `\(k\)` am besten geeignet ist.
 
 ---
 class: top, left
@@ -1454,54 +1265,7 @@ class: top, left
 .pull-right[
 Partitionierende Clusteranalyse (Centroid-based)
 
-```{r echo = F, fig.height=5}
-# Set seed for reproducibility
-set.seed(123)
-
-# Generate sample data for two clusters
-n <- 150
-cluster <- rep(c("Cluster 1", "Cluster 2"), each = n/2)
-
-# Cluster 1 (red): Centered at (0.4, 0.3)
-x1 <- rnorm(n/2, mean = 0.45, sd = 0.05)
-y1 <- rnorm(n/2, mean = 0.35, sd = 0.05)
-
-# Cluster 2 (blue): Centered at (0.6, 0.7)
-x2 <- rnorm(n/2, mean = 0.5, sd = 0.05)
-y2 <- rnorm(n/2, mean = 0.65, sd = 0.05)
-
-# Combine into a data frame
-data_clusters <- data.frame(
-  x = c(x1, x2),
-  y = c(y1, y2),
-  cluster = factor(cluster)
-)
-
-# Calculate centroids
-centroids <- data.frame(
-  cluster = factor(c("Cluster 1", "Cluster 2")),
-  x = c(mean(x1), mean(x2)),
-  y = c(mean(y1), mean(y2))
-)
-
-# Create the plot with lines from centroids to each point
-ggplot(data_clusters, aes(x = x, y = y, color = cluster)) +
-  geom_point(size = 2, alpha = 0.8) +  # Scatter points for clusters
-  geom_segment(data = data_clusters[data_clusters$cluster == "Cluster 1", ], 
-               aes(x = centroids[1, "x"], y = centroids[1, "y"], xend = x, yend = y), color = "red", alpha = 0.5) +  # Lines from Cluster 1 centroid
-  geom_segment(data = data_clusters[data_clusters$cluster == "Cluster 2", ], 
-               aes(x = centroids[2, "x"], y = centroids[2, "y"], xend = x, yend = y), color = "blue", alpha = 0.5) +  # Lines from Cluster 2 centroid
-  geom_point(data = centroids, aes(x = x, y = y), color = "black", size = 5, shape = 17) +  # Centroids as triangles
-  geom_abline(intercept = 1, slope = -1, color = "black", size = 1) +  # Decision boundary line
-  labs(
-    x = "X", 
-    y = "Y") +
-  mytheme +
-  theme(text = element_text(size = 20),
-        legend.position = "none") +
-  scale_color_manual(values = c("Cluster 1" = "pink", "Cluster 2" = "blue")) +
-  theme(legend.position = "none")
-```
+![](MVV_05_WS24_files/figure-html/unnamed-chunk-72-1.png)&lt;!-- --&gt;
 
 ]
 
@@ -1524,13 +1288,13 @@ class: top, left
 
 #### Partitionierende Clusteranalyse
 
-*	Im Allgemeinen bezeichnet partionelles Clustering einen Ansatz, bei dem eine gegebene Menge von $n$ Objekten in $k$ Partitionen aufgeteilt wird.
+*	Im Allgemeinen bezeichnet partionelles Clustering einen Ansatz, bei dem eine gegebene Menge von `\(n\)` Objekten in `\(k\)` Partitionen aufgeteilt wird.
 
-** $\rightarrow$ $k$ muss gegeben sein!**
+** `\(\rightarrow\)` `\(k\)` muss gegeben sein!**
 	
-*	Ein Partitionierungsalgorithmus erstellt diese $k$ Partitionen basierend auf den Daten.
+*	Ein Partitionierungsalgorithmus erstellt diese `\(k\)` Partitionen basierend auf den Daten.
 
-*	Der Wert für $k$ wird von uns vorgegeben, wie nutzen die oben vorgestellten Methoden, um das geeignetste $k$ zu bestimmen.
+*	Der Wert für `\(k\)` wird von uns vorgegeben, wie nutzen die oben vorgestellten Methoden, um das geeignetste `\(k\)` zu bestimmen.
 
 *	Die grundlegenden Partitionierungsmethoden verwenden in der Regel eine exklusive Clustertrennung, bei der jede Beobachtung nur einem Cluster zugeordnet werden darf.
 
@@ -1540,7 +1304,7 @@ class: top, left
 class: top, left
 ### Clusteranalyse
 
-<small>
+&lt;small&gt;
 
 #### Partitionierende Clusteranalyse - K-Means
 
@@ -1548,11 +1312,11 @@ Der k-means-Algorithmus funktioniert im Allgemeinen in den folgenden Schritten:
 
 1.	Anzahl der Cluster k festlegen: Dies wird vom Datenwissenschaftler/Forscher bestimmt.
   
-2.	Initiale Clusterzentren auswählen: $k$ Objekte werden zufällig aus dem Datensatz als anfängliche Clusterzentren (Mittelwerte) ausgewählt.
+2.	Initiale Clusterzentren auswählen: `\(k\)` Objekte werden zufällig aus dem Datensatz als anfängliche Clusterzentren (Mittelwerte) ausgewählt.
 
 3.	Zuweisung der Beobachtungen zu Clustern:	Jede Beobachtung wird dem nächstgelegenen Clusterzentrum zugewiesen (euklidischen Distanz) 
 
-4.	Aktualisierung der Clusterzentren:	Für jedes der $k$ Cluster wird das Clusterzentrum durch die Berechnung der neuen Mittelwerte aller Datenpunkte im Cluster aktualisiert.
+4.	Aktualisierung der Clusterzentren:	Für jedes der `\(k\)` Cluster wird das Clusterzentrum durch die Berechnung der neuen Mittelwerte aller Datenpunkte im Cluster aktualisiert.
 
 5.	Iterative Optimierung:
 
@@ -1564,23 +1328,39 @@ Der k-means-Algorithmus funktioniert im Allgemeinen in den folgenden Schritten:
 class: top, left
 ### Clusteranalyse
 
-<small>
+&lt;small&gt;
 
 #### Partitionierende Clusteranalyse - K-Means
 
-```{r eval=FALSE}
+
+``` r
 set.seed(123) # Zufällig gezogene Daten reproduzierbar machen
 
-km <- kmeans(df, 2, nstart = 25) # wir wählen k = 2, da dies zuvor die beste Lösung war
+km &lt;- kmeans(df, 2, nstart = 25) # wir wählen k = 2, da dies zuvor die beste Lösung war
 km
 ```
 
 .code80[
-```{r echo=FALSE}
-set.seed(123) # Zufällig gezogene Daten reproduzierbar machen
 
-km <- kmeans(df, 2, nstart = 25) # wir wählen k = 2, da dies zuvor die beste Lösung war
-km
+```
+## K-means clustering with 2 clusters of sizes 50, 100
+## 
+## Cluster means:
+##        DLPFC        CRP      IL-6      TNF-α
+## 1 -1.0111914  0.8504137 -1.300630 -1.2507035
+## 2  0.5055957 -0.4252069  0.650315  0.6253518
+## 
+## Clustering vector:
+##   [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+##  [85] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+## 
+## Within cluster sum of squares by cluster:
+## [1]  47.35062 173.52867
+##  (between_SS / total_SS =  62.9 %)
+## 
+## Available components:
+## 
+## [1] "cluster"      "centers"      "totss"        "withinss"     "tot.withinss" "betweenss"    "size"         "iter"         "ifault"
 ```
 ]
 
@@ -1588,7 +1368,7 @@ km
 class: top, left
 ### Clusteranalyse
 
-<small>
+&lt;small&gt;
 
 #### Partitionierende Clusteranalyse - K-Means
 
@@ -1648,7 +1428,7 @@ class: top, left
 class: top, left
 ### Clusteranalyse
 
-<small>
+&lt;small&gt;
 
 #### Dichtebasierte Clusteranalyse - DBSCAN
 
@@ -1656,7 +1436,7 @@ class: top, left
 	
 *	Es gibt zwei relevante Parameter für DBSCAN:
 	
-	*	Epsilon $(\epsilon)$: Definiert den Radius der Nachbarschaft um einen gegebenen Punkt.
+	*	Epsilon `\((\epsilon)\)`: Definiert den Radius der Nachbarschaft um einen gegebenen Punkt.
 	
 	*	Minimale Anzahl von Punkten (MinPts): Die minimale Anzahl von Nachbarn innerhalb des eps-Radius.
 
@@ -1680,7 +1460,7 @@ class: top, left
 class: top, left
 ### Clusteranalyse
 
-<small>
+&lt;small&gt;
 
 #### Dichtebasierte Clusteranalyse - DBSCAN
 
@@ -1690,7 +1470,7 @@ DBSCAN funktioniert im Allgemeinen wie folgt:
 
 	*	Für den Punkt p werden alle Punkte ermittelt, die "erreichbar" sind.
 
-	*	Das bedeutet, sie liegen innerhalb des Maximalradius der Nachbarschaft $(\epsilon)$ und erfüllen die Bedingung der minimalen Anzahl von Punkten (MinPts) in der $\epsilon$-Nachbarschaft.
+	*	Das bedeutet, sie liegen innerhalb des Maximalradius der Nachbarschaft `\((\epsilon)\)` und erfüllen die Bedingung der minimalen Anzahl von Punkten (MinPts) in der `\(\epsilon\)`-Nachbarschaft.
 
 2.	Markierung von Kernpunkten:
 
@@ -1710,7 +1490,7 @@ DBSCAN funktioniert im Allgemeinen wie folgt:
 class: top, left
 ### Clusteranalyse
 
-<small>
+&lt;small&gt;
 
 #### Dichtebasierte Clusteranalyse - DBSCAN
 
@@ -1722,7 +1502,7 @@ class: top, left
 
 * Wir nehmen der Einfachheit halber 2D Daten an (normalerweise werden 3D Voxel genutzt)
 
-* Jeder Pixel hat eine Position $(x, y)$ und eine Aktivität
+* Jeder Pixel hat eine Position `\((x, y)\)` und eine Aktivität
 
 Ziel:
 
@@ -1734,17 +1514,15 @@ Ziel:
 class: top, left
 ### Clusteranalyse
 
-<small>
+&lt;small&gt;
 
 #### Dichtebasierte Clusteranalyse - DBSCAN
 
-```{r echo=FALSE}
-data("multishapes")
-df <- multishapes[multishapes$y > -1.2,1:2]
-```
+
 
 .pull-left[
-```{r, eval = F, fig.height=5}
+
+``` r
 ggplot(df, aes(x, y)) +
   geom_vline(xintercept = 0) +
   geom_hline(yintercept = 0) +
@@ -1752,36 +1530,28 @@ ggplot(df, aes(x, y)) +
 ```
 **Beispiel:** Clusteranalyse von aktivierten Voxeln in einem fMRI-Experiment
 
-* Jeder Pixel hat eine Position $(x, y)$ und eine Aktivität
+* Jeder Pixel hat eine Position `\((x, y)\)` und eine Aktivität
 
 * Aktive Pixel werden im Streudiagramm rechts dargestellt
 ]
 
 .pull-right[
-```{r, echo = F, fig.height=5}
-ggplot(df, aes(x, y)) +
-  geom_vline(xintercept = 0) +
-  geom_hline(yintercept = 0) +
-  geom_point() + 
-  mytheme +
-  labs(title = "") +
-  theme(text = element_text(size = 20),
-        legend.position = "none")
-```
+![](MVV_05_WS24_files/figure-html/unnamed-chunk-77-1.png)&lt;!-- --&gt;
 ]
 
 ---
 class: top, left
 ### Clusteranalyse
 
-<small>
+&lt;small&gt;
 
 #### Dichtebasierte Clusteranalyse - DBSCAN
 
 .pull-left[
-```{r eval=FALSE}
+
+``` r
 set.seed(123)
-km <- kmeans(df, 5, nstart = 25)
+km &lt;- kmeans(df, 5, nstart = 25)
 fviz_cluster(km, df,
              ellipse.type = "point",
              geom = c("point"))
@@ -1793,48 +1563,38 @@ fviz_cluster(km, df,
 
 * Dies könnte zu Fehlinterpretationen (falsch-Lokalisierung von Hirnfunktionen und Netzwerken führen)
 
-$\rightarrow$ Ein flexiblerer Algorithmus wird benötigt
+`\(\rightarrow\)` Ein flexiblerer Algorithmus wird benötigt
 ]
 
 .pull-right[
-```{r, echo = F, fig.height=5}
-set.seed(127)
-km <- kmeans(df, 5, nstart = 25)
-fviz_cluster(km, df,ellipse.type = "point",
-             geom=c("point")) +
-  labs(title = "") +
-  mytheme +
-  theme(text = element_text(size = 20),
-        legend.position = "none") +
-  labs(title = "", x = "x", y = "y") 
-```
+![](MVV_05_WS24_files/figure-html/unnamed-chunk-79-1.png)&lt;!-- --&gt;
 ]
 
 ---
 class: top, left
 ### Clusteranalyse
 
-<small>
+&lt;small&gt;
 
 #### Dichtebasierte Clusteranalyse - DBSCAN
 
 **Parameterbestimmung**
 
-* DBSCAN-Algorithmus erfordert, dass Benutzer die optimalen Werte für $\epsilon$ und den Parameter MinPts festlegen.
+* DBSCAN-Algorithmus erfordert, dass Benutzer die optimalen Werte für `\(\epsilon\)` und den Parameter MinPts festlegen.
 
-* Einschränkung von DBSCAN: Algorithmus ist empfindlich gegenüber der Wahl von $\epsilon$ ist, insbesondere wenn die Cluster unterschiedliche Dichten aufweisen.
+* Einschränkung von DBSCAN: Algorithmus ist empfindlich gegenüber der Wahl von `\(\epsilon\)` ist, insbesondere wenn die Cluster unterschiedliche Dichten aufweisen.
 
-* Konsequenzen schlecht gewählter $\epsilon$-Werte 
+* Konsequenzen schlecht gewählter `\(\epsilon\)`-Werte 
 
-  *	Wenn der $\epsilon$-Wert zu klein gewählt wird, werden dünner besetzte Cluster als Rauschen definiert.
+  *	Wenn der `\(\epsilon\)`-Wert zu klein gewählt wird, werden dünner besetzte Cluster als Rauschen definiert.
 
-  *	Wenn der $\epsilon$-Wert zu groß gewählt wird, können dichter besetzte Cluster miteinander verschmolzen werden.
+  *	Wenn der `\(\epsilon\)`-Wert zu groß gewählt wird, können dichter besetzte Cluster miteinander verschmolzen werden.
 
 ---
 class: top, left
 ### Clusteranalyse
 
-<small>
+&lt;small&gt;
 
 #### Dichtebasierte Clusteranalyse - DBSCAN
 
@@ -1844,24 +1604,25 @@ class: top, left
 
 *	Damit wird die durchschnittliche Distanz jedes Punktes zu seinen nächsten Nachbarn berechnet.
 
-*	Der Wert von $k$ wird dabei vom Datenwissenschaftler/Analysten festgelegt und entspricht dem MinPts-Wert.
+*	Der Wert von `\(k\)` wird dabei vom Datenwissenschaftler/Analysten festgelegt und entspricht dem MinPts-Wert.
 
 *	Anschließend erstellen wir ein sogenanntes knee-Diagramm (ähnlich dem „Elbow-Plot“ bei k-means).
 	
-*	Wir suchen den Punkt, an dem ein starker Knick nach oben erkennbar ist $\rightarrow$ dieser Punkt wird als unser $\epsilon$-Wert verwendet.
+*	Wir suchen den Punkt, an dem ein starker Knick nach oben erkennbar ist `\(\rightarrow\)` dieser Punkt wird als unser `\(\epsilon\)`-Wert verwendet.
 
 ---
 class: top, left
 ### Clusteranalyse
 
-<small>
+&lt;small&gt;
 
 #### Dichtebasierte Clusteranalyse - DBSCAN
 
 **Parameterbestimmung**
 
 .pull-left[
-```{r eval=FALSE}
+
+``` r
 library('dbscan')
 library(fpc)
 
@@ -1869,16 +1630,15 @@ dbscan::kNNdistplot(df, k =  5) +
   abline(h = 0.15, lty = 2)
 ```
 
-* Der Schnittpunkt für $\epsilon$ schein bei ~ 0.15 zu liegen
+* Der Schnittpunkt für `\(\epsilon\)` schein bei ~ 0.15 zu liegen
 
 ]
 
 .pull-right[
-```{r echo=FALSE, fig.height=5}
-library('dbscan')
-library(fpc)
-dbscan::kNNdistplot(df, k =  5) +
-  abline(h = 0.15, lty = 2) 
+![](MVV_05_WS24_files/figure-html/unnamed-chunk-81-1.png)&lt;!-- --&gt;
+
+```
+## integer(0)
 ```
 ]
 
@@ -1886,15 +1646,16 @@ dbscan::kNNdistplot(df, k =  5) +
 class: top, left
 ### Clusteranalyse
 
-<small>
+&lt;small&gt;
 
 #### Dichtebasierte Clusteranalyse - DBSCAN
 
 .pull-left[
-```{r eval=FALSE}
+
+``` r
 set.seed(123)
 
-db <- dbscan(df, eps = 0.15, MinPts = 5)
+db &lt;- dbscan(df, eps = 0.15, MinPts = 5)
 
 fviz_cluster(db, df,
              ellipse.type = "point",
@@ -1909,42 +1670,29 @@ fviz_cluster(db, df,
 ]
 
 .pull-right[
-```{r echo=FALSE, fig.height=5}
-set.seed(123)
-library(fpc)
-
-db <- dbscan(df, eps = 0.15, MinPts = 5)
-
-fviz_cluster(db, df,
-             ellipse.type = "point",
-             geom=c("point")) +
-  mytheme +
-  theme(text = element_text(size = 20),
-        legend.position = "none") +
-  labs(title = "", x = "x", y = "y")
-```
+![](MVV_05_WS24_files/figure-html/unnamed-chunk-83-1.png)&lt;!-- --&gt;
 ]
 
-<!-- --- -->
-<!-- class: top, left -->
-<!-- ### Clusteranalyse -->
+&lt;!-- --- --&gt;
+&lt;!-- class: top, left --&gt;
+&lt;!-- ### Clusteranalyse --&gt;
 
-<!-- #### Techniken zur Validierung von Clustern -->
+&lt;!-- #### Techniken zur Validierung von Clustern --&gt;
 
 
-<!-- --- -->
-<!-- class: top, left -->
-<!-- ### Clusteranalyse -->
+&lt;!-- --- --&gt;
+&lt;!-- class: top, left --&gt;
+&lt;!-- ### Clusteranalyse --&gt;
 
-<!-- #### Clustering gemischter Datentypen -->
+&lt;!-- #### Clustering gemischter Datentypen --&gt;
 
-<!-- --- -->
-<!-- class: top, left -->
-<!-- ### Clusteranalyse -->
+&lt;!-- --- --&gt;
+&lt;!-- class: top, left --&gt;
+&lt;!-- ### Clusteranalyse --&gt;
 
-<!-- #### Visualisierung von Clustern -->
+&lt;!-- #### Visualisierung von Clustern --&gt;
 
-<!-- Methoden wie PCA, t-SNE und UMAP zur Visualisierung hochdimensionaler Daten. -->
+&lt;!-- Methoden wie PCA, t-SNE und UMAP zur Visualisierung hochdimensionaler Daten. --&gt;
 
 
 ---
@@ -1977,17 +1725,17 @@ class: top, left
 
 #### Modellbasiertes Clustering (Soft Clustering)
 
-<small>
+&lt;small&gt;
 
-*	Für jede der $n$ Beobachtungen liegen Daten zu $d$ Variablen vor, die für Beobachtung $i$ als $y_i = (y_{i,1}, \ldots, y_{i,d})$ bezeichnet werden.
+*	Für jede der `\(n\)` Beobachtungen liegen Daten zu `\(d\)` Variablen vor, die für Beobachtung `\(i\)` als `\(y_i = (y_{i,1}, \ldots, y_{i,d})\)` bezeichnet werden.
 
-*	Modellbasierte Clusteranalyse drückt die Wahrscheinlichkeitsdichtefunktion von $y_i$ als endliche Mischung oder gewichteten Durchschnitt von $G$ Komponenten-Wahrscheinlichkeitsdichtefunktionen aus:
+*	Modellbasierte Clusteranalyse drückt die Wahrscheinlichkeitsdichtefunktion von `\(y_i\)` als endliche Mischung oder gewichteten Durchschnitt von `\(G\)` Komponenten-Wahrscheinlichkeitsdichtefunktionen aus:
 
-$$p(y_i) = \sum_{g=1}^G \tau_g f_g(y_i \mid \theta_g)$$,
+`$$p(y_i) = \sum_{g=1}^G \tau_g f_g(y_i \mid \theta_g)$$`,
 
-wobei $f_g$ eine Wahrscheinlichkeitsdichtefunktion mit dem Parameter $\theta_g$ ist.
+wobei `\(f_g\)` eine Wahrscheinlichkeitsdichtefunktion mit dem Parameter `\(\theta_g\)` ist.
 
-*	$\tau_g$ ist die entsprechende Mischungswahrscheinlichkeit, wobei gilt: $\sum_{g=1}^G \tau_g = 1$.
+*	`\(\tau_g\)` ist die entsprechende Mischungswahrscheinlichkeit, wobei gilt: `\(\sum_{g=1}^G \tau_g = 1\)`.
 
 *	In ihrer einfachsten Form betrachtet die modellbasierte Clusteranalyse jede Komponente des Mixture Modells als ein einzelnes Cluster.
 
@@ -1999,62 +1747,62 @@ class: top, left
 
 #### Arten der Clusteranalyse - Hard vs. Soft vs. Fuzzy
 
-<small>
+&lt;small&gt;
 
-<table border="1" style="border-collapse: collapse; width: 100%; text-align: left;">
-<thead>
-<tr>
-<th>Merkmal</th>
-<th>Hard Clustering</th>
-<th>Soft Clustering (Modell basiert)</th>
-<th>Fuzzy Clustering</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><b>Mitgliedschaftsrepräsentation</b></td>
-<td>Jeder Datenpunkt gehört genau zu einem Cluster (binäre Zuordnung).</td>
-<td>Wahrscheinlichkeiten (Summe = 1), die die Wahrscheinlichkeit der Zugehörigkeit zu jedem Cluster anzeigen.</td>
-<td>Mitgliedschaftsgrade (zwischen 0 und 1), die den Grad der Zugehörigkeit zu jedem Cluster angeben (Summe = 1).</td>
-</tr>
-<tr>
-<td><b>Grenzen</b></td>
-<td>Klare und genau definierte Clustergrenzen.</td>
-<td>Überlappende Grenzen mit probabilistischer Mitgliedschaft.</td>
-<td>Überlappende Grenzen mit abgestuften Mitgliedschaften.</td>
-</tr>
-<tr>
-<td><b>Konzepte</b></td>
-<td>Deterministisch, feste Zuordnungen.</td>
-<td>Wahrscheinlichkeitstheorie (basierend auf Likelihood).</td>
-<td>Distanzbasiert (Fuzziness-Parameter \(m\)).</td>
-</tr>
-<tr>
-<td><b>Beispiele für Algorithmen</b></td>
-<td>K-Means, hierarchisches Clustering.</td>
-<td>Gaussian Mixture Models (GMMs).</td>
-<td>Fuzzy C-Means (FCM).</td>
-</tr>
-<tr>
-<td><b>Interpretierbarkeit</b></td>
-<td>Einfach und leicht zu interpretieren.</td>
-<td>Mittlere Komplexität durch Wahrscheinlichkeiten.</td>
-<td>Mittlere Komplexität durch Mitgliedschaftsgrade.</td>
-</tr>
-<tr>
-<td><b>Optimaler Anwendungsfall</b></td>
-<td>Klar abgegrenzte, nicht überlappende Cluster.</td>
-<td>Bei Unsicherheiten oder überlappenden Clustern.</td>
-<td>Wenn Clusterzugehörigkeiten nicht diskret sind und variieren.</td>
-</tr>
-</tbody>
-</table>
+&lt;table border="1" style="border-collapse: collapse; width: 100%; text-align: left;"&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Merkmal&lt;/th&gt;
+&lt;th&gt;Hard Clustering&lt;/th&gt;
+&lt;th&gt;Soft Clustering (Modell basiert)&lt;/th&gt;
+&lt;th&gt;Fuzzy Clustering&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;b&gt;Mitgliedschaftsrepräsentation&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;Jeder Datenpunkt gehört genau zu einem Cluster (binäre Zuordnung).&lt;/td&gt;
+&lt;td&gt;Wahrscheinlichkeiten (Summe = 1), die die Wahrscheinlichkeit der Zugehörigkeit zu jedem Cluster anzeigen.&lt;/td&gt;
+&lt;td&gt;Mitgliedschaftsgrade (zwischen 0 und 1), die den Grad der Zugehörigkeit zu jedem Cluster angeben (Summe = 1).&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;b&gt;Grenzen&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;Klare und genau definierte Clustergrenzen.&lt;/td&gt;
+&lt;td&gt;Überlappende Grenzen mit probabilistischer Mitgliedschaft.&lt;/td&gt;
+&lt;td&gt;Überlappende Grenzen mit abgestuften Mitgliedschaften.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;b&gt;Konzepte&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;Deterministisch, feste Zuordnungen.&lt;/td&gt;
+&lt;td&gt;Wahrscheinlichkeitstheorie (basierend auf Likelihood).&lt;/td&gt;
+&lt;td&gt;Distanzbasiert (Fuzziness-Parameter \(m\)).&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;b&gt;Beispiele für Algorithmen&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;K-Means, hierarchisches Clustering.&lt;/td&gt;
+&lt;td&gt;Gaussian Mixture Models (GMMs).&lt;/td&gt;
+&lt;td&gt;Fuzzy C-Means (FCM).&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;b&gt;Interpretierbarkeit&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;Einfach und leicht zu interpretieren.&lt;/td&gt;
+&lt;td&gt;Mittlere Komplexität durch Wahrscheinlichkeiten.&lt;/td&gt;
+&lt;td&gt;Mittlere Komplexität durch Mitgliedschaftsgrade.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;b&gt;Optimaler Anwendungsfall&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;Klar abgegrenzte, nicht überlappende Cluster.&lt;/td&gt;
+&lt;td&gt;Bei Unsicherheiten oder überlappenden Clustern.&lt;/td&gt;
+&lt;td&gt;Wenn Clusterzugehörigkeiten nicht diskret sind und variieren.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 
 ---
 class: top, left
 ### Clusteranalyse
 
-<small>
+&lt;small&gt;
 
 #### Grenzen der Clusteranalyse
 
@@ -2090,7 +1838,7 @@ class: top, left
 
 * Clusteranalyse umfasst **verschiedene Ansätze** (z. B. k-means, hierarchisches Clustering, DBSCAN), die unterschiedliche Anforderungen und Stärken haben.
 
-* Die Wahl der richtigen **Anzahl von Clustern $(k)$** oder anderen **Parametern** (z. B. $\epsilon$ bei DBSCAN) ist entscheidend für die Qualität der Ergebnisse.
+* Die Wahl der richtigen **Anzahl von Clustern `\((k)\)`** oder anderen **Parametern** (z. B. `\(\epsilon\)` bei DBSCAN) ist entscheidend für die Qualität der Ergebnisse.
 
 * Zur Überprüfung der **Qualität und Stabilität** der Clusterlösungen können Methoden wie Silhouettenanalyse, Gap-Statistik oder externe Validierung genutzt werden.
 
@@ -2102,3 +1850,141 @@ class: top, left
 ]
 
 
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+  "slideNumberFormat": "%current%",
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "countIncrementalSlides": false,
+  "ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
