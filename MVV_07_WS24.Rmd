@@ -58,7 +58,7 @@ class: middle, left
 # Multivariate Verfahren
 ***
 ### Einheit 7: Gruppieren: Multivariate (latente) Modellierung (1)
-##### `r format(as.Date(data.frame(readxl::read_excel("Multivariate Verfahren Termine.xlsx"))$Datum), "%d.%m.%Y")[7]` | Prof. Dr. Stephan Goerigk
+##### Wintersemester 2025 | Prof. Dr. Stephan Goerigk
 
 
 ---
