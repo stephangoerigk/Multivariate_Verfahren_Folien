@@ -60,7 +60,7 @@ class: middle, left
 # Multivariate Verfahren
 ***
 ### Einheit 6: Gruppieren: Exploratorische Faktorenanalyse (EFA)
-##### `r format(as.Date(data.frame(readxl::read_excel("Multivariate Verfahren Termine.xlsx"))$Datum), "%d.%m.%Y")[6]` | Prof. Dr. Stephan Goerigk
+##### Wintersemester 2025 | Prof. Dr. Stephan Goerigk
 
 ---
 class: top, left
