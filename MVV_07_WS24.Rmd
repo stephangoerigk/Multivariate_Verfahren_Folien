@@ -57,7 +57,7 @@ class: middle, left
 <br><br><br><br><br><br><br>
 # Multivariate Verfahren
 ***
-### Einheit 7: Gruppieren: Multivariate (latente) Modellierung (1)
+### Einheit 7: Multivariate (latente) Modellierung (1)
 ##### Wintersemester 2025 | Prof. Dr. Stephan Goerigk
 
 
