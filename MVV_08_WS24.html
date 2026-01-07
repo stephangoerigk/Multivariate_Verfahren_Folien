@@ -27,7 +27,7 @@ class: middle, left
 # Multivariate Verfahren
 ***
 ### Einheit 8: Multivariate (latente) Modellierung (2)
-##### 12.12.2024 | Prof. Dr. Stephan Goerigk
+##### Wintersemester 2025 | Prof. Dr. Stephan Goerigk
 
 ---
 class: top, left
@@ -118,7 +118,7 @@ Die Ausgabe besteht aus drei Teilen. Die ersten neun Zeilen werden als Header be
 
 *	den Optimizer, der verwendet wurde, um die am besten passenden Parameterwerte für diesen Schätzer zu finden (hier: NLMINB)
 
-*	die Anzahl der Modellparameter (hier: 21 )
+*	die Anzahl der Modellparameter (hier: 21)
 
 *	die Anzahl der Beobachtungen, die effektiv in der Analyse verwendet wurden (hier: 301)
 
@@ -593,7 +593,7 @@ class: top, left
 
 * Kritik an Cut-Off Werten
 
-  * Cutoffs in der Praxis oft ni ht erreichtbar (Marsh, 2004)
+  * Cutoffs in der Praxis oft nicht erreichtbar (Marsh, 2004)
   
   * Hu &amp; Bentler Empfehlungen in Daten mit sehr hohen Ladungen demonstriert
 
@@ -750,7 +750,7 @@ class: top, left
 
 #### Strukturgleichungsmodelle in R - SEM Beispiel
 
-**Zahlen im Outpuut standardisieren**
+**Zahlen im Output standardisieren**
 
 * Das Argument `standardized = TRUE` innerhalb der `summary()` Funktion erweitert den Output um standardisierte Parameterwerte. 
 
@@ -778,7 +778,7 @@ class: top, left
 
 * Zur Fixierung muss die entsprechende Variable in der Formel mit einem festen Wert multipliziert werden.
 
-Folegende Formel fixiert z.B. alle Ladungen auf 1:
+Folgende Formel fixiert z.B. alle Ladungen auf 1:
 
 
 ``` r
@@ -827,9 +827,9 @@ class: top, left
 
 * Dies macht Sinn, wenn die Hypothese gleicher Ladungen oder gleicher Effekte zwischen Gruppen getestet werden soll
 
-* Dies wird erreicht, indem für die jeweiligen Variablen ein identischer Multiplikator genutzt wird:
+* Dies wird erreicht, indem für die jeweiligen Variablen ein identischer Multiplikator genutzt wird
 
-* Folgendes Modell nimmt z.B. identische Ladungen für `x2` und `x3` an
+* Folgendes Modell nimmt z.B. identische Ladungen für `x2` und `x3` an:
 
 ``` r
 model = '
@@ -926,7 +926,7 @@ anova(fiteinfach, fitkomplex)
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
-* Einfaches Modell hat 2 freie Parameter mehr
+* Komplexes Modell hat zwei freie Parameter mehr als das einfache Model / Einfaches Modell hat zwei zu schätzende Parameter weniger
 
 * Modellvergleich ist signifikant `\(\rightarrow\)` komplexes Modell hat signifikant bessere Modellpassung
 
@@ -1067,7 +1067,7 @@ class: top, left
 
 **Bootstrapping**
 
-* Es kann entweder entweder `se = "bootstrap"` oder `test = "bootstrap"` beim Anpassen des Modells verwendet werden
+* Es kann entweder `se = "bootstrap"` oder `test = "bootstrap"` beim Anpassen des Modells verwendet werden
 
 * Dadurch werden Bootstrap-Standardfehler bzw. ein auf Bootstrap basierender p-Wert ausgegeben
 
