@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Einheit 6</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Prof. Dr. Stephan Goerigk" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/hygge.css" rel="stylesheet" />
+    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view/tile-view.js"></script>
+    <script src="libs/fabric/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#EE0071"],"pen_size":4,"eraser_size":40,"palette":[]}) })</script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+name: Title slide
+class: middle, left
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+# Multivariate Verfahren
+***
+### Einheit 6: Gruppieren: Exploratorische Faktorenanalyse (EFA)
+##### 21.11.2024 | Prof. Dr. Stephan Goerigk
+
+---
+class: top, left
+### Exploratorische Faktorenanalyse (EFA)
+
+#### Was ist eine Faktorenanalyse?
+
+Die Faktorenanalyse ist ein statistisches Verfahren, das darauf abzielt:
+
+*	Zusammenhänge zwischen Variablen zu identifizieren und zu erklären.
+
+*	Eine große Anzahl von Items/Variablen auf eine kleinere Anzahl latenter Dimensionen (Faktoren) zu reduzieren.
+
+*	Latente Konstrukte wie Intelligenz, Persönlichkeit oder Stress messbar zu machen.
+
+Zentrale Ziele der Faktorenanalyse:
+
+1.	Datenreduktion:
+	*	Komplexe Datensätze vereinfachen.
+	*	Finden von zugrundeliegenden (latenten) Strukturen.
+2.	Erforschung von Zusammenhängen:
+	*	Welche Variablen (latenten) hängen miteinander zusammen?
+3.	Hypothesenbildung:
+	*	Explorative Analyse unbekannter Strukturen in Daten.
+
+---
+class: top, left
+### Exploratorische Faktorenanalyse (EFA)
+
+#### Exploratorische Faktorenanalyse (EFA) vs. Konfirmatorische Faktorenanalyse (CFA)
+
+Zwei Varianten der Faktorenanalyse:
+
+&lt;table border="1" style="border-collapse: collapse; width: 100%; text-align: left;"&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th style="padding: 8px; background-color: #f2f2f2;"&gt;Kriterium&lt;/th&gt;
+            &lt;th style="padding: 8px; background-color: #f2f2f2;"&gt;Exploratorische Faktorenanalyse (EFA)&lt;/th&gt;
+            &lt;th style="padding: 8px; background-color: #f2f2f2;"&gt;Konfirmatorische Faktorenanalyse (CFA)&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td style="padding: 8px;"&gt;Ziel&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Strukturen und Zusammenhänge explorieren&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Vorab definierte Strukturen bestätigen&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td style="padding: 8px;"&gt;Hypothesen&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Keine festen Hypothesen&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Basierend auf theoretischen Annahmen&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td style="padding: 8px;"&gt;Vorgehen&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Datengetrieben&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Hypothesengetrieben&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td style="padding: 8px;"&gt;Faktorenstruktur&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Unbekannt, wird aus den Daten extrahiert&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Vorab spezifiziert&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td style="padding: 8px;"&gt;Anwendungsbeispiel&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Erforschung neuer Skalen oder Konstrukte&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Validierung bestehender Modelle/Skalen&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+class: top, left
+### Exploratorische Faktorenanalyse (EFA)
+
+#### Exploratorische Faktorenanalyse (EFA) vs. Konfirmatorische Faktorenanalyse (CFA)
+
+&lt;small&gt;
+
+.pull-left[
+**Wann EFA? Wann CFA?**
+
+*	EFA:
+
+	*	Erste Schritte in der Skalenentwicklung
+
+	*	Untersuchung neuer latenter Strukturen
+
+*	CFA:
+
+	*	Testen von Modellen basierend auf Theorie
+
+	*	Validierung und Replikation von Befunden
+]
+
+
+.pull-right[
+**Beispiel aus der Psychologie:**
+
+*	EFA:
+
+	*	Entwicklung eines Fragebogens zu „Arbeitszufriedenheit“.
+	
+	* Prüfen, wie in wie viele Dimensionen das Konstrukt Persönlichkeit unterteilt werden kann
+
+*	CFA:
+
+	*	Prüfung, ob „Arbeitszufriedenheit“ durch die Dimensionen „Arbeitsbedingungen“ und „Motivation“ beschrieben werden kann.
+
+	*	Vergleich eines 3-Faktoren (z.B. Eysenck) vs. 5-Faktoren Modells (z.B. Big Five) der Persönlichkeit
+]
+
+---
+class: top, left
+### Exploratorische Faktorenanalyse (EFA)
+
+#### Beobachtbare (manifeste) Indikatoren und Latente Variablen
+
+&lt;small&gt;
+
+1.	Beobachtbare (manifeste) Indikatoren
+
+	*	Messbare Variablen aus einem Datensatz (z. B. Antworten auf Fragebögen).
+
+	*	Werden direkt erhoben (z. B. durch Fragen zu Stimmung, Verhalten oder Meinungen).
+
+	*	Beispiel:	„Wie zufrieden sind Sie mit Ihrer Arbeit?“ (Skala von 1 bis 5).
+
+2.	Latente Variablen (Konstrukte)
+
+	*	Nicht direkt messbare, theoretische Konzepte, die hinter den beobachtbaren Indikatoren stehen.
+	
+	* Latente Variablen können wir nicht direkt messen, sondern nur über die Verhältnisse von verschiedenen Variablen zueinander schätzen.
+
+	*	Beispiel:
+
+	  *	Latente Variable: „Arbeitszufriedenheit“.
+
+	  *	Beobachtbare Indikatoren: Antworten zu Gehalt, Arbeitsklima, Work-Life-Balance.
+
+---
+class: top, left
+### Exploratorische Faktorenanalyse (EFA)
+
+#### Mathematische Grundidee der Exploratorischen Faktorenanalyse (EFA)
+
+* Ziel: 
+
+  * Reduzierung einer großen Anzahl von Variablen (z. B. Items eines Fragebogens) auf wenige zugrundeliegende Dimensionen (Faktoren).
+  
+  * Vereinfachung der Datenstruktur, ohne wesentliche Informationen zu verlieren.
+
+* Logik:
+
+  * Items, die hoch miteinander korrelieren, könnten zum selben dahinter zugrundeliegenden Konstrukt gehören (man sagt auch "auf dieses laden")
+  
+  * z.B. Fragen zu „Geselligkeit“ und „Redseligkeit“ könnten beide stark mit dem Faktor „Extraversion“ zusammenhängen.
+
+`\(\rightarrow\)` mathematisch funktioniert die EFA also über Korrelationen zwischen den Indikatoren
+
+---
+class: top, left
+### Exploratorische Faktorenanalyse (EFA)
+
+#### Das Faktorenmodell der EFA: X = LF + E
+
+
+`$$X = \mathbf{L}F + E$$`
+
+*	 `\(X\)`: Matrix der beobachteten Variablen (Datenmatrix).
+
+*	 `\(\mathbf{L}\)`: Ladungsmatrix (gibt an, wie stark die Variablen auf die Faktoren laden; Wertebereich: -1 bis +1.).
+
+*	 `\(F\)`: Faktorenmatrix (die latenten Variablen/Dimensionen).
+
+*	 `\(E\)`: Fehlerterm (Anteil der Varianz, der nicht durch die Faktoren erklärt wird).
+
+---
+class: top, left
+### Exploratorische Faktorenanalyse (EFA)
+
+#### Hauptkomponentenanalyse (PCA) vs. Faktorenanalyse (EFA)
+
+&lt;small&gt;
+
+* Beides sind Methoden zur Dimensionalitätreduktion - was sind die Unterschiede?
+
+&lt;table border="1" style="border-collapse: collapse; width: 100%; text-align: left;"&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th style="padding: 8px; background-color: #f2f2f2;"&gt;Kriterium&lt;/th&gt;
+            &lt;th style="padding: 8px; background-color: #f2f2f2;"&gt;Hauptkomponentenanalyse (PCA)&lt;/th&gt;
+            &lt;th style="padding: 8px; background-color: #f2f2f2;"&gt;Faktorenanalyse (FA)&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td style="padding: 8px;"&gt;Ziel&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Reduktion der Dimensionalität, Beibehaltung maximaler Varianz&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Identifikation latenter Variablen, Erklärung von Zusammenhängen&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td style="padding: 8px;"&gt;Mathematische Grundlage&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Eigenwertzerlegung der Kovarianz- oder Korrelationsmatrix&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Faktorenmodell: \(X = \mathbf{L}F + E\)&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td style="padding: 8px;"&gt;Berücksichtigung von Fehlern&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Kein Fehlerterm berücksichtigt&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Fehlerterm wird explizit modelliert&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td style="padding: 8px;"&gt;Varianz&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Erklärt die gesamte Varianz der Variablen&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Erklärt nur die gemeinsame Varianz der Variablen&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td style="padding: 8px;"&gt;Rotation&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Optional, da Hauptkomponenten unkorreliert&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Häufig erforderlich, um Faktoren zu interpretieren&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td style="padding: 8px;"&gt;Anwendung&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Datenreduktion, Visualisierung, Transformation&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Theoriebildung, Identifikation latenter Konstrukte&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+
+
+---
+class: top, left
+### Exploratorische Faktorenanalyse (EFA)
+
+#### Hauptkomponentenanalyse (PCA) 
+
+&lt;small&gt;
+
+.pull-left[
+.center[
+&lt;img src="bilder/PCA1.png" width="500px" /&gt;
+]
+`$$x_1 × \lambda_1 + x_2 × \lambda_2 + x_3 × \lambda_3 + x_4 × \lambda_4 = Hauptkomponente$$`
+
+`\(\rightarrow\)` Linearkombination
+
+]
+
+.pull-right[
+* Daten auf eine Weise reduzieren, bei der die geringste Menge an Informationen verloren geht
+
+* Gleichzeitig unsere Modellgüte nicht senken
+
+Vorgehen:
+1. Hauptkomponentenanalyse erstellt `\(k\)` (Variablenzahl) Hauptkomponenten 
+2. Diese sind mit anderen Hauptkomponenten vollkommen unkorrelliert 
+3. Ermitteln, wie stark jede Variable auf jeder Hauptkomponente lädt.
+4. Ziel: Optimale Anzahl an Hauptkomponenten und die optimalen Ladungen jeder Variable auf jede Hauptkomponente
+]
+
+---
+class: top, left
+### Exploratorische Faktorenanalyse (EFA)
+
+#### Faktorenanalyse (EFA)
+
+.pull-left[
+.center[
+&lt;img src="bilder/EFA1.png" width="500px" /&gt;
+]
+
+* Ziel: Zugrunde liegende Faktorstruktur aus einer Reihe von Variablen zu identifizieren
+]
+.pull-right[
+Aus diesem Modell resultieren damit vier Gleichungen:
+
+* `\(x_1 = \xi × \lambda_1 + e_1\)`
+* `\(x_2 = \xi × \lambda_2 + e_2\)` 
+* `\(x_3 = \xi × \lambda_3 + e_3\)` 
+* `\(x_4 = \xi × \lambda_4 + e_4\)` 
+]
+
+---
+class: top, left
+### Exploratorische Faktorenanalyse (EFA)
+
+#### Hauptkomponentenanalyse (PCA) vs. Faktorenanalyse (EFA)
+
+**Schlussfolgerungen:**
+
+* PCA reduziert die Variablen auf ihre Hauptkomponenten und versucht Informationsgehalt beizubehalten
+
+* EFA wird genutzt, um latente (unbeobachtbare) Variablen zu messen.
+
+* Wenn die Variablen keine Gemeinsamkeiten aufweisen, kann die EFA keine geeigneten Faktoren identifizieren, während die PCA trotzdem eine Hauptkomponente findet, die die maximale Varianz in den Daten erklärt.
+
+* PCA um latente Variablen zu messen: Kann irreführend sein `\(\rightarrow\)` behalten gesamte Variabilität bei, wollen aber nur Variabilität, die über alle Variablen hinweg gemeinsam ist.
+
+---
+class: top, left
+### Exploratorische Faktorenanalyse (EFA)
+
+#### Voraussetzungen
+
+1.	Stichprobengröße
+	*	Faustregel: Mindestens 5–10 Beobachtungen pro Variable.
+	*	Große Stichproben (z. B. &gt; 300) führen zu stabileren Ergebnissen.
+2.	Korrelationen zwischen Variablen
+	*	Notwendigkeit signifikanter Korrelationen:
+	*	Kaiser-Meyer-Olkin (KMO) Kriterium: Wert &gt; 0.6 (geeignet für EFA).
+	*	Bartlett-Test auf Sphärizität: Signifikant (p &lt; 0.05).
+3.	Linearität
+	*	Die Beziehungen zwischen den Variablen sollten linear sein.
+4.	Normalverteilung
+	*	Besonders wichtig bei der Hauptachsenanalyse (PAF).
+5.	Keine oder geringe Multikollinearität
+	*	Variablen dürfen nicht perfekt miteinander korrelieren (Korrelationen &lt; 0.9).
+6.	Messniveau der Variablen
+	*	Variablen sollten mindestens intervallskaliert sein.
+
+---
+class: top, left
+### Exploratorische Faktorenanalyse (EFA)
+
+#### Beispiel Big 5 Skala
+
+&lt;small&gt;&lt;small&gt;&lt;small&gt;
+
+&lt;table border="1" style="border-collapse: collapse; width: 100%; text-align: left;"&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th style="padding: 8px; background-color: #f2f2f2;"&gt;Item&lt;/th&gt;
+            &lt;th style="padding: 8px; background-color: #f2f2f2;"&gt;Beschreibung&lt;/th&gt;
+            &lt;th style="padding: 8px; background-color: #f2f2f2;"&gt;Item&lt;/th&gt;
+            &lt;th style="padding: 8px; background-color: #f2f2f2;"&gt;Beschreibung&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td style="padding: 8px;"&gt;V1&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Bin gleichgültig gegenüber den Gefühlen anderer.&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;V2&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Erkundige mich nach dem Wohlergehen anderer.&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td style="padding: 8px;"&gt;V3&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Weiß, wie man andere trösten kann.&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;V4&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Liebe Kinder.&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td style="padding: 8px;"&gt;V5&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Bringe Menschen dazu, sich wohlzufühlen.&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;G1&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Bin genau in meiner Arbeit.&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td style="padding: 8px;"&gt;G2&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Mache weiter, bis alles perfekt ist.&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;G3&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Mache Dinge nach einem Plan.&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td style="padding: 8px;"&gt;G4&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Mache Dinge halbherzig.&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;G5&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Verschwende meine Zeit.&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td style="padding: 8px;"&gt;E1&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Rede nicht viel.&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;E2&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Finde es schwierig, auf andere zuzugehen.&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td style="padding: 8px;"&gt;E3&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Weiß, wie man Menschen fesselt.&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;E4&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Schließe leicht Freundschaften.&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td style="padding: 8px;"&gt;E5&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Übernehme das Kommando.&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;N1&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Werde leicht wütend.&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td style="padding: 8px;"&gt;N2&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Werde leicht gereizt.&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;N3&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Habe häufige Stimmungsschwankungen.&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td style="padding: 8px;"&gt;N4&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Fühle mich oft niedergeschlagen.&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;N5&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Gerate leicht in Panik.&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td style="padding: 8px;"&gt;O1&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Bin voller Ideen.&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;O2&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Vermeide schwierige Lesematerialien.&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td style="padding: 8px;"&gt;O3&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Hebe die Konversation auf ein höheres Niveau.&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;O4&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Verbringe Zeit damit, über Dinge nachzudenken.&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td style="padding: 8px;"&gt;O5&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Gehe nicht tiefgründig in ein Thema ein.&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+class: top, left
+### Exploratorische Faktorenanalyse (EFA)
+
+#### Beispiel Big 5 Skala
+
+
+
+
+``` r
+head(big5, 10) # erste 10 Zeilen des Datensatzes
+```
+
+```
+##    V1 V2 V3 V4 V5 G1 G2 G3 G4 G5 E1 E2 E3 E4 E5 N1 N2 N3 N4 N5 O1 O2 O3 O4 O5
+## 1   6  6  5  6  5  6  6  6  1  3  2  1  6  5  6  3  5  2  2  3  4  3  5  6  1
+## 2   4  3  1  5  1  3  2  4  2  4  3  6  4  2  1  6  3  2  6  4  3  2  4  5  3
+## 3   4  4  5  6  5  4  3  5  3  2  1  3  2  5  4  3  3  4  2  3  5  3  5  6  3
+## 4   4  5  2  2  1  5  5  5  2  2  3  4  3  6  5  2  4  2  2  3  5  2  5  5  5
+## 5   1  5  6  5  6  4  3  2  4  5  2  1  2  5  2  2  2  2  2  2  6  1  5  5  2
+## 6   2  6  5  6  5  3  5  6  3  6  2  2  4  6  6  4  4  4  6  6  6  1  5  6  1
+## 7   4  5  5  6  5  5  5  4  1  1  3  2  5  5  6  2  3  3  1  1  6  2  5  6  2
+## 8   1  6  6  1  6  5  2  5  1  1  1  1  6  6  6  2  3  1  2  1  6  4  5  5  3
+## 9   2  4  4  4  3  6  5  6  1  1  2  4  4  2  6  3  3  5  3  2  5  2  6  6  1
+## 10  2  5  1  3  5  5  4  5  2  5  1  2  6  5  4  1  4  2  2  5  2  4  5  4  1
+```
+
+* 5 Items pro Persönlichkeitsdimension
+
+* Wertebereich der Items von 1 bis 6
+
+---
+class: top, left
+### Exploratorische Faktorenanalyse (EFA)
+
+#### Beispiel Big 5 Skala
+
+
+``` r
+cor(big5)
+```
+
+.code60[
+
+```
+##       V1    V2    V3    V4    V5    G1    G2    G3    G4    G5    E1    E2    E3    E4    E5    N1    N2    N3    N4    N5    O1    O2    O3
+## V1  1.00 -0.34 -0.26 -0.14 -0.19  0.02  0.01 -0.01  0.10  0.02  0.12  0.08 -0.04 -0.07 -0.02  0.16  0.13  0.09  0.04  0.01  0.00  0.07 -0.06
+## V2 -0.34  1.00  0.48  0.34  0.38  0.09  0.13  0.19 -0.14 -0.11 -0.24 -0.24  0.25  0.30  0.30 -0.08 -0.04 -0.02 -0.09  0.02  0.11  0.03  0.15
+## V3 -0.26  0.48  1.00  0.38  0.50  0.10  0.14  0.13 -0.12 -0.15 -0.22 -0.29  0.38  0.39  0.26 -0.07 -0.08 -0.03 -0.13 -0.04  0.14  0.03  0.22
+## V4 -0.14  0.34  0.38  1.00  0.32  0.08  0.22  0.13 -0.16 -0.24 -0.14 -0.20  0.20  0.33  0.16 -0.09 -0.15 -0.07 -0.16  0.00  0.04  0.05  0.04
+## V5 -0.19  0.38  0.50  0.32  1.00  0.12  0.11  0.13 -0.12 -0.16 -0.25 -0.33  0.41  0.48  0.27 -0.19 -0.19 -0.13 -0.21 -0.08  0.15  0.00  0.22
+## G1  0.02  0.09  0.10  0.08  0.12  1.00  0.43  0.32 -0.35 -0.25 -0.03 -0.10  0.13  0.14  0.26 -0.06 -0.03 -0.01 -0.09 -0.05  0.18 -0.13  0.19
+## G2  0.01  0.13  0.14  0.22  0.11  0.43  1.00  0.36 -0.38 -0.30  0.02 -0.07  0.15  0.12  0.25 -0.02  0.00  0.01 -0.04  0.05  0.16 -0.05  0.18
+## G3 -0.01  0.19  0.13  0.13  0.13  0.32  0.36  1.00 -0.35 -0.35 -0.02 -0.09  0.10  0.10  0.22 -0.08 -0.06 -0.07 -0.13 -0.04  0.09 -0.03  0.06
+## G4  0.10 -0.14 -0.12 -0.16 -0.12 -0.35 -0.38 -0.35  1.00  0.48  0.10  0.21 -0.09 -0.12 -0.23  0.21  0.15  0.20  0.28  0.21 -0.10  0.21 -0.07
+## G5  0.02 -0.11 -0.15 -0.24 -0.16 -0.25 -0.30 -0.35  0.48  1.00  0.07  0.26 -0.17 -0.21 -0.24  0.21  0.24  0.23  0.35  0.18 -0.09  0.12 -0.07
+## E1  0.12 -0.24 -0.22 -0.14 -0.25 -0.03  0.02 -0.02  0.10  0.07  1.00  0.47 -0.33 -0.42 -0.31  0.01  0.01  0.05  0.23  0.04 -0.10  0.06 -0.21
+## E2  0.08 -0.24 -0.29 -0.20 -0.33 -0.10 -0.07 -0.09  0.21  0.26  0.47  1.00 -0.40 -0.52 -0.39  0.17  0.20  0.19  0.35  0.26 -0.16  0.08 -0.24
+## E3 -0.04  0.25  0.38  0.20  0.41  0.13  0.15  0.10 -0.09 -0.17 -0.33 -0.40  1.00  0.43  0.40 -0.04 -0.06 -0.01 -0.15 -0.09  0.33 -0.07  0.41
+## E4 -0.07  0.30  0.39  0.33  0.48  0.14  0.12  0.10 -0.12 -0.21 -0.42 -0.52  0.43  1.00  0.33 -0.14 -0.15 -0.13 -0.31 -0.09  0.12  0.05  0.21
+## E5 -0.02  0.30  0.26  0.16  0.27  0.26  0.25  0.22 -0.23 -0.24 -0.31 -0.39  0.40  0.33  1.00  0.04  0.05 -0.06 -0.21 -0.14  0.29 -0.09  0.30
+## N1  0.16 -0.08 -0.07 -0.09 -0.19 -0.06 -0.02 -0.08  0.21  0.21  0.01  0.17 -0.04 -0.14  0.04  1.00  0.71  0.57  0.41  0.38 -0.05  0.14 -0.03
+## N2  0.13 -0.04 -0.08 -0.15 -0.19 -0.03  0.00 -0.06  0.15  0.24  0.01  0.20 -0.06 -0.15  0.05  0.71  1.00  0.55  0.39  0.35 -0.05  0.12 -0.02
+## N3  0.09 -0.02 -0.03 -0.07 -0.13 -0.01  0.01 -0.07  0.20  0.23  0.05  0.19 -0.01 -0.13 -0.06  0.57  0.55  1.00  0.52  0.43 -0.05  0.11 -0.03
+## N4  0.04 -0.09 -0.13 -0.16 -0.21 -0.09 -0.04 -0.13  0.28  0.35  0.23  0.35 -0.15 -0.31 -0.21  0.41  0.39  0.52  1.00  0.40 -0.06  0.08 -0.06
+## N5  0.01  0.02 -0.04  0.00 -0.08 -0.05  0.05 -0.04  0.21  0.18  0.04  0.26 -0.09 -0.09 -0.14  0.38  0.35  0.43  0.40  1.00 -0.15  0.20 -0.08
+## O1  0.00  0.11  0.14  0.04  0.15  0.18  0.16  0.09 -0.10 -0.09 -0.10 -0.16  0.33  0.12  0.29 -0.05 -0.05 -0.05 -0.06 -0.15  1.00 -0.23  0.39
+## O2  0.07  0.03  0.03  0.05  0.00 -0.13 -0.05 -0.03  0.21  0.12  0.06  0.08 -0.07  0.05 -0.09  0.14  0.12  0.11  0.08  0.20 -0.23  1.00 -0.29
+## O3 -0.06  0.15  0.22  0.04  0.22  0.19  0.18  0.06 -0.07 -0.07 -0.21 -0.24  0.41  0.21  0.30 -0.03 -0.02 -0.03 -0.06 -0.08  0.39 -0.29  1.00
+## O4 -0.09  0.05  0.02 -0.06  0.00  0.08  0.03  0.00  0.07  0.14  0.08  0.17  0.04 -0.10 -0.02  0.09  0.13  0.17  0.23  0.11  0.17 -0.08  0.17
+## O5  0.11 -0.08 -0.04  0.04 -0.04 -0.13 -0.06  0.00  0.18  0.05  0.09  0.08 -0.13  0.04 -0.11  0.10  0.02  0.05  0.03  0.14 -0.25  0.33 -0.32
+##       O4    O5
+## V1 -0.09  0.11
+## V2  0.05 -0.08
+## V3  0.02 -0.04
+## V4 -0.06  0.04
+## V5  0.00 -0.04
+## G1  0.08 -0.13
+## G2  0.03 -0.06
+## G3  0.00  0.00
+## G4  0.07  0.18
+## G5  0.14  0.05
+## E1  0.08  0.09
+## E2  0.17  0.08
+## E3  0.04 -0.13
+## E4 -0.10  0.04
+## E5 -0.02 -0.11
+## N1  0.09  0.10
+## N2  0.13  0.02
+## N3  0.17  0.05
+## N4  0.23  0.03
+## N5  0.11  0.14
+## O1  0.17 -0.25
+## O2 -0.08  0.33
+## O3  0.17 -0.32
+## O4  1.00 -0.18
+## O5 -0.18  1.00
+```
+]
+
+---
+class: top, left
+### Exploratorische Faktorenanalyse (EFA)
+
+#### Beispiel Big 5 Skala
+
+.pull-left[
+
+``` r
+corrplot(cor(big5), method = 'color')
+```
+
+![](MVV_06_WS24_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+]
+.pull-right[
+* Darstellung der Korrelationen mittels Heatmap
+
+* Korrelationskoeffizient wird farblich visualisiert
+
+* Einige Items innerhalb der Subskalen sind negativ korreliert
+
+`\(\rightarrow\)` Diese müssen zunächst umgepolt werden!
+]
+
+---
+class: top, left
+### Exploratorische Faktorenanalyse (EFA)
+
+#### Beispiel Big 5 Skala
+
+.pull-left[
+
+
+
+Umkodieren am Beispiel des 1. Verträglichkeitsitems:
+
+
+``` r
+library(dplyr)
+
+big5$V1 = recode(big5$V1, 
+                 "1" = 6, 
+                 "2" = 5, 
+                 "3" = 4, 
+                 "4" = 3, 
+                 "5" = 2, 
+                 "6" = 1)
+```
+
+Jetzt stimmen die Korrelationen `\(\rightarrow\)`
+
+]
+.pull-right[
+
+``` r
+corrplot(cor(big5), method = 'color')
+```
+
+![](MVV_06_WS24_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+]
+
+---
+class: top, left
+### Exploratorische Faktorenanalyse (EFA)
+
+#### Faktorenanalyse (EFA) - Voraussetzungen
+
+**Kaiser-Meyer-Olkin Kriterium (KMO)**
+&lt;small&gt;
+
+*  KMO gibt an, ob ein Datensatz für eine Faktorenanalyse geeignet ist.
+
+* KMO-Wert wird basierend auf den Korrelationen zwischen den Indikatoren berechnet.
+
+* Wertebereich von 0 bis +1.  Werte näher an 1 `\(\rightarrow\)` Variablen korrelieren und  Daten sind für eine Faktorenanalyse geeignet 
+
+
+&lt;table border="1" style="border-collapse: collapse; width: 100%; text-align: left;"&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th style="padding: 8px; background-color: #f2f2f2;"&gt;KMO-Wert&lt;/th&gt;
+            &lt;th style="padding: 8px; background-color: #f2f2f2;"&gt;Interpretation&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td style="padding: 8px;"&gt;Über 0.90&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Hervorragend (Marvelous)&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td style="padding: 8px;"&gt;0.80 bis 0.90&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Gut (Meritorious)&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td style="padding: 8px;"&gt;0.70 bis 0.80&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Durchschnittlich (Average)&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td style="padding: 8px;"&gt;0.60 bis 0.70&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Mittelmäßig (Mediocre)&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td style="padding: 8px;"&gt;0.50 bis 0.60&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Schlecht (Terrible)&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td style="padding: 8px;"&gt;Unter 0.50&lt;/td&gt;
+            &lt;td style="padding: 8px;"&gt;Unakzeptabel (Unacceptable)&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;small&gt;
+Kaiser, Henry F. 1974. “An Index of Factorial Simplicity.” Psychometrika 39 (1): 31–36.
+
+---
+class: top, left
+### Exploratorische Faktorenanalyse (EFA)
+
+#### Beispiel Big 5 Skala
+
+Berechnung KMO für unser Beispiel:
+
+
+``` r
+KMO(big5)
+```
+
+```
+## Kaiser-Meyer-Olkin factor adequacy
+## Call: KMO(r = big5)
+## Overall MSA =  0.85
+## MSA for each item = 
+##   V1   V2   V3   V4   V5   G1   G2   G3   G4   G5   E1   E2   E3   E4   E5   N1   N2   N3   N4   N5   O1   O2   O3   O4   O5 
+## 0.74 0.83 0.87 0.87 0.90 0.84 0.79 0.85 0.82 0.86 0.84 0.88 0.89 0.88 0.89 0.78 0.78 0.86 0.89 0.86 0.86 0.78 0.83 0.78 0.76
+```
+
+* Zieht man Cutoffs nach Kaiser (1974) heran ist `\(r=.85\)` als gut zu bewerten
+
+---
+class: top, left
+### Exploratorische Faktorenanalyse (EFA)
+
+#### Voraussetzungen
+
+**Bartlett-Test auf Sphärizität **
+
+* Test, der die Hypothese überprüft, dass die Korrelationsmatrix eine Einheitsmatrix ist. 
+
+* Mit anderen Worten: Er prüft, ob die Korrelationen zwischen den Variablen gleich null sind. 
+
+* Ein statistischer Test mit einem p-Wert kleiner als .05 zeigt, dass die Korrelationsmatrix keine Einheitsmatrix ist und die Durchführung einer Faktorenanalyse gerechtfertigt ist.
+
+&lt;small&gt;
+
+Bartlett, Maurice S. 1951. “The Effect of Standardization on a `\(χ^2\)` Approximation in Factor Analysis.” Biometrika 38 (3/4): 337–44.
+
+---
+class: top, left
+### Exploratorische Faktorenanalyse (EFA)
+
+#### Beispiel Big 5 Skala
+
+Berechnung Bartlett-Test für unser Beispiel:
+
+
+``` r
+cortest.bartlett(cor(big5))
+```
+
+```
+## $chisq
+## [1] 665.3162
+## 
+## $p.value
+## [1] 9.581928e-30
+## 
+## $df
+## [1] 300
+```
+
+* `\(p&lt;.05\)` `\(\rightarrow\)` Test ist signifikant `\(\rightarrow\)` Korrelationen bedeutsam &gt; 0 `\(\rightarrow\)` Faktoranalyse sinnvoll durchführbar
+
+---
+class: top, left
+### Exploratorische Faktorenanalyse (EFA)
+
+#### Bestimmung der Anzahl der Faktoren
+
+**Eigenwerte und das Kaiser-Kriterium (Eigenwert &gt; 1)**
+
+Eigenwerte
+
+* Ein Eigenwert gibt an, wie viel Varianz ein Faktor in den Daten erklärt.
+
+* Basieren auf der Korrelationsmatrix
+
+Kaiser-Kriterium
+
+*	Nur Faktoren mit einem Eigenwert &gt; 1 werden extrahiert.
+
+*	Diese Faktoren erklären mehr Varianz als eine einzelne Variable.
+
+*	Faktoren mit einem Eigenwert ≤ 1 werden als nicht signifikant betrachtet.
+
+* Kritik: Das Kaiser-Kriterium neigt dazu, zu viele Faktoren zu extrahieren.
+
+---
+class: top, left
+### Exploratorische Faktorenanalyse (EFA)
+
+#### Bestimmung der Anzahl der Faktoren
+
+&lt;small&gt;
+
+**Scree-Plot**
+
+*	Definition:
+	*	Ein Scree-Plot ist eine grafische Darstellung der Eigenwerte in absteigender Reihenfolge.
+	*	Ziel: Bestimmung der optimalen Anzahl an Faktoren, die extrahiert werden sollen.
+*	Darstellung:
+	*	X-Achse: Faktoren in der Reihenfolge ihrer Extraktion.
+	*	Y-Achse: Eigenwerte der Faktoren.
+*	Interpretation:
+	*	Suche den Knickpunkt (“Elbow”), an dem die Eigenwerte stark abfallen.
+	*	Die Faktoren vor dem Knickpunkt werden extrahiert, da sie die meiste Varianz erklären.
+	*	Faktoren nach dem Knickpunkt haben geringe Eigenwerte und erklären wenig zusätzliche Varianz.
+*	Vorteile:
+	*	Einfach und intuitiv zu interpretieren.
+	*	Ergänzt andere Methoden, wie das Kaiser-Kriterium.
+*	Kritik:
+	*	Der Knickpunkt ist nicht immer eindeutig erkennbar.
+	*	Kann subjektiv interpretiert werden, insbesondere bei flachen Kurven.
+
+---
+class: top, left
+### Exploratorische Faktorenanalyse (EFA)
+
+#### Beispiel Big 5 Skala
+
+.pull-left[
+
+``` r
+eigen =  eigen(cor(big5))$values
+eigen
+```
+
+```
+##  [1] 5.0685162 2.7624793 2.1526230 1.8923330 1.5175329 1.0788293 0.8309057 0.8045002 0.7140883 0.7015381 0.6808421 0.6489735 0.6312563
+## [14] 0.5880320 0.5659652 0.5448396 0.5199335 0.4938686 0.4827362 0.4425003 0.4288706 0.4070974 0.3888753 0.3847626 0.2681008
+```
+
+]
+.pull-right[
+
+``` r
+psych::scree(cor(big5))
+```
+
+![](MVV_06_WS24_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
+]
+
+---
+class: top, left
+### Exploratorische Faktorenanalyse (EFA)
+
+#### Bestimmung der Anzahl der Faktoren
+
+&lt;small&gt;
+
+**Parallelanalyse**
+
+*	Vergleicht die Eigenwerte aus den tatsächlichen Daten mit den Eigenwerten, die aus zufälligen (simulierten) Daten stammen.
+
+*	Vorgehen:
+	1.	Generierung von Zufallsdaten mit derselben Stichprobengröße und Anzahl an Variablen.
+	2.	Berechnung der Eigenwerte aus den zufälligen Daten.
+	3.	Vergleich der Eigenwerte:	Nur Faktoren, deren Eigenwerte größer sind als die entsprechenden Eigenwerte der Zufallsdaten, werden beibehalten.
+
+*	Darstellung:
+	*	Die Eigenwerte der tatsächlichen Daten und der Zufallsdaten werden grafisch gegenübergestellt.
+	*	Der Schnittpunkt der beiden Linien markiert die Anzahl der zu extrahierenden Faktoren.
+
+*	Vorteile:
+	*	Objektivere Methode im Vergleich zum Scree-Plot.
+	*	Berücksichtigt die Möglichkeit, dass hohe Eigenwerte zufällig auftreten können.
+
+---
+class: top, left
+### Exploratorische Faktorenanalyse (EFA)
+
+#### Beispiel Big 5 Skala
+
+
+
+``` r
+fa.parallel(big5, fm = "ml")
+```
+
+![](MVV_06_WS24_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
+
+```
+## Parallel analysis suggests that the number of factors =  6  and the number of components =  5
+```
+
+
+
+---
+class: top, left
+### Exploratorische Faktorenanalyse (EFA)
+
+#### Rotation
+
+* Nun haben wir zumindest eine Vorstellung davon haben, wie viele Faktoren extrahiert werden sollen.
+
+* Nächste Frage: Welche Rotation?
+
+**Rotation:**
+
+* Faktorenrotation können Sie sich ähnlich vorstellen wie das Scharfstellen eines Teleskops. 
+
+* Ziel: klarere Zuordnung zwischen den einzelnen Faktoren und den verschiedenen Variablen zu erreichen. 
+
+* Wahl der Rotationsmethode hängt davon ab, ob Sie davon ausgehen, dass die Faktoren miteinander korreliert sein sollten oder nicht.
+
+  * Oblique = korriliert
+  
+  * Orthogonal = nicht korriliert
+
+---
+class: top, left
+### Exploratorische Faktorenanalyse (EFA)
+
+#### Rotation
+
+**Oblique vs. Orthogonal**
+
+* Unter idealen Umständen würden wir erwarten, dass die verschiedenen Faktoren unabhängig sind und daher nicht miteinander korrelieren. 
+
+* Das ist jedoch nicht immer realistisch. Daher wird oft empfohlen, zunächst davon auszugehen, dass die Faktoren nicht unabhängig sind und oblique Rotationsmethode zu verwenden (Costello &amp; Osborne, 2005).
+
+Oblique Rotation:
+
+* Eine oblique Rotation liefert eine Korrelationsmatrix, die die Beziehungen zwischen den Faktoren beschreibt. 
+
+* Mit dieser Korrelationsmatrix können Sie bewerten, ob die Korrelationen beachtenswert sind (z. B. `\(r &gt; |0.30|\)` ). 
+
+* Falls die Korrelationen jedoch relativ gering sind (z. B. r &lt; |0,30|), könnten Sie ggf. zur Annahme übergehen, dass die Faktoren unabhängig (orthogonal) sind  (keine Korrelation aufweisen sollten).
+
+---
+class: top, left
+### Exploratorische Faktorenanalyse (EFA)
+
+#### Rotation
+
+&lt;table border="1"&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Rotationstyp&lt;/th&gt;
+            &lt;th&gt;Option&lt;/th&gt;
+            &lt;th&gt;Beschreibung&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Oblique&lt;/td&gt;
+            &lt;td&gt;Promax&lt;/td&gt;
+            &lt;td&gt;Die Promax-Rotation ist bekannt für ihre Fähigkeit, große Datensätze effizient zu verarbeiten. Zudem führt sie häufig zu höheren Korrelationen zwischen den Faktoren.&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Oblique&lt;/td&gt;
+            &lt;td&gt;Oblimin&lt;/td&gt;
+            &lt;td&gt;Die direkte Oblimin-Rotation ist bei großen Datensätzen etwas weniger effizient, kann jedoch eine einfachere Faktorstruktur erzeugen.&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Orthogonal&lt;/td&gt;
+            &lt;td&gt;Varimax&lt;/td&gt;
+            &lt;td&gt;Die Varimax-Rotation ist darauf ausgelegt, Kreuzladungen zu reduzieren und kleinere Ladungswerte zu minimieren, wodurch die Faktormodelle klarer werden.&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Orthogonal&lt;/td&gt;
+            &lt;td&gt;Quartimax&lt;/td&gt;
+            &lt;td&gt;Die Quartimax-Rotation zielt darauf ab, die Anzahl der Variablen zu verringern, die benötigt werden, um einen Faktor zu erklären, was die Interpretation erleichtert.&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Orthogonal&lt;/td&gt;
+            &lt;td&gt;Equamax&lt;/td&gt;
+            &lt;td&gt;Die Equamax-Option bietet einen Kompromiss zwischen Varimax und Quartimax.&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+class: top, left
+### Exploratorische Faktorenanalyse (EFA)
+
+#### Beispiel Big 5 Skala
+
+.pull-left[
+
+``` r
+fa(r = cor(big5), 
+   nfactors = 5, 
+   fm = "ml", 
+   rotate = "promax")$loadings
+```
+]
+
+.pull-right[
+.code50[
+
+```
+## 
+## Loadings:
+##    ML2    ML1    ML3    ML5    ML4   
+## V1 -0.145 -0.110         0.406       
+## V2         0.122         0.556       
+## V3         0.212         0.615       
+## V4                0.192  0.433 -0.192
+## V5         0.278         0.539       
+## G1                0.550         0.169
+## G2  0.137 -0.129  0.664              
+## G3                0.595              
+## G4 -0.141         0.665              
+## G5 -0.176         0.567              
+## E1         0.644 -0.161              
+## E2 -0.114  0.709                     
+## E3         0.506         0.221  0.263
+## E4         0.608         0.288 -0.104
+## E5  0.164  0.497  0.226         0.168
+## N1  0.879  0.231        -0.260       
+## N2  0.840  0.174        -0.250       
+## N3  0.723                            
+## N4  0.490 -0.339                     
+## N5  0.499 -0.157         0.147 -0.165
+## O1         0.157                0.511
+## O2 -0.177               -0.153  0.481
+## O3         0.269                0.603
+## O4  0.147 -0.250         0.162  0.365
+## O5                              0.532
+## 
+##                  ML2   ML1   ML3   ML5   ML4
+## SS loadings    2.714 2.372 2.019 1.695 1.513
+## Proportion Var 0.109 0.095 0.081 0.068 0.061
+## Cumulative Var 0.109 0.203 0.284 0.352 0.413
+```
+]
+]
+
+---
+class: top, left
+### Exploratorische Faktorenanalyse (EFA)
+
+#### Kommunalitäten (Communalities)
+
+&lt;small&gt;
+
+* Kommunalitäten beschreiben den Anteil der Varianz einer Variable, der durch die extrahierten Faktoren erklärt wird.
+
+*	Wertebereich: Reicht von 0 (keine erklärte Varianz) bis 1 (komplette erklärte Varianz).
+
+*	Interpretation:
+	*	Hohe Kommunalität (z. B. &gt; 0.6): Variable wird gut durch die Faktoren repräsentiert.
+	*	Niedrige Kommunalität (z. B. &lt; 0.3): Variable passt möglicherweise nicht gut ins Modell.
+
+*	Unterschiede zwischen “Initial” und “Extraction”:
+	*	Initial Communality: Vor der Faktorenextraktion, basierend auf der Gesamtvarianz.
+	*	Extraction Communality: Nach der Extraktion, zeigt die durch die Faktoren erklärte Varianz.
+
+*	Ziel: Sicherstellen, dass die meisten Variablen durch die extrahierten Faktoren gut erklärt werden.
+
+*	Praktischer Hinweis: Bei niedrigen Kommunalitäten prüfen, ob Variablen aus der Analyse entfernt oder zusätzliche Faktoren extrahiert werden sollten.
+
+---
+class: top, left
+### Exploratorische Faktorenanalyse (EFA)
+
+#### Beispiel Big 5 Skala
+
+
+``` r
+fa(r = cor(big5), 
+   nfactors = 5, 
+   fm = "ml", 
+   rotate = "varimax")$communalities
+```
+
+
+```
+##        V1        V2        V3        V4        V5        G1        G2        G3        G4        G5        E1        E2        E3        E4 
+## 0.1569689 0.3975994 0.5153194 0.3058056 0.4754910 0.3307140 0.4206538 0.3250907 0.4841843 0.4386480 0.3603605 0.5458318 0.4572098 0.5386191 
+##        E5        N1        N2        N3        N4        N5        O1        O2        O3        O4        O5 
+## 0.4154737 0.7226180 0.6586281 0.5260834 0.4979814 0.3434101 0.3235170 0.2751398 0.4838962 0.2423501 0.2856415
+```
+
+
+---
+class: top, left
+### Exploratorische Faktorenanalyse (EFA)
+
+#### Beispiel Big 5 Skala
+
+
+``` r
+fa(r = cor(big5), 
+   nfactors = 5, 
+   fm = "ml", 
+   rotate = "varimax")$Vaccounted
+```
+
+
+```
+##                             ML2        ML1        ML3        ML5        ML4
+## SS loadings           2.6712948 2.46686713 1.98666795 1.85504025 1.54735040
+## Proportion Var        0.1068518 0.09867469 0.07946672 0.07420161 0.06189402
+## Cumulative Var        0.1068518 0.20552648 0.28499320 0.35919481 0.42108882
+## Proportion Explained  0.2537512 0.23433224 0.18871723 0.17621368 0.14698565
+## Cumulative Proportion 0.2537512 0.48808343 0.67680067 0.85301435 1.00000000
+```
+
+
+
+	
+---
+class: top, left
+### Take-aways
+
+.full-width[.content-box-gray[
+* Die EFA dient dazu, zugrunde liegende Strukturen (Faktoren) in einem Datensatz zu entdecken und Variablenmuster zu identifizieren.
+
+* Zur sparsamen Modellierung der Varianz wird oft die PCA, für die Erfassung einer latenten Variable die EFA verwendet.
+
+* Die Anzahl der Faktoren/Komponenten basiert auf analystischen oder graphischen Methoden.
+
+* Die Interpretation und Benennung der Faktoren ergibt sich aus der inhatlichen Betrachtung der Variablen, die auf den Faktore laden (inhaltlicher "gemeinsamer Nenner").
+
+* Ausreichende Stichprobengröße und Korrelationen zwischen den Variablen (Bartlett-Test, KMO-Kriterium) sind notwendig.
+]
+
+]
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+  "slideNumberFormat": "%current%",
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "countIncrementalSlides": false,
+  "ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
