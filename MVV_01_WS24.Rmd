@@ -64,7 +64,7 @@ class: middle, left
 # Multivariate Verfahren
 ***
 ### Einheit 1: Wiederholung und Einführung in multivariate Verfahren
-##### Wintersemester 2025 | Prof. Dr. Stephan Goerigk
+##### Wintersemester 2026 | Prof. Dr. Stephan Goerigk
 
 ---
 class: top, left
@@ -101,17 +101,13 @@ class: top, left
 ### Übersicht Lehrveranstaltung 
 
 Termine:
-* Mittwoch 14:45 - 16:15 
-* Raum: HS P2 001
-
-Begleitende Übung zur Vorlesung (Blockunterricht):
-* Dozentin: Janika Saretzki ([janika.saretzki@charlotte-fresenius-uni.de](mailto:janika.saretzki@charlotte-fresenius-uni.de))
+* Donnerstag 12:20 - 13:50 
 
 Materialien:
 * werden im **Studynet** bereitgestellt
 
 Prüfungsleistung:
-* Portfolio (Abgabetermin: 09.03.2026)
+* Portfolio
 
 ---
 class: top, left
@@ -865,18 +861,26 @@ coef(mod1)
 ```{r echo=FALSE}
 ggplot(df2, aes(x = `UV: Grübelzeit`, y = `AV: Sorgen (skaliert von 1-12)`)) +
   stat_summary(aes(colour = `UV: Gruppe (nominal dichotom)`)) +
-  geom_abline(slope = coef(mod1)["Grübelzeit"], intercept = coef(mod1)["(Intercept)"],  colour = "#00BFC4") +
-  geom_abline(slope = coef(mod1)["Grübelzeit"], intercept = coef(mod1)["(Intercept)"] + coef(mod1)["Gruppe_dummy"],colour = "#F8766D") +
+  geom_abline(slope = coef(mod1)["Grübelzeit"], intercept = coef(mod1)["(Intercept)"], colour = "#00BFC4") +
+  geom_abline(slope = coef(mod1)["Grübelzeit"], intercept = coef(mod1)["(Intercept)"] + coef(mod1)["Gruppe_dummy"], colour = "#F8766D") +
   #geom_smooth(data = df2[df2$`UV: Gruppe (nominal dichotom)` == "Gesund",], method = "lm", se = F) +
-  coord_cartesian(ylim = c(0,12), xlim = c(0,12)) +
+  coord_cartesian(ylim = c(0, 12), xlim = c(0, 12)) +
   labs(colour = "", y = "Sorgen", x = "Grübelzeit") +
-  annotate("text", x = 0, y = 2, label = bquote(~beta[0]~"="~.(round(coef(mod1)["(Intercept)"], 2))), color = "black", size = 5, hjust = 0) +
-  annotate("text", x = 4, y = 9, label = bquote(~beta[1]~"="~.(round(coef(mod1)["Grübelzeit"], 2))), color = "black", size = 5, hjust = 0) +
-  annotate("text", x = 9, y = 4.8, label = bquote(~beta[1]~"="~.(round(coef(mod1)["Grübelzeit"], 2))), color = "black", size = 5, hjust = 0) +
-  annotate("text", x = 0, y = 6, label = bquote(~beta[0]+beta[2]~"="~.(round(coef(mod1)["(Intercept)"] + coef(mod1)["Gruppe_dummy"], 2))), color = "black", size = 5, hjust = 0) +
+  annotate("text", x = 0, y = 2,
+           label = as.expression(bquote(beta[0] ~ "=" ~ .(round(coef(mod1)["(Intercept)"], 2)))),
+           color = "black", size = 5, hjust = 0) +
+  annotate("text", x = 4, y = 9,
+           label = as.expression(bquote(beta[1] ~ "=" ~ .(round(coef(mod1)["Grübelzeit"], 2)))),
+           color = "black", size = 5, hjust = 0) +
+  annotate("text", x = 9, y = 4.8,
+           label = as.expression(bquote(beta[1] ~ "=" ~ .(round(coef(mod1)["Grübelzeit"], 2)))),
+           color = "black", size = 5, hjust = 0) +
+  annotate("text", x = 0, y = 6,
+           label = as.expression(bquote(beta[0] + beta[2] ~ "=" ~ .(round(coef(mod1)["(Intercept)"] + coef(mod1)["Gruppe_dummy"], 2)))),
+           color = "black", size = 5, hjust = 0) +
   theme(text = element_text(size = 20),
-        legend.position = c(0.15,0.95))
-#, colour = `UV: Gruppe (nominal dichotom)`
+        legend.position = "inside",
+        legend.position.inside = c(0.15, 0.95))
 ```
 ]
 
@@ -911,16 +915,26 @@ ggplot(df2, aes(x = `UV: Grübelzeit`, y = `AV: Sorgen (skaliert von 1-12)`)) +
   geom_abline(slope = coef(mod2)["Grübelzeit"], intercept = coef(mod2)["(Intercept)"] - coef(mod2)["Gruppe_effekt"], colour = "#00BFC4") +
   geom_abline(slope = coef(mod2)["Grübelzeit"], intercept = coef(mod2)["(Intercept)"] + coef(mod2)["Gruppe_effekt"], colour = "#F8766D") +
   #geom_smooth(data = df2[df2$`UV: Gruppe (nominal dichotom)` == "Gesund",], method = "lm", se = F) +
-  coord_cartesian(ylim = c(0,12), xlim = c(0,12)) +
+  coord_cartesian(ylim = c(0, 12), xlim = c(0, 12)) +
   labs(colour = "", y = "Sorgen", x = "Grübelzeit") +
-  annotate("text", x = 0, y = 4, label = bquote(~beta[0]~"="~.(round(coef(mod2)["(Intercept)"], 2))), color = "black", size = 5, hjust = 0) +
-  annotate("text", x = 4, y = 9, label = bquote(~beta[1]~"="~.(round(coef(mod2)["Grübelzeit"], 2))), color = "black", size = 5, hjust = 0) +
-  annotate("text", x = 9, y = 4.8, label = bquote(~beta[1]~"="~.(round(coef(mod2)["Grübelzeit"], 2))), color = "black", size = 5, hjust = 0) +
-  annotate("text", x = 0, y = 2, label = bquote(~beta[0]-beta[2]~"="~.(round(coef(mod2)["(Intercept)"] - coef(mod2)["Gruppe_effekt"], 2))), color = "black", size = 5, hjust = 0) +
-  annotate("text", x = 0, y = 8, label = bquote(~beta[0]+beta[2]~"="~.(round(coef(mod2)["(Intercept)"] + coef(mod2)["Gruppe_effekt"], 2))), color = "black", size = 5, hjust = 0) +
-  
+  annotate("text", x = 0, y = 4,
+           label = as.expression(bquote(beta[0] ~ "=" ~ .(round(coef(mod2)["(Intercept)"], 2)))),
+           color = "black", size = 5, hjust = 0) +
+  annotate("text", x = 4, y = 9,
+           label = as.expression(bquote(beta[1] ~ "=" ~ .(round(coef(mod2)["Grübelzeit"], 2)))),
+           color = "black", size = 5, hjust = 0) +
+  annotate("text", x = 9, y = 4.8,
+           label = as.expression(bquote(beta[1] ~ "=" ~ .(round(coef(mod2)["Grübelzeit"], 2)))),
+           color = "black", size = 5, hjust = 0) +
+  annotate("text", x = 0, y = 2,
+           label = as.expression(bquote(beta[0] - beta[2] ~ "=" ~ .(round(coef(mod2)["(Intercept)"] - coef(mod2)["Gruppe_effekt"], 2)))),
+           color = "black", size = 5, hjust = 0) +
+  annotate("text", x = 0, y = 8,
+           label = as.expression(bquote(beta[0] + beta[2] ~ "=" ~ .(round(coef(mod2)["(Intercept)"] + coef(mod2)["Gruppe_effekt"], 2)))),
+           color = "black", size = 5, hjust = 0) +
   theme(text = element_text(size = 20),
-        legend.position = c(0.15,0.95))
+        legend.position = "inside",
+        legend.position.inside = c(0.15, 0.95))
 #, colour = `UV: Gruppe (nominal dichotom)`
 ```
 ]
@@ -1014,17 +1028,26 @@ summary(mod1) # Dummy-codiert
 ```{r echo=FALSE}
 ggplot(df2, aes(x = `UV: Grübelzeit`, y = `AV: Sorgen (skaliert von 1-12)`)) +
   stat_summary(aes(colour = `UV: Gruppe (nominal dichotom)`)) +
-  geom_abline(slope = coef(mod1)["Grübelzeit"], intercept = coef(mod1)["(Intercept)"],  colour = "#00BFC4") +
-  geom_abline(slope = coef(mod1)["Grübelzeit"], intercept = coef(mod1)["(Intercept)"] + coef(mod1)["Gruppe_dummy"],colour = "#F8766D") +
+  geom_abline(slope = coef(mod1)["Grübelzeit"], intercept = coef(mod1)["(Intercept)"], colour = "#00BFC4") +
+  geom_abline(slope = coef(mod1)["Grübelzeit"], intercept = coef(mod1)["(Intercept)"] + coef(mod1)["Gruppe_dummy"], colour = "#F8766D") +
   #geom_smooth(data = df2[df2$`UV: Gruppe (nominal dichotom)` == "Gesund",], method = "lm", se = F) +
-  coord_cartesian(ylim = c(0,12), xlim = c(0,12)) +
+  coord_cartesian(ylim = c(0, 12), xlim = c(0, 12)) +
   labs(colour = "", y = "Sorgen", x = "Grübelzeit") +
-  annotate("text", x = 0, y = 2, label = bquote(~beta[0]~"="~.(round(coef(mod1)["(Intercept)"], 2))), color = "black", size = 5, hjust = 0) +
-  annotate("text", x = 4, y = 9, label = bquote(~beta[1]~"="~.(round(coef(mod1)["Grübelzeit"], 2))), color = "black", size = 5, hjust = 0) +
-  annotate("text", x = 9, y = 4.8, label = bquote(~beta[1]~"="~.(round(coef(mod1)["Grübelzeit"], 2))), color = "black", size = 5, hjust = 0) +
-  annotate("text", x = 0, y = 6, label = bquote(~beta[0]+beta[2]~"="~.(round(coef(mod1)["(Intercept)"] + coef(mod1)["Gruppe_dummy"], 2))), color = "black", size = 5, hjust = 0) +
+  annotate("text", x = 0, y = 2,
+           label = as.expression(bquote(beta[0] ~ "=" ~ .(round(coef(mod1)["(Intercept)"], 2)))),
+           color = "black", size = 5, hjust = 0) +
+  annotate("text", x = 4, y = 9,
+           label = as.expression(bquote(beta[1] ~ "=" ~ .(round(coef(mod1)["Grübelzeit"], 2)))),
+           color = "black", size = 5, hjust = 0) +
+  annotate("text", x = 9, y = 4.8,
+           label = as.expression(bquote(beta[1] ~ "=" ~ .(round(coef(mod1)["Grübelzeit"], 2)))),
+           color = "black", size = 5, hjust = 0) +
+  annotate("text", x = 0, y = 6,
+           label = as.expression(bquote(beta[0] + beta[2] ~ "=" ~ .(round(coef(mod1)["(Intercept)"] + coef(mod1)["Gruppe_dummy"], 2)))),
+           color = "black", size = 5, hjust = 0) +
   theme(text = element_text(size = 20),
-        legend.position = c(0.15,0.95))
+        legend.position = "inside",
+        legend.position.inside = c(0.15, 0.95))
 #, colour = `UV: Gruppe (nominal dichotom)`
 ```
 ]
@@ -1119,17 +1142,27 @@ coef(mod)
 ```{r echo = F}
 ggplot(df2, aes(x = `UV: Grübelzeit`, y = `AV: Sorgen (skaliert von 1-12)`)) +
   stat_summary(aes(colour = `UV: Gruppe (nominal dichotom)`)) +
-  geom_abline(slope = coef(mod)["Grübelzeit"], intercept = coef(mod)["(Intercept)"],  colour = "#00BFC4") +
-  geom_abline(slope = coef(mod)["Grübelzeit"] + coef(mod)["Grübelzeit:Gruppe_dummy"], intercept = coef(mod)["(Intercept)"] + coef(mod)["Gruppe_dummy"],colour = "#F8766D") +
+  geom_abline(slope = coef(mod)["Grübelzeit"], intercept = coef(mod)["(Intercept)"], colour = "#00BFC4") +
+  geom_abline(slope = coef(mod)["Grübelzeit"] + coef(mod)["Grübelzeit:Gruppe_dummy"],
+              intercept = coef(mod)["(Intercept)"] + coef(mod)["Gruppe_dummy"], colour = "#F8766D") +
   #geom_smooth(data = df2[df2$`UV: Gruppe (nominal dichotom)` == "Gesund",], method = "lm", se = F) +
-  coord_cartesian(ylim = c(0,12), xlim = c(0,12)) +
+  coord_cartesian(ylim = c(0, 12), xlim = c(0, 12)) +
   labs(colour = "", y = "Sorgen", x = "Grübelzeit") +
-  annotate("text", x = 0, y = 5, label = bquote(~beta[0]~"="~.(round(coef(mod)["(Intercept)"], 2))), color = "black", size = 5, hjust = 0) +
-  annotate("text", x = 3.5, y = 8.5, label = bquote(~beta[1]+beta[3]~"="~.(round(coef(mod)["Grübelzeit"] + coef(mod)["Grübelzeit:Gruppe_dummy"] , 2))), color = "black", size = 5, hjust = 0) +
-  annotate("text", x = 9, y = 4.8, label = bquote(~beta[1]~"="~.(round(coef(mod)["Grübelzeit"], 2))), color = "black", size = 5, hjust = 0) +
-  annotate("text", x = 0, y = 2, label = bquote(~beta[0]+beta[2]~"="~.(round(coef(mod)["(Intercept)"] + coef(mod)["Gruppe_dummy"], 2))), color = "black", size = 5, hjust = 0) +
+  annotate("text", x = 0, y = 5,
+           label = as.expression(bquote(beta[0] ~ "=" ~ .(round(coef(mod)["(Intercept)"], 2)))),
+           color = "black", size = 5, hjust = 0) +
+  annotate("text", x = 3.5, y = 8.5,
+           label = as.expression(bquote(beta[1] + beta[3] ~ "=" ~ .(round(coef(mod)["Grübelzeit"] + coef(mod)["Grübelzeit:Gruppe_dummy"], 2)))),
+           color = "black", size = 5, hjust = 0) +
+  annotate("text", x = 9, y = 4.8,
+           label = as.expression(bquote(beta[1] ~ "=" ~ .(round(coef(mod)["Grübelzeit"], 2)))),
+           color = "black", size = 5, hjust = 0) +
+  annotate("text", x = 0, y = 2,
+           label = as.expression(bquote(beta[0] + beta[2] ~ "=" ~ .(round(coef(mod)["(Intercept)"] + coef(mod)["Gruppe_dummy"], 2)))),
+           color = "black", size = 5, hjust = 0) +
   theme(text = element_text(size = 20),
-        legend.position = c(0.15,0.95))
+        legend.position = "inside",
+        legend.position.inside = c(0.15, 0.95))
 #, colour = `UV: Gruppe (nominal dichotom)`
 ```
 ]
@@ -1159,17 +1192,27 @@ summary(mod)
 ```{r echo = F}
 ggplot(df2, aes(x = `UV: Grübelzeit`, y = `AV: Sorgen (skaliert von 1-12)`)) +
   stat_summary(aes(colour = `UV: Gruppe (nominal dichotom)`)) +
-  geom_abline(slope = coef(mod)["Grübelzeit"], intercept = coef(mod)["(Intercept)"],  colour = "#00BFC4") +
-  geom_abline(slope = coef(mod)["Grübelzeit"] + coef(mod)["Grübelzeit:Gruppe_dummy"], intercept = coef(mod)["(Intercept)"] + coef(mod)["Gruppe_dummy"],colour = "#F8766D") +
+  geom_abline(slope = coef(mod)["Grübelzeit"], intercept = coef(mod)["(Intercept)"], colour = "#00BFC4") +
+  geom_abline(slope = coef(mod)["Grübelzeit"] + coef(mod)["Grübelzeit:Gruppe_dummy"],
+              intercept = coef(mod)["(Intercept)"] + coef(mod)["Gruppe_dummy"], colour = "#F8766D") +
   #geom_smooth(data = df2[df2$`UV: Gruppe (nominal dichotom)` == "Gesund",], method = "lm", se = F) +
-  coord_cartesian(ylim = c(0,12), xlim = c(0,12)) +
+  coord_cartesian(ylim = c(0, 12), xlim = c(0, 12)) +
   labs(colour = "", y = "Sorgen", x = "Grübelzeit") +
-  annotate("text", x = 0, y = 5, label = bquote(~beta[0]~"="~.(round(coef(mod)["(Intercept)"], 2))), color = "black", size = 5, hjust = 0) +
-  annotate("text", x = 3.5, y = 8.5, label = bquote(~beta[1]+beta[3]~"="~.(round(coef(mod)["Grübelzeit"] + coef(mod)["Grübelzeit:Gruppe_dummy"] , 2))), color = "black", size = 5, hjust = 0) +
-  annotate("text", x = 9, y = 4.8, label = bquote(~beta[1]~"="~.(round(coef(mod)["Grübelzeit"], 2))), color = "black", size = 5, hjust = 0) +
-  annotate("text", x = 0, y = 2, label = bquote(~beta[0]+beta[2]~"="~.(round(coef(mod)["(Intercept)"] + coef(mod)["Gruppe_dummy"], 2))), color = "black", size = 5, hjust = 0) +
+  annotate("text", x = 0, y = 5,
+           label = as.expression(bquote(beta[0] ~ "=" ~ .(round(coef(mod)["(Intercept)"], 2)))),
+           color = "black", size = 5, hjust = 0) +
+  annotate("text", x = 3.5, y = 8.5,
+           label = as.expression(bquote(beta[1] + beta[3] ~ "=" ~ .(round(coef(mod)["Grübelzeit"] + coef(mod)["Grübelzeit:Gruppe_dummy"], 2)))),
+           color = "black", size = 5, hjust = 0) +
+  annotate("text", x = 9, y = 4.8,
+           label = as.expression(bquote(beta[1] ~ "=" ~ .(round(coef(mod)["Grübelzeit"], 2)))),
+           color = "black", size = 5, hjust = 0) +
+  annotate("text", x = 0, y = 2,
+           label = as.expression(bquote(beta[0] + beta[2] ~ "=" ~ .(round(coef(mod)["(Intercept)"] + coef(mod)["Gruppe_dummy"], 2)))),
+           color = "black", size = 5, hjust = 0) +
   theme(text = element_text(size = 20),
-        legend.position = c(0.15,0.95))
+        legend.position = "inside",
+        legend.position.inside = c(0.15, 0.95))
 #, colour = `UV: Gruppe (nominal dichotom)`
 ```
 ]
