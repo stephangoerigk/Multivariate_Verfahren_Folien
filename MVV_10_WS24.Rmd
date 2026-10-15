@@ -59,7 +59,7 @@ class: middle, left
 # Multivariate Verfahren
 ***
 ### Einheit 10: Einführung in Zeitreihenanalysen
-##### Wintersemester 2025 | Prof. Dr. Stephan Goerigk
+##### Wintersemester 2026 | Prof. Dr. Stephan Goerigk
 
 ---
 class: top, left
@@ -473,6 +473,7 @@ class: top, left
 
 ```{r echo=FALSE}
 set.seed(123)
+t=100
 stress = round(as.numeric(abs(arima.sim(n = t, mean = 0.001, model = list(order = c(1,0,0), ar = 0.1))) + 3), 2)
 ```
 
@@ -559,7 +560,7 @@ class: top, left
 
 ```{r echo=FALSE}
 Geburten = readr::read_rds("munich.rds")
-Geburten = births + rnorm(length(Geburten),0,0.5)
+Geburten = Geburten + rnorm(length(Geburten),0,0.5)
 Geburten <- ts(Geburten, frequency=12, start=c(1946,1))
 ```
 

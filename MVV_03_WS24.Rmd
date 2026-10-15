@@ -29,6 +29,7 @@ library(MASS)
 library(ggpubr)
 library(xaringanthemer)
 library(xaringanExtra)
+library(lme4)
 
 style_duo_accent(
   primary_color = "#621C37",
@@ -59,7 +60,7 @@ class: middle, left
 # Multivariate Verfahren
 ***
 ### Einheit 3: Mehrebenenanalyse - Lineare gemischte Modelle  (2)
-##### Wintersemester 2025 | Prof. Dr. Stephan Goerigk
+##### Wintersemester 2026 | Prof. Dr. Stephan Goerigk
 
 ---
 class: top, left

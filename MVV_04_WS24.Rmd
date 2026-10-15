@@ -60,7 +60,7 @@ class: middle, left
 # Multivariate Verfahren
 ***
 ### Einheit 4: Mehrebenenanalyse - Lineare gemischte Modelle  (3)
-##### Wintersemester 2025 | Prof. Dr. Stephan Goerigk
+##### Wintersemester 2026 | Prof. Dr. Stephan Goerigk
 
 
 ---

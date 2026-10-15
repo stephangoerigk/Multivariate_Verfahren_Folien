@@ -60,7 +60,7 @@ class: middle, left
 # Multivariate Verfahren
 ***
 ### Einheit 6: Gruppieren: Exploratorische Faktorenanalyse (EFA)
-##### Wintersemester 2025 | Prof. Dr. Stephan Goerigk
+##### Wintersemester 2026 | Prof. Dr. Stephan Goerigk
 
 ---
 class: top, left

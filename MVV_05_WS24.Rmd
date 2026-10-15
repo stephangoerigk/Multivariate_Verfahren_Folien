@@ -60,7 +60,7 @@ class: middle, left
 # Multivariate Verfahren
 ***
 ### Einheit 5: Gruppieren: Clusteranalyse
-##### Wintersemester 2025 | Prof. Dr. Stephan Goerigk
+##### Wintersemester 2026 | Prof. Dr. Stephan Goerigk
 
 ---
 class: top, left
@@ -1175,7 +1175,7 @@ fviz_cluster(list(data = df, cluster=cut), labelsize = 0) +
 
 .pull-right[
 ```{r eval=FALSE}
-cut <- cutree(hc, k = 4)
+cut <- cutree(hc, k = 4L)
 
 fviz_cluster(list(data = df, 
                   cluster=cut), 
@@ -1247,9 +1247,14 @@ class: top, left
 
 .pull-left[
 ```{r, echo=FALSE, fig.height=5}
-factoextra::fviz_nbclust(x = df, FUN = hcut, method = c("wss")) + 
-  geom_vline(xintercept = 3,linetype=2) +
-  geom_vline(xintercept = 4, linetype=2)
+hcut_k1 <- function(x, k, ...) {
+  if (k == 1) return(list(cluster = rep(1, nrow(x))))
+  factoextra::hcut(x, k, ...)
+}
+
+factoextra::fviz_nbclust(x = df, FUNcluster = hcut_k1, method = "wss") +
+  geom_vline(xintercept = 3, linetype = 2) +
+  geom_vline(xintercept = 4, linetype = 2)
 ```
 ]
 .pull-right[

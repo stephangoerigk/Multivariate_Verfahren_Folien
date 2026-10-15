@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Einheit 10</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Prof. Dr. Stephan Goerigk" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/hygge.css" rel="stylesheet" />
+    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view/tile-view.js"></script>
+    <script src="libs/fabric/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#EE0071"],"pen_size":4,"eraser_size":40,"palette":[]}) })</script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+name: Title slide
+class: middle, left
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+# Multivariate Verfahren
+***
+### Einheit 10: Einführung in Zeitreihenanalysen
+##### Wintersemester 2026 | Prof. Dr. Stephan Goerigk
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+.pull-left[
+
+#### Bedeutung von Zeitreihen in der Psychologie
+
+&lt;small&gt;
+
+* Zunehmende Vermessung z.B. mit Hilfe digitaler Tools
+
+* Messungen finden über lange Zeiträume in naturalistischen Settings statt
+
+Beispiele:
+
+* Wearables (Biomarker)
+
+* Experience Sampling / Diary studies
+
+* Passive Sensing (Smartphones)
+
+* Internet der Dinge
+
+* ...
+
+`\(\rightarrow\)` Fortschrittliche Techniken der Längsschnittforschung
+
+]
+
+.pull-right[
+.center[
+&lt;img src="bilder/phone3.png" alt="" width="250px" /&gt;
+]
+]
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+.pull-left[
+
+#### Charakteristika von Zeitreihen
+
+&lt;small&gt;
+
+* Daten, die über eine Reihe von Zeitpunkten
+
+* für eine einzelne Person `\((N = 1)\)` oder mehrere Personen `\((N &gt; 1)\)`.
+
+* Datenpunkte einer Person sind nicht unabhängig voneinander (d. h. die zeitliche Abfolge spielt eine Rolle).
+
+* z.B.: Wie müde ich jetzt bin, ist prädiktiv dafür, wie müde ich in einer Stunde bin.
+
+**Wichtiger Unterschied zu traditionellen Studiendesigns:**
+
+* In Alltagsmessungen haben die Daten mehrerer Probanden oft wenig miteinander zu tun.
+
+* Unterschied zu kontrollierten Studiendesigns mit Interventionen/Erhebungen fixen Messzeitpunkten
+]
+
+.pull-right[
+.center[
+&lt;img src="bilder/phone2.png" alt="" width="650px" /&gt;
+
+EMA-Erhebung von `\(N=1\)` zu mehreren Uhrezeiten des Tages
+]
+]
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Charakteristika von Zeitreihen
+
+.pull-left[
+* Zeitreihe: Abbilden von Schwankungen einer Variable über einen Zeitraum
+
+* Beispiel: Stresslevel im Zeitverlauf
+
+]
+
+
+.pull-right[
+.center[
+&lt;img src="bilder/ts_p1.gif" alt="" width="450px" /&gt;
+
+EMA-Erhebung von `\(N=1\)` zu mehreren Uhrezeiten des Tages
+]
+]
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Charakteristika von Zeitreihen
+
+.pull-left[
+* Zeitreihe: Abbilden von Schwankungen einer Variable über einen Zeitraum
+
+* Beispiel: Stresslevel im Zeitverlauf (inkl. Stressor/Krise)
+
+* Mit Zeitreihendaten können wir Einblicke in die Dynamik einer Variable gewinnen. 
+
+* Dies ist (genau genommen) mit Querschnittsdaten nicht möglich!
+
+]
+
+
+.pull-right[
+.center[
+&lt;img src="bilder/ts_p2.gif" alt="" width="450px" /&gt;
+
+EMA-Erhebung von `\(N=1\)` zu mehreren Uhrezeiten des Tages
+]
+]
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Charakteristika von Zeitreihen
+
+.pull-left[
+* Zeitreihe: Abbilden der Schwankungen von 2 Variablen über einen Zeitraum
+
+* Beispiel: Stresslevel und Schlaf im Zeitverlauf (inkl. Stressor/Krise)
+
+* Mit Zeitreihendaten können wir Einblicke in die dynamischen Zusammenhänge zwischen Variablen gewinnen.
+
+* Auch das ist mit Querschnittsdaten nicht möglich!
+
+]
+
+
+.pull-right[
+.center[
+&lt;img src="bilder/ts_p7.gif" alt="" width="450px" /&gt;
+]
+]
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+.pull-left[
+#### Pathogenese - 1. Inaktives Netzwerk, stabiles Equilibrium
+
+.center[
+&lt;img src="bilder/netz1.png" alt="" width="2000px" /&gt;
+]
+
+
+]
+.pull-right[
+.center[
+&lt;img src="bilder/ts_p3.gif" alt="" width="250px" /&gt;
+]
+]
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+.pull-left[
+#### Pathogenese - 2. Netzwerk Aktivierung
+
+.center[
+&lt;img src="bilder/netz2.png" alt="" width="2000px" /&gt;
+]
+]
+
+.pull-right[
+.center[
+&lt;img src="bilder/ts_p4.gif" alt="" width="250px" /&gt;
+]
+]
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+.pull-left[
+#### Pathogenese - 3. Symptomausbreitung
+
+.center[
+&lt;img src="bilder/netz3.png" alt="" width="2000px" /&gt;
+]
+]
+.pull-right[
+.center[
+&lt;img src="bilder/ts_p5.gif" alt="" width="250px" /&gt;
+]
+]
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+.pull-left[
+#### Pathogenese - 4. Erkranktes Netzwerk, stabiles Equilibrium
+
+.center[
+&lt;img src="bilder/netz4.png" alt="" width="2000px" /&gt;
+]
+]
+
+.pull-right[
+.center[
+&lt;img src="bilder/ts_p6.gif" alt="" width="250px" /&gt;
+]
+]
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Querschnittliche Daten und Zeitreihen
+
+.pull-left[
+
+.center[
+&lt;img src="bilder/cube.png" alt="" width="420px" /&gt;
+]
+Barbot, B., &amp; Perchec, C. (2015)
+]
+
+.pull-left[
+Datenpunkte auf 3 Ebenen:
+
+* Personen
+
+* Variablen
+
+* Messzeitpunkte (Zeitreihe = viele Messungen)
+
+`\(\rightarrow\)` Analyseansatz determiniert durch Kombination der Ebenen
+]
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Querschnittliche Daten und Zeitreihen
+
+.center[
+&lt;img src="bilder/nomothetisch.png" alt="" width="620px" /&gt;
+]
+
+Barbot, B., &amp; Perchec, C. (2015)
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Querschnittliche Daten und Zeitreihen
+
+.center[
+&lt;img src="bilder/idiographisch.png" alt="" width="640px" /&gt;
+]
+
+Barbot, B., &amp; Perchec, C. (2015)
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Querschnittliche Daten und Zeitreihen
+
+.center[
+&lt;img src="bilder/cube1.png" alt="" width="740px" /&gt;
+]
+
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Querschnittliche Daten und Zeitreihen
+
+.pull-left[
+.center[
+&lt;img src="bilder/n1t1.png" alt="" width="740px" /&gt;
+]
+]
+
+.pull-right[
+&lt;img src="bilder/ts_p1.gif" alt="" width="450px" /&gt;
+]
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Querschnittliche Daten und Zeitreihen
+
+.center[
+&lt;img src="bilder/cube2.png" alt="" width="740px" /&gt;
+]
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+.pull-left[
+
+#### Querschnittliche Daten und Zeitreihen
+
+.center[
+&lt;img src="bilder/n1t2.png" alt="" width="740px" /&gt;
+]
+]
+
+.pull-right[
+&lt;img src="bilder/ts_p3.gif" alt="" width="250px" /&gt;
+]
+
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Querschnittliche Daten und Zeitreihen
+
+.center[
+&lt;img src="bilder/cube3.png" alt="" width="740px" /&gt;
+]
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+.pull-left[
+
+#### Querschnittliche Daten und Zeitreihen
+
+.center[
+&lt;img src="bilder/n2t2.png" alt="" width="740px" /&gt;
+]
+]
+
+.pull-right[
+&lt;img src="bilder/ts_p8.gif" alt="" width="250px" /&gt;
+]
+
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Zeitreihen in R
+
+* Zeitreihenanalyse in R nutzt oft Zeitreihenobjekte
+
+* Diese haben einen fixen Startpunkt, ein Ende und eine Frequenz
+
+* Nutzen oft so genannte Timestamps
+
+* Eine Variable mit messwiederholten Werten kann mittels `ts()` in ein Zeitreihenobjekt umgewandelt werden
+
+
+
+.pull-left[
+
+``` r
+stress
+```
+
+.center[
+&lt;img src="bilder/tsstress1.png" alt="" width="540px" /&gt;
+]
+
+]
+
+.pull-right[
+
+``` r
+ts(stress)
+```
+
+.center[
+&lt;img src="bilder/tsstress2.png" alt="" width="540px" /&gt;
+]
+]
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Zeitreihen in R
+
+.pull-left[
+
+* Zeitreihenobjekte haben nützliche Eigenschaften
+
+* z.B. gibt es im Paket `forecast` eine `autoplot()` Funktion
+
+* Diese Funktion hat alle Anpassungsmöglichkeiten von `ggplot2`
+]
+
+.pull-right[
+
+``` r
+autoplot(ts(stress)) +
+  theme(text = element_text(size = 20))
+```
+
+&lt;img src="MVV_10_WS24_files/figure-html/unnamed-chunk-31-1.png" alt="" height="350px" /&gt;
+]
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Bestandteile einer Zeitreihe
+
+Eine Zeitreihe kann als Zusammensetzung aus vier Hauptkomponenten betrachtet werden: 
+
+* Trend (engl. trend)
+
+* Zyklus (engl. cycle)
+
+* Saisonalität (engl. seasonality)
+
+* Fehler/Residuum.(engl. error/residual part)
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Bestandteile einer Zeitreihe
+
+.center[
+&lt;img src="bilder/zeitreihe_parts.png" alt="" width="740px" /&gt;
+]
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Zeitreihenzerlegung (engl. time-series decomposition)
+
+
+
+.pull-left[
+Beispiel:
+
+* Geburtsraten in München 
+
+* Dekomposition saisonaler Daten
+]
+
+.pull-right[
+
+
+``` r
+autoplot(Geburten) +
+  theme(text = element_text(size = 20))
+```
+
+![](MVV_10_WS24_files/figure-html/unnamed-chunk-34-1.png)&lt;!-- --&gt;
+]
+
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+.pull-left[
+
+#### Zeitreihenzerlegung (engl. time-series decomposition)
+
+Beispiel:
+
+* Geburtsraten in München 
+
+* Dekomposition saisonaler Daten
+
+
+``` r
+Geburten_d &lt;- decompose(Geburten)
+```
+
+
+``` r
+autoplot(Geburten_d) +
+  theme(text = element_text(size = 20))
+```
+
+]
+
+.pull-right[
+
+![](MVV_10_WS24_files/figure-html/unnamed-chunk-37-1.png)&lt;!-- --&gt;
+]
+
+
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Zeitreihenzerlegung (engl. time-series decomposition)
+
+.pull-left[
+Beispiel:
+
+* Geburtsraten in München 
+
+* Dekomposition saisonaler Daten
+
+
+``` r
+ adjusted &lt;- Geburten - Geburten_d$seasonal
+```
+
+]
+
+.pull-right[
+
+
+``` r
+autoplot(adjusted) +
+  theme(text = element_text(size = 20))
+```
+
+![](MVV_10_WS24_files/figure-html/unnamed-chunk-39-1.png)&lt;!-- --&gt;
+]
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Autokorrelation
+
+&lt;small&gt;
+
+*	Definition:  Korrelation einer Zeitreihe mit sich selbst zu verschiedenen Zeitpunkten (Lags)  
+	
+*	Gibt an, wie stark aktuelle Werte von vergangenen Werten beeinflusst werden.
+	
+*	Interpretation: Ein hoher Autokorrelationswert deutet darauf hin, dass vergangene Beobachtungen einen starken Einfluss auf aktuelle Werte haben
+
+* hoher Autokorrelationswert deutet auf Muster oder Trends in der Zeitreihe hin
+
+.center[
+&lt;img src="bilder/energy.png" alt="" width="540px" /&gt;
+
+]
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Autokorrelation in R
+
+
+
+.pull-left[
+Niedrige Autokorrelation:
+
+
+``` r
+autoplot(ts(low_autocorr_series)) + 
+  labs(y = "Stress") +
+  theme(text = element_text(size = 20))
+```
+
+![](MVV_10_WS24_files/figure-html/unnamed-chunk-42-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+Hohe Autokorrelation:
+
+
+``` r
+autoplot(ts(high_autocorr_series)) +  
+  labs(y = "Stress") +
+  theme(text = element_text(size = 20))
+```
+
+![](MVV_10_WS24_files/figure-html/unnamed-chunk-43-1.png)&lt;!-- --&gt;
+]
+
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Autokorrelation in R
+
+
+
+.pull-left[
+Niedrige Autokorrelation:
+
+
+``` r
+acf(low_autocorr_series)
+```
+
+![](MVV_10_WS24_files/figure-html/unnamed-chunk-45-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+Hohe Autokorrelation:
+
+
+``` r
+acf(high_autocorr_series)
+```
+
+![](MVV_10_WS24_files/figure-html/unnamed-chunk-46-1.png)&lt;!-- --&gt;
+]
+
+---
+class: top, left
+### Take-aways
+
+.full-width[.content-box-gray[
+*	Zeitreihen erfassen Veränderungen über die Zeit: Sie ermöglichen es, Schwankungen und Muster in psychologischen Variablen zu erkennen, die mit Querschnittsdaten nicht erfasst werden können.
+
+*	Autokorrelation spielt eine zentrale Rolle: Datenpunkte sind zeitlich abhängig, d. h. vergangene Werte beeinflussen zukünftige Werte, was in der Analyse berücksichtigt werden muss.
+
+*	Bestandteile einer Zeitreihe: Eine Zeitreihe setzt sich typischerweise aus Trend, Zyklus, Saisonalität und einem zufälligen Restanteil zusammen, die durch Zerlegung analysiert werden können.
+
+*	Dekomposition hilft bei der Interpretation: Durch die Zerlegung in verschiedene Komponenten können wichtige Muster in den Daten erkannt und für Prognosen genutzt werden.
+	
+*	Praktische Anwendbarkeit in der Psychologie: Zeitreihenanalyse ist ein leistungsfähiges Instrument zur Untersuchung von Verhaltensmustern in natürlichen Umgebungen, z. B. durch Experience Sampling, Wearables oder Smartphone-Daten.
+
+]
+]
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+  "slideNumberFormat": "%current%",
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "countIncrementalSlides": false,
+  "ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

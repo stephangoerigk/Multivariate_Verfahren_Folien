@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Einheit 11</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Prof. Dr. Stephan Goerigk" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/hygge.css" rel="stylesheet" />
+    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view/tile-view.js"></script>
+    <script src="libs/fabric/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#EE0071"],"pen_size":4,"eraser_size":40,"palette":[]}) })</script>
+    <script src="libs/kePrint/kePrint.js"></script>
+    <link href="libs/lightable/lightable.css" rel="stylesheet" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+name: Title slide
+class: middle, left
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+# Multivariate Verfahren
+***
+### Einheit 11: Zeitreihenanalyse (2)
+##### 09.01.2025 | Prof. Dr. Stephan Goerigk
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Autokorrelation
+
+.center[
+&lt;img src="bilder/AR_ex.png" alt="" width="740px" /&gt;
+]
+
+*	Definition:  Korrelation einer Zeitreihe mit sich selbst zu verschiedenen Zeitpunkten (Lags)  
+	
+*	Gibt an, wie stark aktuelle Werte von vergangenen Werten beeinflusst werden.
+	
+*	Interpretation: Ein hoher Autokorrelationswert deutet darauf hin, dass vergangene Beobachtungen einen starken Einfluss auf aktuelle Werte haben
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Lag in der Zeitreihenanalyse
+
+*	Definition: Ein **Lag** bezeichnet eine vergangene Beobachtung einer Zeitreihe, die zur Vorhersage oder Analyse aktueller Werte genutzt wird.
+
+.pull-left[
+*	Notation: Ein Wert  `\(y_t\)`  mit einem Lag von 1 wird als  `\(y_{t-1}\)`  dargestellt.
+
+ * `\(y_{t-1}:\)` Eine Messung vor dem aktuellen Zeitpunkt
+ 
+ * `\(y_{t-2}:\)` Zwei Messungen vor dem aktuellen Zeitpunkt
+ 
+ * ...
+
+]
+
+.pull-right[
+.center[
+&lt;table class=" lightable-classic" style='font-size: 18px; font-family: "Arial Narrow", "Source Sans Pro", sans-serif; '&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; lag &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Energie &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; t &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; t-1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 7 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; t-2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 8 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; t-3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 11 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ... &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; ... &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+]
+]
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Autoregressive Modelle
+
+.center[
+&lt;img src="bilder/AR1.png" alt="" width="740px" /&gt;
+]
+
+* `\(y\)` = Variable, von der eine Zeitreihe vorliegt
+
+* `\(t-k\)` = lag
+
+* `\(\phi\)` = Regressionsgewicht `\(\rightarrow\)` Vorhersage künftiger Zeitpunkte `\((t)\)` durch vergangene Zeitpunkte `\((t-k)\)`
+
+* `\(u_k\)` = Fehler/Residuum
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Autoregressive Modelle: Lag-1 Modell
+
+.center[
+&lt;img src="bilder/AR1_red.png" alt="" width="740px" /&gt;
+]
+
+Formel Autoregressives Lag-1 Modell:
+
+`$$y_t = \phi_1 y_{t-1} + u_t$$`
+
+* Der Wert zum jeweiligen Zeitpunkt `\((t)\)` wird durch die direkt vorher erfolgte Messung vorhergesagt `\((t-1)\)`
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Autoregressive Modelle: Lag-2 Modell
+
+.center[
+&lt;img src="bilder/AR_lag2.png" alt="" width="740px" /&gt;
+]
+
+Formel Autoregressives Lag-2 Modell:
+
+`$$y_t = \phi_1 y_{t-1} + \phi_2 y_{t-2} + u_t$$`
+
+* Der Wert zum jeweiligen Zeitpunkt `\((t)\)` wird durch die beiden zuvor erfolgten Messungen vorhergesagt
+
+* Wichtig: Welcher Lag gewählt wird hängt von der Fragestellung ab
+
+* Zentrale Frage für Wahl des Lags: Wie lange dauert es in der Messreihe, bis sich ein Effekt realisiert?
+
+* Psychologische Effekte für EMA werden oft mit Lag-1 modelliert.
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Zeitreihen Regressionsmodelle `\((N=1)\)`
+
+Auswahl:
+
+* Univariat:
+
+  * Autoregressive Modelle (AR)
+  
+  * Moving Average Modelle (MA)
+  
+  * Autoregressive Moving Average Modelle (ARMA)
+  
+  * Autoregressive Integrated Moving Average Modelle (ARIMA)
+
+* Multivariat:
+
+  * Vektor Autoregressive Modelle
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Zeitreihen Regressionsmodelle `\((N=1)\)`
+
+**Autoregressive Modelle (AR):**
+
+*	Definition: Modelliert aktuelle Werte als lineare Funktion ihrer eigenen vergangenen Werte (Lags).
+
+*	Formel:
+
+`$$y_t = \phi_1 y_{t-1} + \phi_2 y_{t-2} + \ldots + \phi_p y_{t-k} + \epsilon_t$$`
+
+*	Verwendung: Gut geeignet für stationäre Zeitreihen mit wiederkehrenden Mustern.
+
+*	Beispiel: AR(1), AR(2)
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Zeitreihen Regressionsmodelle `\((N=1)\)`
+
+**Moving Average Modelle (MA)**
+
+* Modelliert den aktuellen Wert basierend auf vergangenen Fehlertermen (Schocks).
+
+*	Formel für MA (Lag 1):
+
+`$$y_t = \mu + \theta_1 \epsilon_{t-1} + \epsilon_t$$`
+
+* Zentraler Unterschied: Nur Fehlervariationen (Schocks) aus der Vergangenheit bestimmen die Werte, keine direkten Lags von  `\(y_t\)`.
+	
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Zeitreihen Regressionsmodelle `\((N=1)\)`
+
+**Autoregressive Moving Average Modelle (ARMA)**
+
+* Kombination aus AR und MA, modelliert sowohl vergangene Werte als auch Fehlerterme.
+
+* Lag muss für Fehler und Variable gewählt werden
+
+*	Formel für ARMA (Lag 1, Lag 1):
+
+`$$y_t = \phi_1 y_{t-1} + \theta_1 \epsilon_{t-1} + \epsilon_t$$`
+
+*	Zentraler Unterschied: Berücksichtigt sowohl eigene vergangene Werte (AR) als auch vergangene Fehler (MA).
+	
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Stationarität in der Zeitreihenanalyse
+
+*	Definition: Eine stationäre Zeitreihe hat konstante statistische Eigenschaften über die Zeit.
+
+*	Kriterien für Stationarität:
+
+	1.	Konstanter Mittelwert: Der Erwartungswert  `\(E(y_t)\)`  bleibt über die Zeit stabil.
+	
+	2.	Konstante Varianz: Die Streuung der Werte bleibt konstant  `\(Var(y_t) = \sigma^2\)`.
+	
+	3.	Konstante Autokorrelation: Die Korrelation zwischen Werten hängt nur vom Abstand (Lag), nicht vom Zeitpunkt ab.
+	
+*	Warum wichtig? Viele Zeitreihenmodelle (z.B. AR, MA, ARMA) setzen Stationarität voraus.
+
+*	Lösung bei nicht-stationären Daten: Differenzierung `\((\nabla y_t = y_t - y_{t-1})\)` oder Transformationen (z. B. Logarithmus).
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Stationarität in der Zeitreihenanalyse
+
+.pull-left[
+*	Kriterien für Stationarität:
+
+	1.	Konstanter Mittelwert: Der Erwartungswert  `\(E(y_t)\)`  bleibt über die Zeit stabil.
+	
+	2.	Konstante Varianz: Die Streuung der Werte bleibt konstant  `\(Var(y_t) = \sigma^2\)`.
+	
+	3.	Konstante Autokorrelation: Die Korrelation zwischen Werten hängt nur vom Abstand (Lag), nicht vom Zeitpunkt ab.
+]
+
+.pull-right[
+![](MVV_11_WS24_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
+]
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Stationarität in der Zeitreihenanalyse
+
+Umgang mit Stationarität
+
+* Linearen Trend testen:
+
+	*	Regressiere die Variable die Zeitvariable.
+	
+	*	Falls der Trend signifikant ist, sollte eine Detrending-Methode angewendet werden.
+	
+
+``` r
+lm_y &lt;- lm(y ~ time, data = data)  # Lineare Regression
+
+data$y_detrended &lt;- residuals(lm_y)  # Ersetze y durch für linearen Trend bereinigte Residuen
+```
+
+* Wichtiger Hinweis:
+
+  *	Diese Methode entfernt nur lineare Trends.
+  *	Es garantiert nicht, dass die Zeitreihe stationär ist.
+  *	Es können weiterhin andere Arten von Trends oder verschiedene Formen der Nicht-Stationarität vorliegen.
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Zeitreihen Regressionsmodelle `\((N=1)\)`
+
+**Autoregressive Integrated Moving Average Modelle (ARIMA)**
+
+*	Erweiterung von ARMA, berücksichtigt zusätzlich Trends durch Differenzbildung `\((\nabla y_t)\)`.
+
+* Auch für die Differenzbildung muss ein passender Lag gewählt werden.
+
+*	Formel für ARIMA(Lag 1, Lag 1, Lag 1):
+
+`$$\nabla y_t = \phi_1 \nabla y_{t-1} + \theta_1 \epsilon_{t-1} + \epsilon_t$$`
+wobei  `\(\nabla y_t = y_t - y_{t-1}\)`.
+
+* Zentraler Unterschied: “Integrated” (I) bedeutet, dass die Zeitreihe durch Differenzbildung stationär gemacht wird.
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Zeitreihen Regressionsmodelle `\((N=1)\)`
+
+**Autoregressive Integrated Moving Average Modelle (ARIMA)**
+
+**ARIMA in R:**
+
+Ein ARIMA (Autoregressive Integrated Moving Average)-Modell wird durch drei Parameter definiert:  `\(p\)`,  `\(d\)`  und  `\(q\)` , die die Modellstruktur bestimmen.
+
+* `\(p\)`  – Autoregressiver (AR) Anteil
+
+* `\(d\)`  – Differenzierungsgrad (I für Integrated)
+
+* `\(q\)`  – Moving-Average (MA) Anteil
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Zeitreihen Regressionsmodelle `\((N=1)\)`
+
+**Autoregressive Integrated Moving Average Modelle (ARIMA)**
+
+**ARIMA in R:**
+
+`\(p\)`  – Autoregressiver (AR) Anteil
+	
+*	Gibt an, wie viele vergangene Werte `\(( y_{t-k} )\)` zur Vorhersage von  `\(y_t\)`  genutzt werden.
+
+*	Höheres  p  bedeutet, dass vergangene Werte einen stärkeren Einfluss auf zukünftige Werte haben.
+
+*	Identifiziert durch die Partielle Autokorrelationsfunktion (PACF).
+
+Beispiel: AR(2)-Modell
+
+`$$y_t = \phi_1 y_{t-1} + \phi_2 y_{t-2} + \epsilon_t$$`
+
+* `\(y_t\)`  hängt von den zwei vorherigen Zeitpunkten ab.
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Zeitreihen Regressionsmodelle `\((N=1)\)`
+
+**Autoregressive Integrated Moving Average Modelle (ARIMA)**
+
+**ARIMA in R:**
+
+&lt;small&gt;
+
+`\(d\)`  – Differenzierungsgrad (I für Integrated)
+
+*	Anzahl der Differenzierungen, um die Daten stationär zu machen.
+
+*	Differenzieren entfernt Trends und stabilisiert die Varianz.
+
+*	Eine erste Differenzierung ist:
+
+`$$\nabla y_t = y_t - y_{t-1}$$`
+
+*	Wird mit dem Augmented-Dickey-Fuller-Test (ADF-Test) bestimmt.
+
+Typische Werte:
+*	 `\(d\)` = 0 : Daten sind bereits stationär.
+*	 `\(d\)` = 1 : Erste Differenzierung (bei linearen Trends).
+*	 `\(d\)` = 2 : Zweite Differenzierung (bei quadratischen Trends).
+	
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Zeitreihen Regressionsmodelle `\((N=1)\)`
+
+**Autoregressive Integrated Moving Average Modelle (ARIMA)**
+
+**ARIMA in R:**
+
+`\(q\)`  – Moving-Average (MA) Anteil
+
+*	Gibt die Anzahl der vergangenen Fehlerterme `\(( \epsilon_{t-k} )\)` an, die im Modell berücksichtigt werden.
+
+*	Hilft, kurzfristige Schwankungen zu glätten.
+
+*	Identifiziert durch die Autokorrelationsfunktion (ACF).
+
+Beispiel: MA(1)-Modell
+
+`$$y_t = \mu + \theta_1 \epsilon_{t-1} + \epsilon_t$$`
+
+* `\(y_t\)`  hängt vom vorherigen Fehlerterm ab.
+ 
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Zeitreihen Regressionsmodelle `\((N=1)\)`
+
+**Autoregressive Integrated Moving Average Modelle (ARIMA)**
+
+**ARIMA in R:**
+
+Wie wählt man  p, d, q ?
+
+*	 `\(d:\)` Stationarität mit dem Dickey-Fuller-Test prüfen.
+
+*	 `\(p:\)` Partielle Autokorrelationsfunktion (PACF) analysieren.
+
+*	 `\(q:\)` Autokorrelationsfunktion (ACF) analysieren.
+
+`\(\rightarrow\)` In R gibt es eine Funktion, die diese Anpassung automatisch übernimmt (`auto.arima()`)
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Zeitreihen Regressionsmodelle `\((N=1)\)`
+
+**Autoregressive Integrated Moving Average Modelle (ARIMA)**
+
+**ARIMA in R:**
+
+.pull-left[
+* Beispiel für monatliche Krankenhausaufnahmen psychiatrischer Kliniken
+
+* Zeitreihe über mehrere Jahre
+
+* Ziel: ARIMA Modell zur Vorhersage künftiger Patient:innenzahlen
+]
+
+.pull-right[
+![](MVV_11_WS24_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+]
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Zeitreihen Regressionsmodelle `\((N=1)\)`
+
+**Autoregressive Integrated Moving Average Modelle (ARIMA)**
+
+**ARIMA in R:**
+
+.pull-left[
+.code80[
+
+``` r
+library(tseries)
+adf_test &lt;- adf.test(ts_data)
+print(adf_test)
+```
+
+```
+## 
+## 	Augmented Dickey-Fuller Test
+## 
+## data:  ts_data
+## Dickey-Fuller = -7.3186, Lag order = 5, p-value = 0.01
+## alternative hypothesis: stationary
+```
+]
+
+* Wenn der p-Wert &gt;.05 ist Datensatz nicht stationär 
+]
+
+.pull-right[
+![](MVV_11_WS24_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+]
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Zeitreihen Regressionsmodelle `\((N=1)\)`
+
+**Autoregressive Integrated Moving Average Modelle (ARIMA)**
+
+**ARIMA in R:**
+
+.pull-left[
+.code80[
+
+``` r
+diff_data &lt;- diff(ts_data)
+```
+]
+
+* Differenzierung erster Ordnerung (1x)
+
+* Trends entfernen um Stationarität herzustellen
+]
+
+.pull-right[
+![](MVV_11_WS24_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+]
+
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Zeitreihen Regressionsmodelle `\((N=1)\)`
+
+**Autoregressive Integrated Moving Average Modelle (ARIMA)**
+
+**ARIMA in R:**
+
+.code80[
+
+``` r
+arima_model &lt;- auto.arima(ts_data)
+
+summary(arima_model)
+```
+
+```
+## Series: ts_data 
+## ARIMA(2,1,1)(0,1,0)[12] 
+## 
+## Coefficients:
+##          ar1     ar2      ma1
+##       0.5960  0.2142  -0.9819
+## s.e.  0.0888  0.0880   0.0292
+## 
+## sigma^2 = 132.3:  log likelihood = -504.92
+## AIC=1017.85   AICc=1018.17   BIC=1029.35
+## 
+## Training set error measures:
+##                    ME     RMSE      MAE       MPE    MAPE     MASE         ACF1
+## Training set 1.342189 10.84619 7.867506 0.4206662 2.80045 0.245627 -0.001286643
+```
+]
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Zeitreihen Regressionsmodelle `\((N=1)\)`
+
+**Autoregressive Integrated Moving Average Modelle (ARIMA)**
+
+**ARIMA in R:**
+
+.pull-left[
+.code80[
+
+``` r
+forecast_values &lt;- forecast(arima_model, h = 24)
+```
+]
+
+* Auf Basis des ARIMA Modells kann eine Vorhersage gemacht werden
+
+* Hier für die nächsten 24 Monate (2 Jahre)
+
+* Interpretation der Schwankungen - Mehr psychiatrische Aufnahmen in Winter 
+
+]
+
+.pull-right[
+![](MVV_11_WS24_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
+]
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Zeitreihen Regressionsmodelle `\((N=1)\)`
+
+Übersicht univariater Modelle:
+
+&lt;small&gt;
+
+&lt;table border="1"&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Modell&lt;/th&gt;
+        &lt;th&gt;Vergangenheit (Lags von y)&lt;/th&gt;
+        &lt;th&gt;Fehlerterme&lt;/th&gt;
+        &lt;th&gt;Trend-Anpassung (Differenzierung)&lt;/th&gt;
+        &lt;th&gt;Wann verwenden?&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;b&gt;AR&lt;/b&gt; (Autoregressiv)&lt;/td&gt;
+        &lt;td&gt;✅ Ja&lt;/td&gt;
+        &lt;td&gt;❌ Nein&lt;/td&gt;
+        &lt;td&gt;❌ Nein&lt;/td&gt;
+        &lt;td&gt;Wenn aktuelle Werte stark von vergangenen Werten abhängen, aber kein Rauschen berücksichtigt werden muss.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;b&gt;MA&lt;/b&gt; (Moving Average)&lt;/td&gt;
+        &lt;td&gt;❌ Nein&lt;/td&gt;
+        &lt;td&gt;✅ Ja&lt;/td&gt;
+        &lt;td&gt;❌ Nein&lt;/td&gt;
+        &lt;td&gt;Wenn aktuelle Werte eher durch zufällige Schocks (Fehlerterme) aus der Vergangenheit beeinflusst werden.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;b&gt;ARMA&lt;/b&gt; (Autoregressive Moving Average)&lt;/td&gt;
+        &lt;td&gt;✅ Ja&lt;/td&gt;
+        &lt;td&gt;✅ Ja&lt;/td&gt;
+        &lt;td&gt;❌ Nein&lt;/td&gt;
+        &lt;td&gt;Wenn sowohl vergangene Werte als auch Fehlerterme die aktuellen Werte beeinflussen, aber kein Trend vorhanden ist.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;b&gt;ARIMA&lt;/b&gt; (Autoregressive Integrated Moving Average)&lt;/td&gt;
+        &lt;td&gt;✅ Ja&lt;/td&gt;
+        &lt;td&gt;✅ Ja&lt;/td&gt;
+        &lt;td&gt;✅ Ja&lt;/td&gt;
+        &lt;td&gt;Wenn zusätzlich zu autoregressiven und Fehler-Einflüssen ein Trend entfernt werden muss, um Stationarität herzustellen.&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Vektor-Autoregressionen `\((\)`mehrere Variablen, `\(N=1)\)`
+
+.center[
+&lt;img src="bilder/trainten_ex2.png" alt="" width="740px" /&gt;
+]
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Vektor-Autoregressionen `\((\)`mehrere Variablen, `\(N=1)\)`
+
+.center[
+&lt;img src="bilder/VAR1.png" alt="" width="740px" /&gt;
+]
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Vektor-Autoregressionen `\((\)`mehrere Variablen, `\(N=1)\)`
+
+.center[
+&lt;img src="bilder/VAR_all.png" alt="" width="740px" /&gt;
+]
+
+&lt;small&gt;
+
+* `\(y\)` = 1. Variable, von der eine Zeitreihe vorliegt
+
+* `\(z\)` = 2. Variable, von der eine Zeitreihe vorliegt
+
+* `\(t-k\)` = lag
+
+* `\(\phi\)` = Regressionsgewicht `\(\rightarrow\)` Vorhersage künftiger Zeitpunkte `\((t)\)` durch vergangene Zeitpunkte `\((t-k)\)`
+
+* `\(u_k\)` = Fehler/Residuum
+
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Vektor-Autoregressionen `\((\)`mehrere Variablen, `\(N=1)\)`
+
+.center[
+&lt;img src="bilder/VAR_crossed2.png" alt="" width="740px" /&gt;
+]
+
+* Crossed aka Crossed-Lagged Pfade (engl. temporal effects)
+
+* Messung einer Variable sagt nächste Messung der anderen Variable vorher
+
+* Wenn eine Variable die andere bei der nächsten Messung vorhersagt `\(\rightarrow\)` **Granger Kausalität**
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Vektor-Autoregressionen `\((\)`mehrere Variablen, `\(N=1)\)`
+
+**Temporal Effect:**
+
+.pull-left[
+* Messung einer Variable sagt nächste Messung der anderen Variable vorher
+
+* Entspricht der Vorhersage von `\(y_t\)` durch `\(z_{t-1}\)`
+
+* „Wenn ich jetzt Sport treibe, werde ich im nächsten Zeitraum weniger energiegeladen sein."
+]
+
+.pull-right[
+.center[
+&lt;img src="bilder/temp.png" alt="" width="340px" /&gt;
+]
+]
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Vektor-Autoregressionen `\((\)`mehrere Variablen, `\(N=1)\)`
+
+.center[
+&lt;img src="bilder/VAR_cont2.png" alt="" width="740px" /&gt;
+]
+
+* Durchschnittliche Korrelation zwischen den Residuen
+
+* Entspricht dem für zeitliche Effekte bereinigten Zusammenhang zwischen den Variablen
+
+* Gleichzeitiger Effekt (engl. contemporaneous)
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Vektor-Autoregressionen `\((\)`mehrere Variablen, `\(N=1)\)`
+
+**Contemporaneous Effect:**
+
+.pull-left[
+* Durchschnittliche Korrelation zwischen den Residuen
+
+* Entspricht dem für zeitliche Effekte bereinigten Zusammenhang zwischen den Variablen
+
+* Gleichzeitiger Effekt (engl. contemporaneous)
+
+* „Während ich Sport treibe, fühle ich mich energiegeladen."
+]
+
+.pull-right[
+.center[
+&lt;img src="bilder/cont.png" alt="" width="340px" /&gt;
+]
+]
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Vektor-Autoregressionen `\((\)`mehrere Variablen, `\(N=1)\)`
+
+**Temporal Effect vs. Contemporaneous Effect:**
+
+.center[
+&lt;img src="bilder/temp_contemp.png" alt="" width="740px" /&gt;
+]
+
+.pull-left[
+„Wenn ich jetzt Sport treibe, werde ich im nächsten Zeitraum weniger energiegeladen sein."
+]
+
+.pull-right[
+„Während ich Sport treibe, fühle ich mich energiegeladen."
+]
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Vektor-Autoregressionen `\((\)`mehrere Variablen, `\(N=1)\)`
+
+.center[
+&lt;img src="bilder/VAR_auto.png" alt="" width="740px" /&gt;
+]
+
+* Autoregressive Pfade
+
+* Messung einer Variable sagt ihre nächste Messung vorher (Autokorrelation)
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Vektor-Autoregressionen `\((\)`mehrere Variablen, `\(N=1)\)`
+
+**Autoregressiver Effect:**
+
+.pull-left[
+* Autoregressive Pfade
+
+* Messung einer Variable sagt ihre nächste Messung vorher (Autokorrelation)
+
+* „Wenn ich jetzt energiegeladen bin, werde ich es wahrscheinlich auch im nächsten Zeitraum noch sein.“
+]
+
+.pull-right[
+.center[
+&lt;img src="bilder/auto.png" alt="" width="340px" /&gt;
+]
+]
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Mulilevel Vektor-Autoregressionen `\((\)`mehrere Variablen, `\(N&gt;1)\)`
+
+**VAR in R:**
+
+.pull-left[
+
+* Ein Vektorautoregressives (VAR) Modell wird verwendet, wenn wir mehrere Zeitreihen haben, die sich gegenseitig über die Zeit beeinflussen. 
+
+* Im Gegensatz zu ARIMA, das eine einzelne Zeitreihe modelliert, erfasst VAR multivariate Zusammenhänge zwischen mehreren Variablen.
+]
+
+
+
+.pull-right[
+![](MVV_11_WS24_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
+]
+
+---
+class: top, left
+### Einführung in Zeitreihenanalysen
+
+#### Vektor-Autoregressionen `\((\)`mehrere Variablen, `\(N=1)\)`
+
+**VAR in R (Bringmann et al. 2013):**
+
+
+``` r
+Vars &lt;- c("relaxed", "sad", "nervous","concentration", "tired", "rumination", "bodily.discomfort")
+graphicalVAR(vars = Vars, dayvar = Day)
+```
+.center[
+&lt;img src="bilder/graphvae.png" alt="" width="640px" /&gt;
+]
+
+
+
+---
+class: top, left
+### Take-aways
+
+.full-width[.content-box-gray[
+* Zeitreihen weisen oft Abhängigkeiten zwischen aufeinanderfolgenden Messzeitpunkten auf. Autoregressive Modelle nutzen diese Struktur zur Vorhersage.
+
+* Viele Zeitreihenmodelle (z. B. AR, MA, ARMA) setzen Stationarität voraus. Nicht-stationäre Daten müssen oft durch Differenzierung oder Transformationen angepasst werden.
+
+* AR-Modelle nutzen vergangene Werte, MA-Modelle vergangene Fehler, ARMA kombiniert beides, und ARIMA erlaubt zusätzlich Differenzierung zur Trendanpassung.
+
+* Die Autokorrelationsfunktion (ACF) und partielle Autokorrelationsfunktion (PACF) helfen, geeignete Modellparameter für ARIMA-Modelle zu bestimmen.
+
+* Vektorautoregressive Modelle (VAR) ermöglichen die Modellierung von Wechselwirkungen zwischen mehreren Zeitreihen und liefern Erkenntnisse über zeitabhängige Beziehungen.
+
+* Zeitverzögerte Effekte (“Temporal Effects”) und gleichzeitige Zusammenhänge (“Contemporaneous Effects”) sollten unterschieden werden, um dynamische Prozesse korrekt zu interpretieren.
+]
+]
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+  "slideNumberFormat": "%current%",
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "countIncrementalSlides": false,
+  "ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

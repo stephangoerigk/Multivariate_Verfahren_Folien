@@ -27,7 +27,7 @@ class: middle, left
 # Multivariate Verfahren
 ***
 ### Einheit 3: Mehrebenenanalyse - Lineare gemischte Modelle  (2)
-##### Wintersemester 2025 | Prof. Dr. Stephan Goerigk
+##### Wintersemester 2026 | Prof. Dr. Stephan Goerigk
 
 ---
 class: top, left
@@ -50,7 +50,7 @@ class: top, left
 .center[
 Beispiel: 2-Level Design mit Messwiederholungen
 &lt;br&gt;&lt;br&gt;
-&lt;img src="bilder/Hierarchical_5.png" width="400px" /&gt;
+&lt;img src="bilder/Hierarchical_5.png" alt="" width="400px" /&gt;
 ]
 ]
 
@@ -431,7 +431,7 @@ summary(mod)
 ```
 
 ```
-Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Linear mixed model fit by REML ['lmerMod']
 Formula: y ~ time + (1 | subject)
    Data: df
 
@@ -448,11 +448,9 @@ Random effects:
 Number of obs: 880, groups:  subject, 80
 
 Fixed effects:
-             Estimate Std. Error        df t value Pr(&gt;|t|)    
-(Intercept)  37.32898    0.83515 104.48659   44.70   &lt;2e-16 ***
-time         -2.15375    0.06056 799.00000  -35.56   &lt;2e-16 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+            Estimate Std. Error t value
+(Intercept) 37.32898    0.83515   44.70
+time        -2.15375    0.06056  -35.56
 
 Correlation of Fixed Effects:
      (Intr)
@@ -490,7 +488,7 @@ summary(mod)
 ```
 
 ```
-Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Linear mixed model fit by REML ['lmerMod']
 Formula: y ~ time + (1 | subject)
    Data: df
 
@@ -507,11 +505,9 @@ Random effects:
 Number of obs: 880, groups:  subject, 80
 
 Fixed effects:
-             Estimate Std. Error        df t value Pr(&gt;|t|)    
-(Intercept)  37.32898    0.83515 104.48659   44.70   &lt;2e-16 ***
-time         -2.15375    0.06056 799.00000  -35.56   &lt;2e-16 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+            Estimate Std. Error t value
+(Intercept) 37.32898    0.83515   44.70
+time        -2.15375    0.06056  -35.56
 
 Correlation of Fixed Effects:
      (Intr)
@@ -728,7 +724,7 @@ summary(mod)
 ```
 
 ```
-Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Linear mixed model fit by REML ['lmerMod']
 Formula: y ~ time + (time | subject)
    Data: df
 
@@ -746,11 +742,9 @@ Random effects:
 Number of obs: 880, groups:  subject, 80
 
 Fixed effects:
-            Estimate Std. Error      df t value Pr(&gt;|t|)    
-(Intercept)  37.3290     0.3964 79.0002   94.18   &lt;2e-16 ***
-time         -2.1538     0.1468 78.9996  -14.67   &lt;2e-16 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+            Estimate Std. Error t value
+(Intercept)  37.3290     0.3964   94.18
+time         -2.1538     0.1468  -14.67
 
 Correlation of Fixed Effects:
      (Intr)
@@ -791,7 +785,7 @@ summary(mod)
 ```
 
 ```
-Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Linear mixed model fit by REML ['lmerMod']
 Formula: y ~ time + (time | subject)
    Data: df
 
@@ -809,11 +803,9 @@ Random effects:
 Number of obs: 880, groups:  subject, 80
 
 Fixed effects:
-            Estimate Std. Error      df t value Pr(&gt;|t|)    
-(Intercept)  37.3290     0.3964 79.0002   94.18   &lt;2e-16 ***
-time         -2.1538     0.1468 78.9996  -14.67   &lt;2e-16 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+            Estimate Std. Error t value
+(Intercept)  37.3290     0.3964   94.18
+time         -2.1538     0.1468  -14.67
 
 Correlation of Fixed Effects:
      (Intr)
@@ -1033,7 +1025,7 @@ summary(mod)
 ```
 
 ```
-Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Linear mixed model fit by REML ['lmerMod']
 Formula: y ~ time * treatment + (time | subject)
    Data: df
 
@@ -1051,13 +1043,11 @@ Random effects:
 Number of obs: 880, groups:  subject, 80
 
 Fixed effects:
-                       Estimate Std. Error      df t value Pr(&gt;|t|)    
-(Intercept)             37.9325     0.5558 77.9988  68.249  &lt; 2e-16 ***
-time                    -1.2835     0.1558 77.9921  -8.241 3.22e-12 ***
-treatmentTherapie       -1.2070     0.7860 77.9988  -1.536    0.129    
-time:treatmentTherapie  -1.7405     0.2203 77.9921  -7.901 1.46e-11 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+                       Estimate Std. Error t value
+(Intercept)             37.9325     0.5558  68.249
+time                    -1.2835     0.1558  -8.241
+treatmentTherapie       -1.2070     0.7860  -1.536
+time:treatmentTherapie  -1.7405     0.2203  -7.901
 
 Correlation of Fixed Effects:
             (Intr) time   trtmnT
@@ -1098,7 +1088,7 @@ summary(mod)
 ```
 
 ```
-Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Linear mixed model fit by REML ['lmerMod']
 Formula: y ~ time * treatment + (time | subject)
    Data: df
 
@@ -1116,13 +1106,11 @@ Random effects:
 Number of obs: 880, groups:  subject, 80
 
 Fixed effects:
-                       Estimate Std. Error      df t value Pr(&gt;|t|)    
-(Intercept)             37.9325     0.5558 77.9988  68.249  &lt; 2e-16 ***
-time                    -1.2835     0.1558 77.9921  -8.241 3.22e-12 ***
-treatmentTherapie       -1.2070     0.7860 77.9988  -1.536    0.129    
-time:treatmentTherapie  -1.7405     0.2203 77.9921  -7.901 1.46e-11 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+                       Estimate Std. Error t value
+(Intercept)             37.9325     0.5558  68.249
+time                    -1.2835     0.1558  -8.241
+treatmentTherapie       -1.2070     0.7860  -1.536
+time:treatmentTherapie  -1.7405     0.2203  -7.901
 
 Correlation of Fixed Effects:
             (Intr) time   trtmnT
@@ -1160,7 +1148,7 @@ summary(mod)
 ```
 
 ```
-Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Linear mixed model fit by REML ['lmerMod']
 Formula: y ~ time * treatment + (time | subject)
    Data: df
 
@@ -1178,13 +1166,11 @@ Random effects:
 Number of obs: 880, groups:  subject, 80
 
 Fixed effects:
-                       Estimate Std. Error      df t value Pr(&gt;|t|)    
-(Intercept)             37.9325     0.5558 77.9988  68.249  &lt; 2e-16 ***
-time                    -1.2835     0.1558 77.9921  -8.241 3.22e-12 ***
-treatmentTherapie       -1.2070     0.7860 77.9988  -1.536    0.129    
-time:treatmentTherapie  -1.7405     0.2203 77.9921  -7.901 1.46e-11 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+                       Estimate Std. Error t value
+(Intercept)             37.9325     0.5558  68.249
+time                    -1.2835     0.1558  -8.241
+treatmentTherapie       -1.2070     0.7860  -1.536
+time:treatmentTherapie  -1.7405     0.2203  -7.901
 
 Correlation of Fixed Effects:
             (Intr) time   trtmnT
@@ -1419,7 +1405,7 @@ summary(mod)
 ```
 
 ```
-Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Linear mixed model fit by REML ['lmerMod']
 Formula: y ~ time * treatment + (time | subject)
    Data: df3
 
@@ -1437,15 +1423,13 @@ Random effects:
 Number of obs: 792, groups:  subject, 72
 
 Fixed effects:
-                       Estimate Std. Error      df t value Pr(&gt;|t|)    
-(Intercept)             37.4845     0.7125 69.0022  52.613  &lt; 2e-16 ***
-time                    -0.9104     0.2402 68.9972  -3.790 0.000319 ***
-treatmentTAU            -1.1782     1.0076 69.0022  -1.169 0.246303    
-treatmentTherapie       -3.1087     1.0076 69.0022  -3.085 0.002925 ** 
-time:treatmentTAU       -0.1467     0.3397 68.9972  -0.432 0.667181    
-time:treatmentTherapie  -1.5044     0.3397 68.9972  -4.428 3.48e-05 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+                       Estimate Std. Error t value
+(Intercept)             37.4845     0.7125  52.613
+time                    -0.9104     0.2402  -3.790
+treatmentTAU            -1.1782     1.0076  -1.169
+treatmentTherapie       -3.1087     1.0076  -3.085
+time:treatmentTAU       -0.1467     0.3397  -0.432
+time:treatmentTherapie  -1.5044     0.3397  -4.428
 
 Correlation of Fixed Effects:
             (Intr) time   trtTAU trtmnT tm:TAU
@@ -1493,7 +1477,7 @@ summary(mod)
 ```
 
 ```
-Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Linear mixed model fit by REML ['lmerMod']
 Formula: y ~ time * treatment + (time | subject)
    Data: df3
 
@@ -1511,15 +1495,13 @@ Random effects:
 Number of obs: 792, groups:  subject, 72
 
 Fixed effects:
-                       Estimate Std. Error      df t value Pr(&gt;|t|)    
-(Intercept)             37.4845     0.7125 69.0022  52.613  &lt; 2e-16 ***
-time                    -0.9104     0.2402 68.9972  -3.790 0.000319 ***
-treatmentTAU            -1.1782     1.0076 69.0022  -1.169 0.246303    
-treatmentTherapie       -3.1087     1.0076 69.0022  -3.085 0.002925 ** 
-time:treatmentTAU       -0.1467     0.3397 68.9972  -0.432 0.667181    
-time:treatmentTherapie  -1.5044     0.3397 68.9972  -4.428 3.48e-05 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+                       Estimate Std. Error t value
+(Intercept)             37.4845     0.7125  52.613
+time                    -0.9104     0.2402  -3.790
+treatmentTAU            -1.1782     1.0076  -1.169
+treatmentTherapie       -3.1087     1.0076  -3.085
+time:treatmentTAU       -0.1467     0.3397  -0.432
+time:treatmentTherapie  -1.5044     0.3397  -4.428
 
 Correlation of Fixed Effects:
             (Intr) time   trtTAU trtmnT tm:TAU
@@ -1567,7 +1549,7 @@ summary(mod)
 ```
 
 ```
-Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Linear mixed model fit by REML ['lmerMod']
 Formula: y ~ time * treatment + (time | subject)
    Data: df3
 
@@ -1585,15 +1567,13 @@ Random effects:
 Number of obs: 792, groups:  subject, 72
 
 Fixed effects:
-                       Estimate Std. Error      df t value Pr(&gt;|t|)    
-(Intercept)             37.4845     0.7125 69.0022  52.613  &lt; 2e-16 ***
-time                    -0.9104     0.2402 68.9972  -3.790 0.000319 ***
-treatmentTAU            -1.1782     1.0076 69.0022  -1.169 0.246303    
-treatmentTherapie       -3.1087     1.0076 69.0022  -3.085 0.002925 ** 
-time:treatmentTAU       -0.1467     0.3397 68.9972  -0.432 0.667181    
-time:treatmentTherapie  -1.5044     0.3397 68.9972  -4.428 3.48e-05 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+                       Estimate Std. Error t value
+(Intercept)             37.4845     0.7125  52.613
+time                    -0.9104     0.2402  -3.790
+treatmentTAU            -1.1782     1.0076  -1.169
+treatmentTherapie       -3.1087     1.0076  -3.085
+time:treatmentTAU       -0.1467     0.3397  -0.432
+time:treatmentTherapie  -1.5044     0.3397  -4.428
 
 Correlation of Fixed Effects:
             (Intr) time   trtTAU trtmnT tm:TAU
@@ -1635,7 +1615,7 @@ summary(mod)
 ```
 
 ```
-Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Linear mixed model fit by REML ['lmerMod']
 Formula: y ~ time * treatment + (time | subject)
    Data: df3
 
@@ -1653,15 +1633,13 @@ Random effects:
 Number of obs: 792, groups:  subject, 72
 
 Fixed effects:
-                       Estimate Std. Error      df t value Pr(&gt;|t|)    
-(Intercept)             37.4845     0.7125 69.0022  52.613  &lt; 2e-16 ***
-time                    -0.9104     0.2402 68.9972  -3.790 0.000319 ***
-treatmentTAU            -1.1782     1.0076 69.0022  -1.169 0.246303    
-treatmentTherapie       -3.1087     1.0076 69.0022  -3.085 0.002925 ** 
-time:treatmentTAU       -0.1467     0.3397 68.9972  -0.432 0.667181    
-time:treatmentTherapie  -1.5044     0.3397 68.9972  -4.428 3.48e-05 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+                       Estimate Std. Error t value
+(Intercept)             37.4845     0.7125  52.613
+time                    -0.9104     0.2402  -3.790
+treatmentTAU            -1.1782     1.0076  -1.169
+treatmentTherapie       -3.1087     1.0076  -3.085
+time:treatmentTAU       -0.1467     0.3397  -0.432
+time:treatmentTherapie  -1.5044     0.3397  -4.428
 
 Correlation of Fixed Effects:
             (Intr) time   trtTAU trtmnT tm:TAU
@@ -1692,13 +1670,11 @@ anova(mod)
 ```
 
 ```
-Type III Analysis of Variance Table with Satterthwaite's method
-                Sum Sq Mean Sq NumDF  DenDF  F value    Pr(&gt;F)    
-time           1612.74 1612.74     1 68.997 110.9355 5.263e-16 ***
-treatment       141.09   70.55     2 69.002   4.8527   0.01067 *  
-time:treatment  346.64  173.32     2 68.997  11.9220 3.571e-05 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Analysis of Variance Table
+               npar  Sum Sq Mean Sq F value
+time              1 1612.74 1612.74 110.936
+treatment         2  523.92  261.96  18.019
+time:treatment    2  346.64  173.32  11.922
 ```
 ]
 
@@ -1848,7 +1824,7 @@ class: top, left
 .center[
 Beispiel: 3-Level Design mit Messwiederholungen
 &lt;br&gt;&lt;br&gt;
-&lt;img src="bilder/Hierarchical_4.png" width="400px" /&gt;
+&lt;img src="bilder/Hierarchical_4.png" alt="" width="400px" /&gt;
 ]
 ]
 
@@ -1861,7 +1837,7 @@ summary(mod)
 ```
 
 ```
-Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Linear mixed model fit by REML ['lmerMod']
 Formula: y ~ time + (time | therapist/subject)
    Data: df
 
@@ -1881,11 +1857,9 @@ Random effects:
 Number of obs: 880, groups:  subject:therapist, 80; therapist, 8
 
 Fixed effects:
-            Estimate Std. Error      df t value Pr(&gt;|t|)    
-(Intercept)  37.3290     0.3964 79.0021   94.18   &lt;2e-16 ***
-time         -2.1538     0.1468 79.0003  -14.67   &lt;2e-16 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+            Estimate Std. Error t value
+(Intercept)  37.3290     0.3964   94.18
+time         -2.1538     0.1468  -14.67
 
 Correlation of Fixed Effects:
      (Intr)
@@ -2066,22 +2040,28 @@ fixef(lmer(y ~ factor(time) * treatment + (1|subject), data = df))
 ```
 
 ```
-                     (Intercept)                    factor(time)1                    factor(time)2 
-                      36.9154654                        1.5904272                       -0.5372784 
-                   factor(time)3                    factor(time)4                    factor(time)5 
-                      -1.6928889                       -5.9012877                       -8.4758683 
-                   factor(time)6                    factor(time)7                    factor(time)8 
-                      -5.9563514                       -9.6084005                       -7.9916707 
-                   factor(time)9                   factor(time)10                treatmentTherapie 
-                      -7.5879334                      -13.2448315                        0.1445469 
- factor(time)1:treatmentTherapie  factor(time)2:treatmentTherapie  factor(time)3:treatmentTherapie 
-                      -3.1487437                       -7.6808702                       -9.9417674 
- factor(time)4:treatmentTherapie  factor(time)5:treatmentTherapie  factor(time)6:treatmentTherapie 
-                      -4.5114214                       -5.9094193                      -11.9766895 
- factor(time)7:treatmentTherapie  factor(time)8:treatmentTherapie  factor(time)9:treatmentTherapie 
-                     -14.6319608                      -15.8541235                      -22.0108451 
-factor(time)10:treatmentTherapie 
-                     -14.9276570 
+                     (Intercept)                    factor(time)1 
+                      36.9154654                        1.5904272 
+                   factor(time)2                    factor(time)3 
+                      -0.5372784                       -1.6928889 
+                   factor(time)4                    factor(time)5 
+                      -5.9012877                       -8.4758683 
+                   factor(time)6                    factor(time)7 
+                      -5.9563514                       -9.6084005 
+                   factor(time)8                    factor(time)9 
+                      -7.9916707                       -7.5879334 
+                  factor(time)10                treatmentTherapie 
+                     -13.2448315                        0.1445469 
+ factor(time)1:treatmentTherapie  factor(time)2:treatmentTherapie 
+                      -3.1487437                       -7.6808702 
+ factor(time)3:treatmentTherapie  factor(time)4:treatmentTherapie 
+                      -9.9417674                       -4.5114214 
+ factor(time)5:treatmentTherapie  factor(time)6:treatmentTherapie 
+                      -5.9094193                      -11.9766895 
+ factor(time)7:treatmentTherapie  factor(time)8:treatmentTherapie 
+                     -14.6319608                      -15.8541235 
+ factor(time)9:treatmentTherapie factor(time)10:treatmentTherapie 
+                     -22.0108451                      -14.9276570 
 ```
 ]
 
@@ -2108,8 +2088,10 @@ fixef(lmer(y ~ time * treatment + (1|subject), data = df))
 ```
 
 ```
-           (Intercept)                   time      treatmentTherapie time:treatmentTherapie 
-             37.932497              -1.283517              -1.207039              -1.740474 
+           (Intercept)                   time      treatmentTherapie 
+             37.932497              -1.283517              -1.207039 
+time:treatmentTherapie 
+             -1.740474 
 ```
 ]
 

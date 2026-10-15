@@ -31,7 +31,7 @@ class: middle, left
 # Multivariate Verfahren
 ***
 ### Einheit 9: Multivariate (latente) Modellierung (3)
-##### Wintersemester 2025 | Prof. Dr. Stephan Goerigk
+##### Wintersemester 2026 | Prof. Dr. Stephan Goerigk
 
 ---
 class: top, left
@@ -100,7 +100,7 @@ class: top, left
 Schlafmitteldosis (**UV**) erhöht die Schlafdauer (**AV**); Straßenlärm (**Moderator**) verändert die Stärke des Effekts der Schlafmitteldosis (**UV**) auf die Schlafdauer (**AV**).
 
 .center[
-&lt;img src="bilder/Moderation.png" width="500px" /&gt;
+&lt;img src="bilder/Moderation.png" alt="" width="500px" /&gt;
 ]
 ]
 
@@ -110,7 +110,7 @@ Schlafmitteldosis (**UV**) erhöht die Schlafdauer (**AV**); Straßenlärm (**Mo
 Schulnote (**UV**) beeinflusst Selbstwertgefühl (**Mediator**); Selbstwertgefühl (**Mediator**) beeinflusst Lebenszufriedenheit **AV**
 
 .center[
-&lt;img src="bilder/Mediation.png" width="500px" /&gt;
+&lt;img src="bilder/Mediation.png" alt="" width="500px" /&gt;
 ]
 ]
 
@@ -133,7 +133,7 @@ Statistische Prüfung der Moderationshypothese:
 * Frage: Variiert der Effekt von UV auf AV in Abhängigkeit einer weiteren Variable
 
 .center[
-&lt;img src="bilder/Moderation.png" width="500px" /&gt;
+&lt;img src="bilder/Moderation.png" alt="" width="500px" /&gt;
 ]
 
 ---
@@ -158,7 +158,7 @@ Statistische Prüfung der Mediationshypothese:
 * **Vollständige Mediation:** indirekter Effekt signifikant und direkter Effekt nicht mehr signifikant.
 
 .center[
-&lt;img src="bilder/Mediation.png" width="500px" /&gt;
+&lt;img src="bilder/Mediation.png" alt="" width="500px" /&gt;
 ]
 
 
@@ -324,7 +324,7 @@ Mögliche Forschungsfragen im Modell:
 .pull-right[
 
 .center[
-&lt;img src="bilder/Moderation.png" width="950px" /&gt;
+&lt;img src="bilder/Moderation.png" alt="" width="950px" /&gt;
 ]
 
 * AV: Therapieerfolg
@@ -649,7 +649,7 @@ summary(fit, fit.measures = TRUE) # Modellfit
 ```
 
 .center[
-&lt;img src="bilder/lavaan_moderation2.png" width="350px" /&gt;
+&lt;img src="bilder/lavaan_moderation2.png" alt="" width="350px" /&gt;
 ]
 
 ]
@@ -706,7 +706,7 @@ summary(fit, fit.measures = TRUE) # Parameterübersicht
 ```
 
 .center[
-&lt;img src="bilder/lavaan_moderation.png" width="350px" /&gt;
+&lt;img src="bilder/lavaan_moderation.png" alt="" width="350px" /&gt;
 ]
 
 ]
@@ -735,7 +735,7 @@ class: top, left
 * `\(N = 50\)` (rechts nur 15 Zeilen dargestellt)
 
 .center[
-&lt;img src="bilder/Mediation.png" width="500px" /&gt;
+&lt;img src="bilder/Mediation.png" alt="" width="500px" /&gt;
 ]
 ]
 
@@ -855,7 +855,7 @@ fit &lt;- sem(model, data = df)
 
 .pull-right[
 .center[
-&lt;img src="bilder/mediation_gross.png" width="500px" /&gt;
+&lt;img src="bilder/mediation_gross.png" alt="" width="500px" /&gt;
 ]
 ]
 
@@ -1001,7 +1001,7 @@ summary(fit, fit.measures = TRUE)
 
 .pull-right[
 .center[
-&lt;img src="bilder/lavaan_mediation1.png" width="450px" /&gt;
+&lt;img src="bilder/lavaan_mediation1.png" alt="" width="450px" /&gt;
 ]
 ]
 
@@ -1034,7 +1034,7 @@ class: top, left
 summary(fit, fit.measures = TRUE)
 ```
 .center[
-&lt;img src="bilder/lavaan_mediation2.png" width="420px" /&gt;
+&lt;img src="bilder/lavaan_mediation2.png" alt="" width="420px" /&gt;
 ]
 ]
 
@@ -1072,7 +1072,7 @@ library(flextable)
 flextable(parameterestimates(fit, boot.ci.type = "bca.simple") )
 ```
 
-&lt;div class="tabwid"&gt;&lt;style&gt;.cl-574b5896{}.cl-5747f372{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-5748f8f8{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-5748f8f9{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-57490280{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5749028a{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5749028b{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5749028c{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5749028d{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5749028e{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}&lt;/style&gt;&lt;table data-quarto-disable-processing='true' class='cl-574b5896'&gt;&lt;thead&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;th class="cl-57490280"&gt;&lt;p class="cl-5748f8f8"&gt;&lt;span class="cl-5747f372"&gt;lhs&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-57490280"&gt;&lt;p class="cl-5748f8f8"&gt;&lt;span class="cl-5747f372"&gt;op&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-57490280"&gt;&lt;p class="cl-5748f8f8"&gt;&lt;span class="cl-5747f372"&gt;rhs&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-57490280"&gt;&lt;p class="cl-5748f8f8"&gt;&lt;span class="cl-5747f372"&gt;label&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-5749028a"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;est&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-5749028a"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;se&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-5749028a"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;z&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-5749028a"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;pvalue&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-5749028a"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;ci.lower&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-5749028a"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;ci.upper&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-5749028b"&gt;&lt;p class="cl-5748f8f8"&gt;&lt;span class="cl-5747f372"&gt;Getraenke&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028b"&gt;&lt;p class="cl-5748f8f8"&gt;&lt;span class="cl-5747f372"&gt;~&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028b"&gt;&lt;p class="cl-5748f8f8"&gt;&lt;span class="cl-5747f372"&gt;Raumtemperatur&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028b"&gt;&lt;p class="cl-5748f8f8"&gt;&lt;span class="cl-5747f372"&gt;c&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028c"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;0.04825453&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028c"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;0.05816385&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028c"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;0.8296309&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028c"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;0.40674750713973&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028c"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;-0.06549829&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028c"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;0.1717305&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-5749028b"&gt;&lt;p class="cl-5748f8f8"&gt;&lt;span class="cl-5747f372"&gt;Durst&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028b"&gt;&lt;p class="cl-5748f8f8"&gt;&lt;span class="cl-5747f372"&gt;~&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028b"&gt;&lt;p class="cl-5748f8f8"&gt;&lt;span class="cl-5747f372"&gt;Raumtemperatur&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028b"&gt;&lt;p class="cl-5748f8f8"&gt;&lt;span class="cl-5747f372"&gt;a&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028c"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;0.19715395&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028c"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;0.03785761&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028c"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;5.2077761&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028c"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;0.00000019111732&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028c"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;0.12785061&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028c"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;0.2834503&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-5749028b"&gt;&lt;p class="cl-5748f8f8"&gt;&lt;span class="cl-5747f372"&gt;Getraenke&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028b"&gt;&lt;p class="cl-5748f8f8"&gt;&lt;span class="cl-5747f372"&gt;~&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028b"&gt;&lt;p class="cl-5748f8f8"&gt;&lt;span class="cl-5747f372"&gt;Durst&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028b"&gt;&lt;p class="cl-5748f8f8"&gt;&lt;span class="cl-5747f372"&gt;b&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028c"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;0.54264600&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028c"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;0.16162837&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028c"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;3.3573684&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028c"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;0.00078688178027&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028c"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;0.15546291&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028c"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;0.8184489&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-5749028b"&gt;&lt;p class="cl-5748f8f8"&gt;&lt;span class="cl-5747f372"&gt;Getraenke&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028b"&gt;&lt;p class="cl-5748f8f8"&gt;&lt;span class="cl-5747f372"&gt;~~&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028b"&gt;&lt;p class="cl-5748f8f8"&gt;&lt;span class="cl-5747f372"&gt;Getraenke&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028b"&gt;&lt;p class="cl-5748f8f8"&gt;&lt;span class="cl-5747f372"&gt;&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028c"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;0.92348346&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028c"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;0.16560371&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028c"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;5.5764661&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028c"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;0.00000002454537&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028c"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;0.65833290&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028c"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;1.3358763&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-5749028b"&gt;&lt;p class="cl-5748f8f8"&gt;&lt;span class="cl-5747f372"&gt;Durst&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028b"&gt;&lt;p class="cl-5748f8f8"&gt;&lt;span class="cl-5747f372"&gt;~~&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028b"&gt;&lt;p class="cl-5748f8f8"&gt;&lt;span class="cl-5747f372"&gt;Durst&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028b"&gt;&lt;p class="cl-5748f8f8"&gt;&lt;span class="cl-5747f372"&gt;&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028c"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;0.71393739&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028c"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;0.14465260&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028c"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;4.9355309&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028c"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;0.00000079933037&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028c"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;0.47654349&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028c"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;1.0399607&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-5749028b"&gt;&lt;p class="cl-5748f8f8"&gt;&lt;span class="cl-5747f372"&gt;Raumtemperatur&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028b"&gt;&lt;p class="cl-5748f8f8"&gt;&lt;span class="cl-5747f372"&gt;~~&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028b"&gt;&lt;p class="cl-5748f8f8"&gt;&lt;span class="cl-5747f372"&gt;Raumtemperatur&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028b"&gt;&lt;p class="cl-5748f8f8"&gt;&lt;span class="cl-5747f372"&gt;&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028c"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;7.73000000&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028c"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;0.00000000&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028c"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028c"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028c"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;7.73000000&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028c"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;7.7300000&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-5749028b"&gt;&lt;p class="cl-5748f8f8"&gt;&lt;span class="cl-5747f372"&gt;ab&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028b"&gt;&lt;p class="cl-5748f8f8"&gt;&lt;span class="cl-5747f372"&gt;:=&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028b"&gt;&lt;p class="cl-5748f8f8"&gt;&lt;span class="cl-5747f372"&gt;a*b&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028b"&gt;&lt;p class="cl-5748f8f8"&gt;&lt;span class="cl-5747f372"&gt;ab&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028c"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;0.10698480&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028c"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;0.04009173&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028c"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;2.6685004&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028c"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;0.00761906852804&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028c"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;0.03710583&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028c"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;0.1907947&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-5749028d"&gt;&lt;p class="cl-5748f8f8"&gt;&lt;span class="cl-5747f372"&gt;total&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028d"&gt;&lt;p class="cl-5748f8f8"&gt;&lt;span class="cl-5747f372"&gt;:=&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028d"&gt;&lt;p class="cl-5748f8f8"&gt;&lt;span class="cl-5747f372"&gt;c+(a*b)&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028d"&gt;&lt;p class="cl-5748f8f8"&gt;&lt;span class="cl-5747f372"&gt;total&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028e"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;0.15523933&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028e"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;0.05162646&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028e"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;3.0069719&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028e"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;0.00263864182693&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028e"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;0.05179140&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5749028e"&gt;&lt;p class="cl-5748f8f9"&gt;&lt;span class="cl-5747f372"&gt;0.2599020&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;
+&lt;div class="tabwid"&gt;&lt;style&gt;.cl-31939afe{}.cl-319101e0{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-31920310{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-31920311{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-31920d38{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-31920d42{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-31920d43{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-31920d44{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-31920d4c{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-31920d4d{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}&lt;/style&gt;&lt;table data-quarto-disable-processing='true' class='cl-31939afe'&gt;&lt;thead&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;th class="cl-31920d38"&gt;&lt;p class="cl-31920310"&gt;&lt;span class="cl-319101e0"&gt;lhs&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-31920d38"&gt;&lt;p class="cl-31920310"&gt;&lt;span class="cl-319101e0"&gt;op&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-31920d38"&gt;&lt;p class="cl-31920310"&gt;&lt;span class="cl-319101e0"&gt;rhs&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-31920d38"&gt;&lt;p class="cl-31920310"&gt;&lt;span class="cl-319101e0"&gt;label&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-31920d42"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;est&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-31920d42"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;se&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-31920d42"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;z&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-31920d42"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;pvalue&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-31920d42"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;ci.lower&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-31920d42"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;ci.upper&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-31920d43"&gt;&lt;p class="cl-31920310"&gt;&lt;span class="cl-319101e0"&gt;Getraenke&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d43"&gt;&lt;p class="cl-31920310"&gt;&lt;span class="cl-319101e0"&gt;~&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d43"&gt;&lt;p class="cl-31920310"&gt;&lt;span class="cl-319101e0"&gt;Raumtemperatur&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d43"&gt;&lt;p class="cl-31920310"&gt;&lt;span class="cl-319101e0"&gt;c&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d44"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;0.04825453&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d44"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;0.05816385&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d44"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;0.8296309&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d44"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;0.40674750711063&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d44"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;-0.06549829&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d44"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;0.1717305&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-31920d43"&gt;&lt;p class="cl-31920310"&gt;&lt;span class="cl-319101e0"&gt;Durst&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d43"&gt;&lt;p class="cl-31920310"&gt;&lt;span class="cl-319101e0"&gt;~&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d43"&gt;&lt;p class="cl-31920310"&gt;&lt;span class="cl-319101e0"&gt;Raumtemperatur&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d43"&gt;&lt;p class="cl-31920310"&gt;&lt;span class="cl-319101e0"&gt;a&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d44"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;0.19715395&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d44"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;0.03785761&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d44"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;5.2077761&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d44"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;0.00000019111732&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d44"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;0.12785061&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d44"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;0.2834503&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-31920d43"&gt;&lt;p class="cl-31920310"&gt;&lt;span class="cl-319101e0"&gt;Getraenke&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d43"&gt;&lt;p class="cl-31920310"&gt;&lt;span class="cl-319101e0"&gt;~&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d43"&gt;&lt;p class="cl-31920310"&gt;&lt;span class="cl-319101e0"&gt;Durst&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d43"&gt;&lt;p class="cl-31920310"&gt;&lt;span class="cl-319101e0"&gt;b&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d44"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;0.54264600&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d44"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;0.16162837&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d44"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;3.3573684&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d44"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;0.00078688177727&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d44"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;0.15546291&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d44"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;0.8184489&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-31920d43"&gt;&lt;p class="cl-31920310"&gt;&lt;span class="cl-319101e0"&gt;Getraenke&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d43"&gt;&lt;p class="cl-31920310"&gt;&lt;span class="cl-319101e0"&gt;~~&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d43"&gt;&lt;p class="cl-31920310"&gt;&lt;span class="cl-319101e0"&gt;Getraenke&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d43"&gt;&lt;p class="cl-31920310"&gt;&lt;span class="cl-319101e0"&gt;&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d44"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;0.92348346&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d44"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;0.16560371&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d44"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;5.5764661&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d44"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;0.00000002454537&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d44"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;0.65833290&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d44"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;1.3358763&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-31920d43"&gt;&lt;p class="cl-31920310"&gt;&lt;span class="cl-319101e0"&gt;Durst&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d43"&gt;&lt;p class="cl-31920310"&gt;&lt;span class="cl-319101e0"&gt;~~&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d43"&gt;&lt;p class="cl-31920310"&gt;&lt;span class="cl-319101e0"&gt;Durst&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d43"&gt;&lt;p class="cl-31920310"&gt;&lt;span class="cl-319101e0"&gt;&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d44"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;0.71393739&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d44"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;0.14465260&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d44"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;4.9355309&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d44"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;0.00000079933037&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d44"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;0.47654349&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d44"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;1.0399607&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-31920d43"&gt;&lt;p class="cl-31920310"&gt;&lt;span class="cl-319101e0"&gt;Raumtemperatur&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d43"&gt;&lt;p class="cl-31920310"&gt;&lt;span class="cl-319101e0"&gt;~~&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d43"&gt;&lt;p class="cl-31920310"&gt;&lt;span class="cl-319101e0"&gt;Raumtemperatur&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d43"&gt;&lt;p class="cl-31920310"&gt;&lt;span class="cl-319101e0"&gt;&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d44"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;7.73000000&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d44"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;0.00000000&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d44"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d44"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d44"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;7.73000000&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d44"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;7.7300000&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-31920d43"&gt;&lt;p class="cl-31920310"&gt;&lt;span class="cl-319101e0"&gt;ab&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d43"&gt;&lt;p class="cl-31920310"&gt;&lt;span class="cl-319101e0"&gt;:=&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d43"&gt;&lt;p class="cl-31920310"&gt;&lt;span class="cl-319101e0"&gt;a*b&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d43"&gt;&lt;p class="cl-31920310"&gt;&lt;span class="cl-319101e0"&gt;ab&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d44"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;0.10698480&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d44"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;0.04007168&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d44"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;2.6698357&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d44"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;0.00758883792385&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d44"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;0.03710583&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d44"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;0.1907947&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-31920d4c"&gt;&lt;p class="cl-31920310"&gt;&lt;span class="cl-319101e0"&gt;total&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d4c"&gt;&lt;p class="cl-31920310"&gt;&lt;span class="cl-319101e0"&gt;:=&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d4c"&gt;&lt;p class="cl-31920310"&gt;&lt;span class="cl-319101e0"&gt;c+(a*b)&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d4c"&gt;&lt;p class="cl-31920310"&gt;&lt;span class="cl-319101e0"&gt;total&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d4d"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;0.15523933&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d4d"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;0.05160065&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d4d"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;3.0084765&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d4d"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;0.00262561125496&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d4d"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;0.05179140&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-31920d4d"&gt;&lt;p class="cl-31920311"&gt;&lt;span class="cl-319101e0"&gt;0.2599020&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;
 
 ---
 class: top, left
@@ -1472,7 +1472,8 @@ summary(lmm_model)
 ```
 
 ```
-## Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+## Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+## lmerModLmerTest]
 ## Formula: Score ~ Time_num + (Time_num | subject)
 ##    Data: long
 ## 
@@ -1511,7 +1512,7 @@ class: top, left
 
 .pull-left[
 .center[
-&lt;img src="bilder/LGC1.png" width="600px" /&gt;
+&lt;img src="bilder/LGC1.png" alt="" width="600px" /&gt;
 ]
 ]
 
@@ -1533,7 +1534,7 @@ class: top, left
 
 .pull-left[
 .center[
-&lt;img src="bilder/LGC2.png" width="600px" /&gt;
+&lt;img src="bilder/LGC2.png" alt="" width="600px" /&gt;
 ]
 ]
 
@@ -1551,7 +1552,7 @@ class: top, left
 
 .pull-left[
 .center[
-&lt;img src="bilder/LGC3.png" width="600px" /&gt;
+&lt;img src="bilder/LGC3.png" alt="" width="600px" /&gt;
 ]
 ]
 
@@ -1757,7 +1758,7 @@ class: top, left
 summary(lmm_model) # lme4
 ```
 .center[
-&lt;img src="bilder/lavaan_LMM.png" width="600px" /&gt;
+&lt;img src="bilder/lavaan_LMM.png" alt="" width="600px" /&gt;
 ]
 
 ]
@@ -1768,7 +1769,7 @@ summary(lmm_model) # lme4
 summary(fit) # lavaan (Messmodell)
 ```
 .center[
-&lt;img src="bilder/lavaan_LGC1.png" width="500px" /&gt;
+&lt;img src="bilder/lavaan_LGC1.png" alt="" width="500px" /&gt;
 ]
 ]
 
@@ -1784,7 +1785,7 @@ class: top, left
 summary(lmm_model) # lme4
 ```
 .center[
-&lt;img src="bilder/lavaan_LMM.png" width="600px" /&gt;
+&lt;img src="bilder/lavaan_LMM.png" alt="" width="600px" /&gt;
 ]
 
 ]
@@ -1795,7 +1796,7 @@ summary(lmm_model) # lme4
 summary(fit) # lavaan (Strukturmodell)
 ```
 .center[
-&lt;img src="bilder/lavaan_LGC2.png" width="400px" /&gt;
+&lt;img src="bilder/lavaan_LGC2.png" alt="" width="400px" /&gt;
 ]
 ]
 
@@ -1808,7 +1809,7 @@ class: top, left
 Latente Wachstumskurvenmodelle ermöglichen komplexe Analysen (z.B. Mediation latenter Variablen)
 
 .center[
-&lt;img src="bilder/lgc_complex.png" width="760px" /&gt;
+&lt;img src="bilder/lgc_complex.png" alt="" width="760px" /&gt;
 ]
 
 
@@ -2143,7 +2144,7 @@ class: top, left
 
 .pull-right[
 .center[
-&lt;img src="bilder/dark_triad.png" width="300px" /&gt;
+&lt;img src="bilder/dark_triad.png" alt="" width="300px" /&gt;
 ]
 ]
 
